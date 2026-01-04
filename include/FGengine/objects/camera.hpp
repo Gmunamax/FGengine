@@ -1,7 +1,6 @@
 #pragma once
 #include "FGengine/structures/geometry.hpp"
 #include "FGengine/structures/point.hpp"
-#include "FGengine/structures/color.hpp"
 #include "FGengine/properties/transform/worldpoint.hpp"
 // #include "FGengine/shaders/shaderprogram.hpp"
 #include "FGengine/shaders/shader.hpp"
@@ -79,13 +78,13 @@ public:
 
 private:
 
-	Colord backgroundcolor = {0,0,0};
+	Color4d backgroundcolor = {0,0,0,1};
 
 public:
-	void SetBackgroundColor(Colord newbgcolor){
+	void SetBackgroundColor(Color4d newbgcolor){
 		backgroundcolor = newbgcolor;
 	}
-	Colord GetBackgroundColor(){
+	Color4d GetBackgroundColor(){
 		return backgroundcolor;
 	}
 

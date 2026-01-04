@@ -56,3 +56,10 @@ using Point4i = Point<4,int>;
 using Point2f = Point<2,float>;
 using Point3f = Point<3,float>;
 using Point4f = Point<4,float>;
+
+
+using Color3f = Point<3,float>;
+using Color3d = Point<3,double>;
+
+using Color4f = Point<4,float>;
+using Color4d = Point<4,double>;
