@@ -12,6 +12,7 @@ class Transform{
 
 	bool needupdate = true;
 
+	Uniforms::Umat3 normal{"fg_normalmatrix"};
 protected:
 	void ProceedTransformations(){
 		if(this->needupdate){
@@ -29,6 +30,9 @@ protected:
 			this->objm = glm::scale(this->objm.GetValue(), scale);
 
 			needupdate = false;
+			
+			normal = glm::transpose(glm::inverse(objm.GetValue()));
+			normal.Send();
 		}
 	}
 
