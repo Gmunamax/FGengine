@@ -123,7 +123,7 @@ public:
 
 
 public:
-	Camera(){};
+	Camera(): Camera::WorldPoint("fg_viewmatrix"){};
 
 	void StartDrawing(){
 
