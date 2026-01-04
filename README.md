@@ -21,7 +21,7 @@ FGengine uses:
 
 # LICENSING
 
-FGengine is an open-source software and licensed under the MIT license. Text of the license can be found in LICENSE file in this repository. Dependencies of FGengine are distributing under their respective licenses.
+FGengine is an open-source software and licensed under the MIT License. Text of the license can be found in LICENSE file in this repository. Dependencies of FGengine are distributing under their respective licenses.
 
 
 *Made By Gmunamax*
