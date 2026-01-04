@@ -36,7 +36,7 @@ private:
 
 public:
 	void SetFOV(double newfov){
-		this->fov = newfov;
+		this->fov = glm::radians(newfov);
 	}
 	double GetFOV(){
 		return fov;
