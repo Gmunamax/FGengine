@@ -22,11 +22,6 @@ protected:
 	void Select(){
 		VertexDataStorage::VertArray::Select();
 	}
-	void Delete(){
-		VertexDataStorage::VertArray::Delete();
-		VertexDataStorage::VertBuffer::Delete();
-		VertexDataStorage::ElemBuffer::Delete();
-	}
 	
 	void DrawData(){
 		VertexDataStorage::ElemBuffer::Draw();
@@ -34,10 +29,16 @@ protected:
 
 	VertexDataStorage(){};
 	~VertexDataStorage(){};
-public:
 
+public:
 	void Load(const std::vector<VertexType>& vertexes, const std::vector<std::vector<unsigned int>>& elements){
 		VertexDataStorage::VertBuffer::Load(vertexes);
 		VertexDataStorage::ElemBuffer::Load(elements);
+	}
+
+	void Delete(){
+		VertexDataStorage::VertArray::Delete();
+		VertexDataStorage::VertBuffer::Delete();
+		VertexDataStorage::ElemBuffer::Delete();
 	}
 };

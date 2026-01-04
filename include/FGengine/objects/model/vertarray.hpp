@@ -11,7 +11,7 @@ class VertArray{
 		glEnableVertexAttribArray(0);
 	}
 	void ApplyColor(){
-		glVertexAttribPointer(1, VertexType::VertexColor::GetLength(), VertexType::VertexColor::DataType::_gldatatype, false, VertexType::GetStride(), (void*)VertexType::VertexColor::GetOffset());
+		glVertexAttribPointer(1, VertexType::VertexColor::GetLength(), VertexType::VertexColor::DataType::gldatatype(), false, VertexType::GetStride(), (void*)VertexType::VertexColor::GetOffset());
 		glEnableVertexAttribArray(1);
 	}
 	void ApplyNormal(){

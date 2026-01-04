@@ -25,7 +25,7 @@ public:
 class WindowDrawing: virtual public WindowSceneCore{
 	double frametime;
 	Uint8 frameskip = 0;
-	Colord bgcolor;
+	Color3d bgcolor;
 
 	double stepsize;
 

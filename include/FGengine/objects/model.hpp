@@ -7,7 +7,7 @@ template<typename VertexType>
 class Model: public Transform<typename VertexType::VertexPosition::DataType>, public VertexDataStorage<VertexType>{
 public:
 
-	Model(){};
+	Model(): Model::Transform("fg_objectmatrix", "fg_normalmatrix"){};
 
 	Shader* shader = &nullshader;
 

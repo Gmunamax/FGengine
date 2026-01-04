@@ -8,26 +8,29 @@
 template<typename PointType>
 class Transform{
 
-	Uniforms::Umat4 objm{"fg_objectmatrix"};
+	Uniforms::Umat4 objm;
 
 	bool needupdate = true;
 
+	Uniforms::Umat3 normalm;
 protected:
 	void ProceedTransformations(){
-		if(this->needupdate){
+		if(needupdate){
 
-			this->objm = 1;
-			this->objm = glm::translate(this->objm.GetValue(), position);
+			objm = 1;
+			objm = glm::translate(objm.GetValue(), position);
 
 			if(rotation.x != 0)
-				this->objm = glm::rotate(this->objm.GetValue(), glm::radians(rotation.x), glm::dvec3{1,0,0});
+				objm = glm::rotate(objm.GetValue(), glm::radians(rotation.x), glm::dvec3{1,0,0});
 			if(rotation.y != 0)
-				this->objm = glm::rotate(this->objm.GetValue(), glm::radians(rotation.y), glm::dvec3{0,1,0});
+				objm = glm::rotate(objm.GetValue(), glm::radians(rotation.y), glm::dvec3{0,1,0});
 			if(rotation.z != 0)
-				this->objm = glm::rotate(this->objm.GetValue(), glm::radians(rotation.z), glm::dvec3{0,0,1});
+				objm = glm::rotate(objm.GetValue(), glm::radians(rotation.z), glm::dvec3{0,0,1});
 
-			this->objm = glm::scale(this->objm.GetValue(), scale);
+			objm = glm::scale(objm.GetValue(), scale);
 
+			normalm = glm::transpose(glm::inverse(objm.GetValue()));
+			
 			needupdate = false;
 		}
 	}
@@ -38,6 +41,7 @@ protected:
 
 	void SendMatrix(){
 		objm.Send();
+		normalm.Send();
 	}
 
 	void SetShader(Shader*& newshader){
@@ -53,31 +57,33 @@ protected:
 
 public:
 	PointType& GetPosition(){
-		return this->position;
+		return position;
 	}
 	void SetPosition(PointType newposition){
-		this->position = newposition;
-		this->needupdate = true;
+		position = newposition;
+		needupdate = true;
 	}
 
 	
 
 	PointType& GetRotation(){
-		return this->rotation;
+		return rotation;
 	}
 	void SetRotation(PointType newrotation){
-		this->rotation = newrotation;
-		this->needupdate = true;
+		rotation = newrotation;
+		needupdate = true;
 	}
 
 	
 
 	PointType& GetScale(){
-		return this->scale;
+		return scale;
 	}
 	void SetScale(PointType newscale){
-		this->scale = newscale;
-		this->needupdate = true;
+		scale = newscale;
+		needupdate = true;
 	}
+
+	Transform(const char* uniformname, const char* normaluniformname): objm(uniformname), normalm(normaluniformname){}
 
 };

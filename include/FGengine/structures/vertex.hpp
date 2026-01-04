@@ -1,7 +1,6 @@
 #pragma once
 #include <GL/glew.h>
 #include "point.hpp"
-#include "color.hpp"
 
 template<typename PosType, class Base>
 class VertexPosition{
@@ -60,7 +59,7 @@ public:
 		return VertexColor::offset;
 	}
 	static short GetLength(){
-		return ColType::_elemcount;
+		return ColType::length();
 	}
 };
 
@@ -117,5 +116,5 @@ private:
 	static inline bool ready;
 };
 
-using Vertex2d = Vertex<Point2d,Colord,Point2d>; /* Note: Normals in 2d space are useless. They're still here, because I don't know exactly what to do with them, should they be here or not. */
-using Vertex3d = Vertex<Point3d,Colord,Point3d>;
+using Vertex2d = Vertex<Point2d,Color3d,Point2d>; /* Note: Normals in 2d space are useless. They're still here, because I don't know exactly what to do with them, should they be here or not. */
+using Vertex3d = Vertex<Point3d,Color3d,Point3d>;
