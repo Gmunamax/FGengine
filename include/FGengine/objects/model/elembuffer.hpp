@@ -41,6 +41,8 @@ protected:
 		glGenBuffers(1, &buf);
 	}
 	void Delete(){
+		facelocators.clear();
+		facelocators.shrink_to_fit();
 		glDeleteBuffers(1, &buf);
 	}
 	void Select(){
