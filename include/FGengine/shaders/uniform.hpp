@@ -11,12 +11,10 @@ namespace Uniforms{
 
 		const char* name;
 		ValueType value;
-		bool needupdate = false;
 		GLint location = 0;
 
 		void SetValue(ValueType& value){
 			this->value = value;
-			needupdate = true;
 		}
 
 		void TemplateSend();
@@ -43,8 +41,8 @@ namespace Uniforms{
 		}
 
 		Uniform(const char* name, GLuint shaderid = 0, ValueType value = 1){
-			this->name = name;
 			location = glGetUniformLocation(shaderid, name);
+			this->name = name;
 			SetValue(value);
 		}
 		void operator=(ValueType newvalue){
