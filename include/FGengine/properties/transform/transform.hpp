@@ -46,6 +46,7 @@ protected:
 
 	void SetShader(Shader*& newshader){
 		objm.SetShader(newshader->ToGL());
+		normalm.SetShader(newshader->ToGL());
 	}
 
 	Transform(){};
