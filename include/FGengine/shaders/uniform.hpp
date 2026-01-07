@@ -12,6 +12,7 @@ namespace Uniforms{
 		const char* name;
 		ValueType value;
 		GLint location = 0;
+		GLint shaderId = 0;
 
 		void SetValue(ValueType& value){
 			this->value = value;
@@ -26,6 +27,7 @@ namespace Uniforms{
 		}
 	
 		void SetShader(GLuint newshader){
+			this->shaderId = newshader;
 			location = glGetUniformLocation(newshader, name);
 		}
 
@@ -35,6 +37,7 @@ namespace Uniforms{
 
 		void Send(){
 			// if(needupdate){
+			glUseProgram(shaderId);
 				TemplateSend();
 				// needupdate = false;
 			// }
