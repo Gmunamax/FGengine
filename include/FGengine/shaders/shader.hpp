@@ -133,7 +133,7 @@ private:
 
 	void CheckLoadingForErrors();
 
-	void CheckForError(GLenum type, const char* errorheader);
+	void PrintLinkStatus();
 
 	static const char* compileerror;
 	static const char* linkerror;
@@ -144,8 +144,10 @@ public:
 	static void SendUniformForAll(UniformType& value){
 		for(Shader*& element : shaderslist){
 			if(element != nullptr){
-				value.SetShader(element->shaderid);
-				value.Send();
+				if(element->shaderid != 0){
+					value.SetShader(element->shaderid);
+					value.Send();
+				}
 			}
 		}
 	}

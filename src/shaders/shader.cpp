@@ -33,26 +33,22 @@ static GLuint CompileObject(Shader::ObjectDescription description){
 	return object;
 }
 
-void Shader::CheckForError(GLenum type, const char* errorheader){
+void Shader::PrintLinkStatus(){
 	int sth;
 	constexpr short logsize = 512;
 	char log[logsize];
-	glGetShaderiv(shaderid, type, &sth);
-	if(!sth){
-		glGetShaderInfoLog(shaderid, logsize, NULL, log);
-		std::cout << errorheader << "\n" << log << std::endl;
+	glGetProgramiv(shaderid, GL_LINK_STATUS, &sth);
+	if(sth != GL_TRUE){
+		glGetProgramInfoLog(shaderid, logsize, NULL, log);
+		std::cout << "Failed to link shader\n" << log << std::endl;
 	}
 }
-
-const char* Shader::compileerror = "Failed to compile shader";
-const char* Shader::linkerror = "Failed to link shader";
 
 std::vector<GLuint> Shader::CompileObjects(std::vector<Shader::ObjectDescription> descriptions){
 	std::vector<GLuint> shaderparts;
 	for(auto& e : descriptions){
 		shaderparts.push_back( CompileObject(e) );
 	}
-	CheckForError(GL_COMPILE_STATUS, compileerror);
 	return shaderparts;
 }
 
@@ -64,7 +60,7 @@ void Shader::LinkShader(std::vector<GLuint> shaderparts){
 		glAttachShader(shaderid, part);
 	}
 	glLinkProgram(shaderid);
-	CheckForError(GL_LINK_STATUS, linkerror);
+	PrintLinkStatus();
 }
 
 Shader nullshader;
