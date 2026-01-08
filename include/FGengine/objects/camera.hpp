@@ -58,9 +58,7 @@ private:
 public:
 	void SetViewportGeom(Geometry2i newgeom);
 
-	Geometry2i GetViewportGeom(){
-		return viewportgeom;
-	}
+	Geometry2i GetViewportGeom();
 
 	void Resize(Geometry2i newviewport);
 
