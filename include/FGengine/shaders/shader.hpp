@@ -34,10 +34,10 @@ class Shader{
 			bool operator!=(const iterator& other){
 				return listiterator != other.listiterator;
 			}
-			bool IsFree(){
+			bool isFree(){
 				return *listiterator == nullptr;
 			}
-			const std::forward_list<Shader*>::iterator ToStlIterator(){
+			const std::forward_list<Shader*>::iterator toStl(){
 				return listiterator;
 			}
 		};
@@ -52,7 +52,7 @@ class Shader{
 		using size_type = std::forward_list<Shader*>::size_type;
 
 		//returns true on success, false otherwise
-		bool SetElement(unsigned long id, Shader* element){
+		bool setElement(unsigned long id, Shader* element){
 			if(id > size){
 				return false;
 			}
@@ -64,47 +64,46 @@ class Shader{
 				*itr = element;
 				return true;
 			}
-			//Move carret to here and rewrite pointer to shader
-			//Error if id > size (if not do it, we'll have to create elements with ids from size to id and delete them and this once this id becomes free)
 		}
-		
-		//returns id that will be chosen for element
-		std::forward_list<Shader*>::size_type AddElementBack(Shader* element){
+
+		std::forward_list<Shader*>::size_type pushBack(Shader* element){
 			iterator beforeit = shaderslist.before_begin();
 			iterator it = shaderslist.begin();
 			for(std::forward_list<Shader*>::size_type id = 0; id < size; id++){
-				if(it.IsFree()){
+				if(it.isFree()){
 					*it = element;
 					return id;
 				}
 				++it;
 				++beforeit;
 			}
-			shaderslist.insert_after(beforeit.ToStlIterator(), element);
+			shaderslist.insert_after(beforeit.toStl(), element);
 			size++;
 			return size;
 		}
-		void RemoveElement(unsigned long id){
+
+		void remove(unsigned long id){
 			if(id == size){
 				iterator i = shaderslist.before_begin();
 				iterator afteri = shaderslist.begin();
-				while(afteri.IsFree()){
-					shaderslist.erase_after(i.ToStlIterator());
+				while(afteri.isFree()){
+					shaderslist.erase_after(i.toStl());
 					++i;
 					++afteri;
 				}
 			}
 			else if(id < size){
-				SetElement(id, nullptr);
+				setElement(id, nullptr);
 			}
 		}
-		unsigned long GetSize(){
+
+		unsigned long getSize(){
 			return size;
 		}
+
 		ShadersList(){
 			size = 0;
 		}
-
 	};
 
 	static inline ShadersList shaderslist;
@@ -119,35 +118,14 @@ public:
 		std::vector<const char*> filepathes;
 	};
 	
-	void Load(std::vector<ObjectDescription> descriptions){
-		if(shaderid == 0){
-			LinkShader( CompileObjects(descriptions) );
-		}
-	}
-
-private:
-	
-	std::vector<GLuint> CompileObjects(std::vector<ObjectDescription> descriptions);
-
-	void LinkShader(std::vector<GLuint> shaderparts);
-
-	void CheckLoadingForErrors();
-
-	void PrintLinkStatus();
-
-	static const char* compileerror;
-	static const char* linkerror;
-
-public:
+	void Load(std::vector<ObjectDescription> descriptions);
 
 	template<typename UniformType>
-	static void SendUniformForAll(UniformType& value){
+	static void SendUniformToAll(UniformType& value){
 		for(Shader*& element : shaderslist){
-			if(element != nullptr){
-				if(element->shaderid != 0){
-					value.SetShader(element->shaderid);
-					value.Send();
-				}
+			if(element->shaderid != 0){
+				value.SetShader(element->shaderid);
+				value.Send();
 			}
 		}
 	}
@@ -160,10 +138,14 @@ public:
 	}
 
 	Shader(){
-		listid = shaderslist.AddElementBack(this);
+		listid = shaderslist.pushBack(this);
+	}
+	Shader(const Shader& shader){
+		this->shaderid = shader.shaderid;
+		this->listid = shader.listid;
 	}
 	~Shader(){
-		shaderslist.RemoveElement(listid);
+		shaderslist.remove(listid);
 	}
 };
 

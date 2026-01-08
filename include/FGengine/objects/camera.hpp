@@ -12,8 +12,8 @@ class Camera: public WorldPoint<PointType>{
 
 protected:
 	void SendMatrix(){
-		Shader::SendUniformForAll(proj);
-		Shader::SendUniformForAll(*Camera::WorldPoint::GetMatrix());
+		Shader::SendUniformToAll(proj);
+		Shader::SendUniformToAll(*Camera::WorldPoint::GetMatrix());
 		// Shader::SendUniformForAll(view);
 	}
 
