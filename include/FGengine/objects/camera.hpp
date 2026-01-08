@@ -7,7 +7,7 @@
 template<typename PointType = Point3d>
 class Camera: public WorldPoint<PointType>{
 //uniform
-
+	bool needupdateprojection = true;
 	Uniforms::Umat4 proj {"fg_projectionmatrix"};
 
 protected:
@@ -94,6 +94,8 @@ public:
 	void SetFrustum();
 	void SetOrtho();
 	void SetUI();
+
+	void ProceedProjection();
 
 //projection
 

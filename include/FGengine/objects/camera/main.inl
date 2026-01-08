@@ -10,5 +10,6 @@ void Camera<PointType>::StartDrawing(){
 	glClear(GL_DEPTH_BUFFER_BIT);
 
 	Camera::ProceedTransformations();
+	Camera::ProceedProjection();
 	Camera::SendMatrix();
 }
