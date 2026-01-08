@@ -1,7 +1,6 @@
 #pragma once
 #include "FGengine/properties/transform/transform.hpp"
 #include "FGengine/objects/model/datastorer.hpp"
-// #include "FGengine/objects/model/shaderhandler.hpp"
 
 template<typename VertexType>
 class Model: public Transform<typename VertexType::VertexPosition::DataType>, public VertexDataStorage<VertexType>{
@@ -27,7 +26,6 @@ public:
 
 	void Draw(){
 		Model::Select();
-		// Model::ResetMatrix();
 		Model::ProceedTransformations();
 		Model::SendMatrix();
 		Model::DrawData();

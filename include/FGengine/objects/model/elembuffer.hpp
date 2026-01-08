@@ -1,9 +1,7 @@
 #pragma once
 #include <GL/glew.h>
 #include <vector>
-#include "FGengine/structures/face.hpp"
 #include "FGengine/structures/vertex.hpp"
-#include "FGengine/shaders/shaderprogram.hpp"
 
 class ElemBuffer{
 	static inline constexpr int target = GL_ELEMENT_ARRAY_BUFFER;
