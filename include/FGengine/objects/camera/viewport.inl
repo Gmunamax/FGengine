@@ -13,37 +13,34 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <SDL2/SDL.h>
-#include <GL/glew.h>
-#include <iostream>
+#ifdef __INTELLISENSE__
+#include "FGengine/objects/camera.hpp"
+#endif
 
-#include "windowScene.hpp"
-#include "data/position.hpp"
-#include "data/flags.hpp"
-#include "data/title.hpp"
-#include "data/size.hpp"
-#include "data/vsync.hpp"
-#include "data/minSize.hpp"
+template<typename PointType>
+void Camera<PointType>::SetViewportGeom(Geometry2i newgeom){
+	glViewport(newgeom.x,newgeom.y,newgeom.w,newgeom.h);
+	viewportgeom = newgeom;
+}
 
-class WindowBase: public WindowPosition, public WindowFlags, public WindowTitle, public WindowSize, public WindowVsync, public WindowMinSize{
-	friend class Window;
-	static inline const char* windowdataname = "Scene";
+template<typename PointType>
+Geometry2i Camera<PointType>::GetViewportGeom(){
+	return viewportgeom;
+}
 
-	SDL_GLContext glcon;
-	SDL_Window* win;
-	bool opened = false;
-
-	void InitBackend();
-
-protected:
-	static WindowBase* GetWindowFromID(Uint32 id);
-
-	void Apply();
-
-public:
-	void Select();
-
-	void Open();
-	void Close();
-};
+template<typename PointType>
+void Camera<PointType>::Resize(Geometry2i newviewport){
+	SetAspectRatio((double)newviewport.w/(double)newviewport.h);
+	SetViewportGeom(newviewport);
+	switch (cameratype) {
+	case CAMERA_FRUSTUM:
+		SetFrustum();
+		break;
+	case CAMERA_ORTHO:
+		SetOrtho();
+		break;
+	case CAMERA_UI:
+		SetUI();
+		break;
+	}
+}

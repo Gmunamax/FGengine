@@ -13,37 +13,11 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <SDL2/SDL.h>
-#include <GL/glew.h>
-#include <iostream>
+#include "FGengine/shaders/shader.hpp"
 
-#include "windowScene.hpp"
-#include "data/position.hpp"
-#include "data/flags.hpp"
-#include "data/title.hpp"
-#include "data/size.hpp"
-#include "data/vsync.hpp"
-#include "data/minSize.hpp"
-
-class WindowBase: public WindowPosition, public WindowFlags, public WindowTitle, public WindowSize, public WindowVsync, public WindowMinSize{
-	friend class Window;
-	static inline const char* windowdataname = "Scene";
-
-	SDL_GLContext glcon;
-	SDL_Window* win;
-	bool opened = false;
-
-	void InitBackend();
-
-protected:
-	static WindowBase* GetWindowFromID(Uint32 id);
-
-	void Apply();
-
-public:
-	void Select();
-
-	void Open();
-	void Close();
-};
+static std::string ReadFile(const char*);
+static GLuint CompilePart(Shader::ObjectDescription);
+static void PrintLinkStatus(GLuint);
+static std::vector<GLuint> CompileAllParts(std::vector<Shader::ObjectDescription>);
+static GLuint LinkShader(std::vector<GLuint>);
+static void DeleteParts(std::vector<GLuint>);
