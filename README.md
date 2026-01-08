@@ -17,6 +17,7 @@ FGengine uses:
 * SDL2
 * OpenGL
 * GLEW
+* GLM
 
 
 # LICENSING
