@@ -21,7 +21,7 @@ FGengine uses:
 
 # LICENSING
 
-FGengine is a free and open-source software and licensed under the GNU LGPL 2.1 License or later. Text of the license can be found in LICENSE.md file in this repository. Dependencies of FGengine are distributing under their respective licenses.
+FGengine is a free and open-source software and licensed under the GNU LGPL 2.1 License. Text of the license can be found in LICENSE.md file in this repository. Dependencies of FGengine are distributing under their respective licenses.
 
 
 *Made By Gmunamax*
