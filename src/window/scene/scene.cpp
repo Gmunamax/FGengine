@@ -30,10 +30,11 @@ void WindowDrawing::Draw(){
 			/* to avoid false positives */
 			if(frameskip == 1)
 				frameskip = 0;
+			if(frameskip > 0)
+				std::cout << "Frameskip: " << (int)frameskip << "frames" << std::endl;
 		}
 	}
 	else{
-		std::cout << "Frameskip: " << (int)frameskip << " left\n" << std::endl;
 		frameskip--;
 	}
 }
