@@ -14,9 +14,6 @@
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
-// #include "params/position.hpp"
-// #include "params/rotation.hpp"
-// #include "params/scale.hpp"
 #include "FGengine/shaders/uniform.hpp"
 #include "FGengine/shaders/shader.hpp"
 
