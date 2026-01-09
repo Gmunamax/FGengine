@@ -61,6 +61,14 @@ private:
 	double nearz = 1;
 	double farz = 200;
 
+public:
+	void SetNearDistance(double newNearDistance);
+	void SetFarDistance(double newFarDistance);
+	void SetDistance(Point2d newDistance);
+	double GetNearDistance();
+	double GetFarDistance();
+	Point2d GetDistance();
+
 //viewdistance
 
 

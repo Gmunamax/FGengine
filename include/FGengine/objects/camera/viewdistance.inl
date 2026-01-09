@@ -16,3 +16,34 @@
 #ifdef __INTELLISENSE__
 #include "FGengine/objects/camera.hpp"
 #endif
+
+template<typename PointType>
+void Camera<PointType>::SetNearDistance(double newNearDistance){
+	nearz = newNearDistance;
+}
+
+template<typename PointType>
+void Camera<PointType>::SetFarDistance(double newFarDistance){
+	farz = newFarDistance;
+}
+
+template<typename PointType>
+void Camera<PointType>::SetDistance(Point2d newDistance){
+	SetNearDistance(newDistance[0]);
+	SetFarDistance(newDistance[1]);
+}
+
+template<typename PointType>
+double Camera<PointType>::GetNearDistance(){
+	return nearz;
+}
+
+template<typename PointType>
+double Camera<PointType>::GetFarDistance(){
+	return farz;
+}
+
+template<typename PointType>
+Point2d Camera<PointType>::GetDistance(){
+	return {nearz, farz};
+}
