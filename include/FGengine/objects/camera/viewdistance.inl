@@ -19,31 +19,30 @@
 
 template<typename PointType>
 void Camera<PointType>::SetNearDistance(double newNearDistance){
-	nearz = newNearDistance;
+	viewdistance[0] = newNearDistance;
 }
 
 template<typename PointType>
 void Camera<PointType>::SetFarDistance(double newFarDistance){
-	farz = newFarDistance;
+	viewdistance[1] = newFarDistance;
 }
 
 template<typename PointType>
 void Camera<PointType>::SetDistance(Point2d newDistance){
-	SetNearDistance(newDistance[0]);
-	SetFarDistance(newDistance[1]);
+	viewdistance = newDistance;
 }
 
 template<typename PointType>
 double Camera<PointType>::GetNearDistance(){
-	return nearz;
+	return viewdistance[0];
 }
 
 template<typename PointType>
 double Camera<PointType>::GetFarDistance(){
-	return farz;
+	return viewdistance[1];
 }
 
 template<typename PointType>
 Point2d Camera<PointType>::GetDistance(){
-	return {nearz, farz};
+	return viewdistance;
 }
