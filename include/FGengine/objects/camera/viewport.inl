@@ -19,7 +19,7 @@
 
 template<typename PointType>
 void Camera<PointType>::SetViewportGeom(const Geometryi& newgeom){
-	glViewport(newgeom.x,newgeom.y,newgeom.w,newgeom.h);
+	glViewport(newgeom.x,newgeom.y,newgeom[2],newgeom[3]);
 	viewportgeom = newgeom;
 }
 
@@ -30,7 +30,7 @@ const Geometryi& Camera<PointType>::GetViewportGeom(){
 
 template<typename PointType>
 void Camera<PointType>::Resize(const Geometryi& newviewport){
-	SetAspectRatio((double)newviewport.w/(double)newviewport.h);
+	SetAspectRatio((double)newviewport[2]/(double)newviewport[3]);
 	SetViewportGeom(newviewport);
 	switch (cameratype) {
 	case CAMERA_FRUSTUM:

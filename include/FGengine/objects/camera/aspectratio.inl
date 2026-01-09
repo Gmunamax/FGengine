@@ -18,11 +18,11 @@
 #endif
 
 template<typename PointType>
-void Camera<PointType>::SetAspectRatio(double newaspectratio){
+void Camera<PointType>::SetAspectRatio(const double& newaspectratio){
 	aspectratio = newaspectratio;
 }
 
 template<typename PointType>
-double Camera<PointType>::GetAspectRatio(){
+const double& Camera<PointType>::GetAspectRatio(){
 	return aspectratio;
 }
