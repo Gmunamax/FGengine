@@ -34,7 +34,7 @@ void Camera<PointType>::SetOrtho(){
 template<typename PointType>
 void Camera<PointType>::SetUI(){
 	glDepthFunc(GL_GEQUAL);
-	proj = glm::ortho<double>(-aspectratio,aspectratio,-1,1,nearz,farz);
+	proj = glm::ortho<double>(-aspectratio,aspectratio,-1,1,viewdistance[0],viewdistance[1]);
 	cameratype = CAMERA_UI;
 }
 
@@ -42,15 +42,15 @@ template<typename PointType>
 void Camera<PointType>::ProceedProjection(){
 	switch(cameratype){
 	case CAMERA_FRUSTUM:
-		proj = glm::perspective(fov,aspectratio,nearz,farz);
+		proj = glm::perspective(fov,aspectratio,viewdistance[0],viewdistance[1]);
 		break;
 
 	case CAMERA_ORTHO:
-		proj = glm::ortho<double>(-aspectratio,aspectratio,-1,1,nearz,farz);
+		proj = glm::ortho<double>(-aspectratio,aspectratio,-1,1,viewdistance[0],viewdistance[1]);
 		break;
 
 	case CAMERA_UI:
-		proj = glm::ortho<double>(-aspectratio,aspectratio,-1,1,nearz,farz);
+		proj = glm::ortho<double>(-aspectratio,aspectratio,-1,1,viewdistance[0],viewdistance[1]);
 		break;
 	}
 	needupdateprojection = false;

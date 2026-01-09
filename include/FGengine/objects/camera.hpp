@@ -16,6 +16,7 @@
 #pragma once
 #include "FGengine/structures/geometry.hpp"
 #include "FGengine/structures/point.hpp"
+#include "FGengine/structures/color.hpp"
 #include "FGengine/properties/transform/worldpoint.hpp"
 #include "FGengine/shaders/shader.hpp"
 
