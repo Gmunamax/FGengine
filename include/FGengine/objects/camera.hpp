@@ -68,14 +68,14 @@ private:
 
 private:
 
-	Geometry2i viewportgeom;
+	Geometryi viewportgeom;
 
 public:
-	void SetViewportGeom(Geometry2i newgeom);
+	void SetViewportGeom(Geometryi newgeom);
 
-	Geometry2i GetViewportGeom();
+	Geometryi GetViewportGeom();
 
-	void Resize(Geometry2i newviewport);
+	void Resize(Geometryi newviewport);
 
 //viewport
 

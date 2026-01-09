@@ -13,16 +13,10 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-struct Geometry2i{
-	int x;
-	int y;
-	int w;
-	int h;
-};
+#pragma once
+#include "vector.hpp"
 
-struct Geometry2d{
-	double x;
-	double y;
-	double w;
-	double h;
-};
+using Geometryi = Vector<4, int>;
+using Geometrys = Vector<4, short>;
+using Geometryf = Vector<4, float>;
+using Geometryd = Vector<4, double>;
