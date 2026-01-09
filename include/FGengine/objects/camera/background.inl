@@ -18,11 +18,11 @@
 #endif
 
 template<typename PointType>
-void Camera<PointType>::SetBackgroundColor(Color4d newbgcolor){
+void Camera<PointType>::SetBackgroundColor(const Color4d& newbgcolor){
 	backgroundcolor = newbgcolor;
 }
 
 template<typename PointType>
-Color4d Camera<PointType>::GetBackgroundColor(){
+const Color4d& Camera<PointType>::GetBackgroundColor(){
 	return backgroundcolor;
 }
