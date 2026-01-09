@@ -16,14 +16,8 @@
 #pragma once
 #include "vector.hpp"
 
-using Point2d = Vector<2,double>;
-using Point3d = Vector<3,double>;
-using Point4d = Vector<4,double>;
+using Color3f = Vector<3,float>;
+using Color3d = Vector<3,double>;
 
-using Point2i = Vector<2,int>;
-using Point3i = Vector<3,int>;
-using Point4i = Vector<4,int>;
-
-using Point2f = Vector<2,float>;
-using Point3f = Vector<3,float>;
-using Point4f = Vector<4,float>;
+using Color4f = Vector<4,float>;
+using Color4d = Vector<4,double>;
