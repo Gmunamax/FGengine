@@ -58,8 +58,7 @@ public:
 //viewdistance
 
 private:
-	double nearz = 1;
-	double farz = 200;
+	Point2d viewdistance {1, 200};
 
 public:
 	void SetNearDistance(double newNearDistance);
