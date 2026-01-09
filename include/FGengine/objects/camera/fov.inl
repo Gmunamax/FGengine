@@ -18,11 +18,11 @@
 #endif
 
 template<typename PointType>
-void Camera<PointType>::SetFOV(double newfov){
+void Camera<PointType>::SetFOV(const double& newfov){
 	this->fov = glm::radians(newfov);
 }
 
 template<typename PointType>
-double Camera<PointType>::GetFOV(){
+const double& Camera<PointType>::GetFOV(){
 	return fov;
 }

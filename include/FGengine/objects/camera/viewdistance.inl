@@ -18,31 +18,31 @@
 #endif
 
 template<typename PointType>
-void Camera<PointType>::SetNearDistance(double newNearDistance){
+void Camera<PointType>::SetNearDistance(const double& newNearDistance){
 	viewdistance[0] = newNearDistance;
 }
 
 template<typename PointType>
-void Camera<PointType>::SetFarDistance(double newFarDistance){
+void Camera<PointType>::SetFarDistance(const double& newFarDistance){
 	viewdistance[1] = newFarDistance;
 }
 
 template<typename PointType>
-void Camera<PointType>::SetDistance(Point2d newDistance){
+void Camera<PointType>::SetDistance(const Point2d& newDistance){
 	viewdistance = newDistance;
 }
 
 template<typename PointType>
-double Camera<PointType>::GetNearDistance(){
+const double& Camera<PointType>::GetNearDistance(){
 	return viewdistance[0];
 }
 
 template<typename PointType>
-double Camera<PointType>::GetFarDistance(){
+const double& Camera<PointType>::GetFarDistance(){
 	return viewdistance[1];
 }
 
 template<typename PointType>
-Point2d Camera<PointType>::GetDistance(){
+const Point2d& Camera<PointType>::GetDistance(){
 	return viewdistance;
 }

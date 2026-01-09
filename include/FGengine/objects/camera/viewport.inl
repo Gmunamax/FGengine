@@ -18,18 +18,18 @@
 #endif
 
 template<typename PointType>
-void Camera<PointType>::SetViewportGeom(Geometryi newgeom){
+void Camera<PointType>::SetViewportGeom(const Geometryi& newgeom){
 	glViewport(newgeom.x,newgeom.y,newgeom.w,newgeom.h);
 	viewportgeom = newgeom;
 }
 
 template<typename PointType>
-Geometryi Camera<PointType>::GetViewportGeom(){
+const Geometryi& Camera<PointType>::GetViewportGeom(){
 	return viewportgeom;
 }
 
 template<typename PointType>
-void Camera<PointType>::Resize(Geometryi newviewport){
+void Camera<PointType>::Resize(const Geometryi& newviewport){
 	SetAspectRatio((double)newviewport.w/(double)newviewport.h);
 	SetViewportGeom(newviewport);
 	switch (cameratype) {

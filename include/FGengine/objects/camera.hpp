@@ -37,8 +37,8 @@ private:
 	double aspectratio = 1;
 
 public:
-	void SetAspectRatio(double newaspectratio);
-	double GetAspectRatio();
+	void SetAspectRatio(const double& newaspectratio);
+	const double& GetAspectRatio();
 
 //aspectratio
 
@@ -49,8 +49,8 @@ private:
 	double fov = 75;
 
 public:
-	void SetFOV(double newfov);
-	double GetFOV();
+	void SetFOV(const double& newfov);
+	const double& GetFOV();
 
 //fov
 
@@ -61,12 +61,12 @@ private:
 	Point2d viewdistance {1, 200};
 
 public:
-	void SetNearDistance(double newNearDistance);
-	void SetFarDistance(double newFarDistance);
-	void SetDistance(Point2d newDistance);
-	double GetNearDistance();
-	double GetFarDistance();
-	Point2d GetDistance();
+	void SetNearDistance(const double& newNearDistance);
+	void SetFarDistance(const double& newFarDistance);
+	void SetDistance(const Point2d& newDistance);
+	const double& GetNearDistance();
+	const double& GetFarDistance();
+	const Point2d& GetDistance();
 
 //viewdistance
 
@@ -78,11 +78,11 @@ private:
 	Geometryi viewportgeom;
 
 public:
-	void SetViewportGeom(Geometryi newgeom);
+	void SetViewportGeom(const Geometryi& newgeom);
 
-	Geometryi GetViewportGeom();
+	const Geometryi& GetViewportGeom();
 
-	void Resize(Geometryi newviewport);
+	void Resize(const Geometryi& newviewport);
 
 //viewport
 
@@ -93,8 +93,8 @@ private:
 	Color4d backgroundcolor = {0,0,0,1};
 
 public:
-	void SetBackgroundColor(Color4d newbgcolor);
-	Color4d GetBackgroundColor();
+	void SetBackgroundColor(const Color4d& newbgcolor);
+	const Color4d& GetBackgroundColor();
 
 //background
 
