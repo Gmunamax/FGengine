@@ -59,3 +59,30 @@ struct Vector<Length, double, Q>: public glm::vec<Length, double, Q>{
 
 	Vector(glm::vec<Length, double, Q> c): glm::vec<Length, double, Q>::vec(c){}
 };
+
+template<glm::length_t Length, glm::qualifier Q>
+struct Vector<Length, unsigned int, Q>: public glm::vec<Lenght, unsigned int, Q>{
+	using glm::vec<Length, unsigned int, Q>::vec;
+
+	static constexpr GLenum gldatatype() {return GL_UNSIGNED_INT;}
+
+	Vector(glm::vec<Length, unsigned int, Q> c): glm::vec<Length, unsigned int, Q>::vec(c){}
+};
+
+template<glm::length_t Length, glm::qualifier Q>
+struct Vector<Length, unsigned short, Q>: public glm::vec<Length, unsigned short, Q>{
+	using glm::vec<Length, unsigned short, Q>::vec;
+
+	static constexpr GLenum gldatatype() {return GL_UNSIGNED_SHORT;}
+
+	Vector(glm::vec<Length, unsigned short, Q> c): glm::vec<Length, unsigned short, Q>::vec(c){}
+};
+
+template<glm::length_t Length, glm::qualifier Q>
+struct Vector<Length, unsigned char, Q>: public glm::vec<Length, unsigned char, Q>{
+	using glm::vec<Length, unsinged char, Q>::vec;
+
+	static constexpr GLenum gldatatype() {return GL_UNSIGNED_BYTE}
+
+	Vector(glm::vec<Length, unsigned char, Q> c): glm::vec<Length, unsigned char, Q>::vec(c){}
+};
