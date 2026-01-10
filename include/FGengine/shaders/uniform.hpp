@@ -51,11 +51,8 @@ namespace Uniforms{
 		}
 
 		void Send() const{
-			// if(needupdate){
 			glUseProgram(shaderId);
-				TemplateSend();
-				// needupdate = false;
-			// }
+			TemplateSend();
 		}
 
 		Uniform(const char* const name, const GLuint shaderid = 0, const ValueType value = 1){

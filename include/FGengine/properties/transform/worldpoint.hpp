@@ -47,15 +47,6 @@ protected:
 		mat.SetShader(newshader.ToGL());
 	}
 	
-	// ?
-	// WorldPoint(const char* matrixname){
-	// 	mat = new {matrixname};
-	// };
-	// ~WorldPoint(){
-	// 	delete mat;
-	// }
-
-
 public:
 
 	const PointType& GetPosition() const{
