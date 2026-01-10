@@ -148,7 +148,7 @@ public:
 		glDeleteProgram(shaderid);
 	}
 
-	const GLuint& ToGL(){
+	const GLuint& ToGL() const{
 		return shaderid;
 	}
 

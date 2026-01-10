@@ -24,7 +24,7 @@ void Camera<PointType>::SetViewportGeom(const Geometry2i& newgeom){
 }
 
 template<typename PointType>
-const Geometry2i& Camera<PointType>::GetViewportGeom(){
+const Geometry2i& Camera<PointType>::GetViewportGeom() const{
 	return viewportgeom;
 }
 

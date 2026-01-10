@@ -39,7 +39,7 @@ private:
 
 public:
 	void SetAspectRatio(const double& newaspectratio);
-	const double& GetAspectRatio();
+	const double& GetAspectRatio() const;
 
 //aspectratio
 
@@ -51,7 +51,7 @@ private:
 
 public:
 	void SetFOV(const double& newfov);
-	const double& GetFOV();
+	const double& GetFOV() const;
 
 //fov
 
@@ -65,9 +65,9 @@ public:
 	void SetNearDistance(const double& newNearDistance);
 	void SetFarDistance(const double& newFarDistance);
 	void SetDistance(const Point2d& newDistance);
-	const double& GetNearDistance();
-	const double& GetFarDistance();
-	const Point2d& GetDistance();
+	const double& GetNearDistance() const;
+	const double& GetFarDistance() const;
+	const Point2d& GetDistance() const;
 
 //viewdistance
 
@@ -81,7 +81,7 @@ private:
 public:
 	void SetViewportGeom(const Geometry2i& newgeom);
 
-	const Geometry2i& GetViewportGeom();
+	const Geometry2i& GetViewportGeom() const;
 
 	void Resize(const Geometry2i& newviewport);
 
@@ -95,7 +95,7 @@ private:
 
 public:
 	void SetBackgroundColor(const Color4d& newbgcolor);
-	const Color4d& GetBackgroundColor();
+	const Color4d& GetBackgroundColor() const;
 
 //background
 

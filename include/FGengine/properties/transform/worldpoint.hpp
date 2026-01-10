@@ -37,14 +37,14 @@ protected:
 			needupdate = false;
 		}
 	}
-	Uniforms::Umat4* GetMatrix(){
-		return &mat;
+	const Uniforms::Umat4& GetMatrix() const{
+		return mat;
 	}
-	void SendMatrix(){
+	void SendMatrix() const{
 		mat.Send();
 	}
-	void SetShader(Shader*& newshader){
-		mat.SetShader(newshader->ToGL());
+	void SetShader(const Shader& newshader){
+		mat.SetShader(newshader.ToGL());
 	}
 	
 	// ?
@@ -58,21 +58,21 @@ protected:
 
 public:
 
-	const PointType& GetPosition(){
+	const PointType& GetPosition() const{
 		return position;
 	}
-	void SetPosition(PointType newposition){
+	void SetPosition(const PointType& newposition){
 		position = newposition;
 		needupdate = true;
 	}
 
-	const PointType& GetRotation(){
+	const PointType& GetRotation() const{
 		return rotation;
 	}
-	void SetRotation(PointType newrotation){
+	void SetRotation(const PointType& newrotation){
 		rotation = newrotation;
 		needupdate = true;
 	}
 
-	WorldPoint(const char* uniformname): mat(uniformname){}
+	WorldPoint(const char* const uniformname): mat(uniformname){}
 };

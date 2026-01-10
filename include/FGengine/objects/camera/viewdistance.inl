@@ -33,16 +33,16 @@ void Camera<PointType>::SetDistance(const Point2d& newDistance){
 }
 
 template<typename PointType>
-const double& Camera<PointType>::GetNearDistance(){
+const double& Camera<PointType>::GetNearDistance() const{
 	return viewdistance[0];
 }
 
 template<typename PointType>
-const double& Camera<PointType>::GetFarDistance(){
+const double& Camera<PointType>::GetFarDistance() const{
 	return viewdistance[1];
 }
 
 template<typename PointType>
-const Point2d& Camera<PointType>::GetDistance(){
+const Point2d& Camera<PointType>::GetDistance() const{
 	return viewdistance;
 }

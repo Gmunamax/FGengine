@@ -29,28 +29,28 @@ namespace Uniforms{
 		GLint location = 0;
 		GLint shaderId = 0;
 
-		void SetValue(ValueType& value){
+		void SetValue(const ValueType& value){
 			this->value = value;
 		}
 
-		void TemplateSend();
+		void TemplateSend() const;
 
 	public:
 
-		const char* GetName(){
+		const char* GetName() const{
 			return name;
 		}
 	
-		void SetShader(GLuint newshader){
+		void SetShader(const GLuint& newshader){
 			this->shaderId = newshader;
 			location = glGetUniformLocation(newshader, name);
 		}
 
-		const ValueType& GetValue(){
+		const ValueType& GetValue() const{
 			return value;
 		}
 
-		void Send(){
+		void Send() const{
 			// if(needupdate){
 			glUseProgram(shaderId);
 				TemplateSend();
@@ -58,12 +58,12 @@ namespace Uniforms{
 			// }
 		}
 
-		Uniform(const char* name, GLuint shaderid = 0, ValueType value = 1){
+		Uniform(const char* const name, const GLuint shaderid = 0, const ValueType value = 1){
 			location = glGetUniformLocation(shaderid, name);
 			this->name = name;
 			SetValue(value);
 		}
-		void operator=(ValueType newvalue){
+		void operator=(const ValueType& newvalue){
 			SetValue(newvalue);
 		}
 		

@@ -23,6 +23,6 @@ void Camera<PointType>::SetFOV(const double& newfov){
 }
 
 template<typename PointType>
-const double& Camera<PointType>::GetFOV(){
+const double& Camera<PointType>::GetFOV() const{
 	return fov;
 }

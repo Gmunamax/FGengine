@@ -23,6 +23,6 @@ void Camera<PointType>::SetBackgroundColor(const Color4d& newbgcolor){
 }
 
 template<typename PointType>
-const Color4d& Camera<PointType>::GetBackgroundColor(){
+const Color4d& Camera<PointType>::GetBackgroundColor() const{
 	return backgroundcolor;
 }

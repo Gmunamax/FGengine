@@ -23,6 +23,6 @@ void Camera<PointType>::SetAspectRatio(const double& newaspectratio){
 }
 
 template<typename PointType>
-const double& Camera<PointType>::GetAspectRatio(){
+const double& Camera<PointType>::GetAspectRatio() const{
 	return aspectratio;
 }
