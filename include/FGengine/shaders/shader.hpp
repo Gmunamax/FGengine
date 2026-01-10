@@ -146,6 +146,7 @@ public:
 	}
 	void Delete(){
 		glDeleteProgram(shaderid);
+		shaderid = 0;
 	}
 
 	const GLuint& ToGL() const{
