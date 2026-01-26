@@ -13,16 +13,75 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-struct Geometry2i{
-	int x;
-	int y;
-	int w;
-	int h;
+#include "vector.hpp"
+
+template<_Vector::length_t Length, typename DataType>
+union Geometry{
+	struct{
+		_Vector::Vector<Length, DataType, _Vector::VectorType::Point> position;
+		_Vector::Vector<Length, DataType, _Vector::VectorType::Size> size;
+	};
 };
 
-struct Geometry2d{
-	double x;
-	double y;
-	double w;
-	double h;
+template<typename DataType>
+union Geometry<2, DataType>{
+	struct{
+		_Vector::Vector<2, DataType, _Vector::VectorType::Point> position;
+		_Vector::Vector<2, DataType, _Vector::VectorType::Size> size;
+	};
+	struct{
+		DataType x;
+		DataType y;
+		DataType w;
+		DataType h;
+	};
+	Geometry(){
+		this->x = 0;
+		this->y = 0;
+		this->w = 0;
+		this->h = 0;
+	}
+	Geometry(DataType x, DataType y, DataType w, DataType h){
+		this->x = x;
+		this->y = y;
+		this->w = w;
+		this->h = h;
+	}
 };
+
+template<typename DataType>
+union Geometry<3, DataType>{
+	struct{
+		_Vector::Vector<3, DataType, _Vector::VectorType::Point> position;
+		_Vector::Vector<3, DataType, _Vector::VectorType::Size> size;
+	};
+	struct{
+		DataType x;
+		DataType y;
+		DataType z;
+		DataType w;
+		DataType h;
+		DataType d;
+	};
+	Geometry(){
+		this->x = 0;
+		this->y = 0;
+		this->z = 0;
+		this->w = 0;
+		this->h = 0;
+		this->d = 0;
+	}
+	Geometry(DataType x, DataType y, DataType z, DataType w, DataType h, DataType d){
+		this->x = x;
+		this->y = y;
+		this->z = z;
+		this->w = w;
+		this->h = h;
+		this->d = d;
+	}
+};
+
+using Geometry2i = Geometry<2, int>;
+using Geometry2s = Geometry<2, short>;
+using Geometry2f = Geometry<2, float>;
+using Geometry2d = Geometry<2, double>;

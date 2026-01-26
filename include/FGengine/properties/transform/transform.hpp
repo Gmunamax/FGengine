@@ -30,7 +30,7 @@ protected:
 		if(needupdate){
 
 			objm = 1;
-			objm = glm::translate(objm.GetValue(), position);
+			objm = glm::translate(objm.GetValue(), position.toGlm());
 
 			if(rotation.x != 0)
 				objm = glm::rotate(objm.GetValue(), glm::radians(rotation.x), glm::dvec3{1,0,0});
@@ -39,7 +39,7 @@ protected:
 			if(rotation.z != 0)
 				objm = glm::rotate(objm.GetValue(), glm::radians(rotation.z), glm::dvec3{0,0,1});
 
-			objm = glm::scale(objm.GetValue(), scale);
+			objm = glm::scale(objm.GetValue(), scale.toGlm());
 
 			normalm = glm::transpose(glm::inverse(objm.GetValue()));
 			

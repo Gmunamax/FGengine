@@ -16,8 +16,8 @@
 #pragma once
 #include "vector.hpp"
 
-using Color3f = Vector<3,float>;
-using Color3d = Vector<3,double>;
+using Color3f = _Vector::Vector<3,float, _Vector::VectorType::Color>;
+using Color3d = _Vector::Vector<3,double, _Vector::VectorType::Color>;
 
-using Color4f = Vector<4,float>;
-using Color4d = Vector<4,double>;
+using Color4f = _Vector::Vector<4,float, _Vector::VectorType::Color>;
+using Color4d = _Vector::Vector<4,double, _Vector::VectorType::Color>;

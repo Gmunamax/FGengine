@@ -16,6 +16,6 @@
 #pragma once
 #include "vector.hpp"
 
-using Indicei = Vector<1, unsigned int>;
-using Indices = Vector<1, unsigned short>;
-using Indiceb = Vector<1, unsigned char>;
+using Indicei = _Vector::Vector<1, unsigned int, _Vector::VectorType::Indice>;
+using Indices = _Vector::Vector<1, unsigned short, _Vector::VectorType::Indice>;
+using Indiceb = _Vector::Vector<1, unsigned char, _Vector::VectorType::Indice>;

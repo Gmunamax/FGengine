@@ -17,72 +17,306 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
-template<glm::length_t Length, typename SizeType, glm::qualifier Q = glm::packed>
-struct Vector: public glm::vec<Length, SizeType, Q> {
-	using glm::vec<Length, SizeType, Q>::vec;
+namespace _Vector{
 
-	Vector(glm::vec<Length, SizeType, Q> c): glm::vec<Length, SizeType, Q>::vec(c){}
-};
 
-template<glm::length_t Length, glm::qualifier Q>
-struct Vector<Length, short, Q>: public glm::vec<Length, short, Q>{
-	using glm::vec<Length, short, Q>::vec;
+	enum class VectorType{
+		Point,
+		Color,
+		Size,
+		Indice,
+	};
 
-	static constexpr GLenum gldatatype() {return GL_SHORT;}
+	using length_t = char;
+	constexpr char qualifier = glm::packed;
 
-	Vector(glm::vec<Length, short, Q> c): glm::vec<Length, short, Q>::vec(c){}
-};
+	template<typename DataType>
+	struct VectorDataType{
+		static constexpr GLenum gldatatype();
+	};
 
-template<glm::length_t Length, glm::qualifier Q>
-struct Vector<Length, int, Q>: public glm::vec<Length, int, Q>{
-	using glm::vec<Length, int, Q>::vec;
+	template<>
+	inline constexpr GLenum VectorDataType<short>::gldatatype() {return GL_SHORT;}
 
-	static constexpr GLenum gldatatype() {return GL_INT;}
+	template<>
+	inline constexpr GLenum VectorDataType<int>::gldatatype() {return GL_INT;}
 
-	Vector(glm::vec<Length, int, Q> c): glm::vec<Length, int, Q>::vec(c){}
-};
+	template<>
+	inline constexpr GLenum VectorDataType<float>::gldatatype() {return GL_FLOAT;}
 
-template<glm::length_t Length, glm::qualifier Q>
-struct Vector<Length, float, Q>: public glm::vec<Length, float, Q>{
-	using glm::vec<Length, float, Q>::vec;
+	template<>
+	inline constexpr GLenum VectorDataType<double>::gldatatype() {return GL_DOUBLE;}
 
-	static constexpr GLenum gldatatype() {return GL_FLOAT;}
+	template<>
+	inline constexpr GLenum VectorDataType<unsigned int>::gldatatype() {return GL_UNSIGNED_INT;}
 
-	Vector(glm::vec<Length, float, Q> c): glm::vec<Length, float, Q>::vec(c){}
-};
+	template<>
+	inline constexpr GLenum VectorDataType<unsigned short>::gldatatype() {return GL_UNSIGNED_SHORT;}
 
-template<glm::length_t Length, glm::qualifier Q>
-struct Vector<Length, double, Q>: public glm::vec<Length, double, Q>{
-	using glm::vec<Length, double, Q>::vec;
+	template<>
+	inline constexpr GLenum VectorDataType<unsigned char>::gldatatype() {return GL_UNSIGNED_BYTE;}
 
-	static constexpr GLenum gldatatype() {return GL_DOUBLE;}
+	template<length_t Length, typename DataType, VectorType VectorPurpose>
+	struct VectorData{
+		DataType value[Length];
+	};
 
-	Vector(glm::vec<Length, double, Q> c): glm::vec<Length, double, Q>::vec(c){}
-};
+	template<typename DataType>
+	struct VectorData<1, DataType, VectorType::Point>{
+		union{
+			DataType value;
+			DataType x;
+		};
+	};
 
-template<glm::length_t Length, glm::qualifier Q>
-struct Vector<Length, unsigned int, Q>: public glm::vec<Length, unsigned int, Q>{
-	using glm::vec<Length, unsigned int, Q>::vec;
+	template<typename DataType>
+	struct VectorData<2, DataType, VectorType::Point>{
+		union{
+			DataType value[2];
+			struct{
+				DataType x;
+				DataType y;
+			};
+		};
+	};
 
-	static constexpr GLenum gldatatype() {return GL_UNSIGNED_INT;}
+	template<typename DataType>
+	struct VectorData<3, DataType, VectorType::Point>{
+		union{
+			DataType value[3];
+			struct{
+				DataType x;
+				DataType y;
+				DataType z;
+			};
+		};
+	};
 
-	Vector(glm::vec<Length, unsigned int, Q> c): glm::vec<Length, unsigned int, Q>::vec(c){}
-};
+	template<typename DataType>
+	struct VectorData<4, DataType, VectorType::Point>{
+		union{
+			DataType value[4];
+			struct{
+				DataType x;
+				DataType y;
+				DataType z;
+				DataType w;
+			};
+		};
+	};
 
-template<glm::length_t Length, glm::qualifier Q>
-struct Vector<Length, unsigned short, Q>: public glm::vec<Length, unsigned short, Q>{
-	using glm::vec<Length, unsigned short, Q>::vec;
+	template<typename DataType>
+	struct VectorData<3, DataType, VectorType::Color>{
+		union{
+			DataType value[3];
+			struct{
+				DataType r;
+				DataType g;
+				DataType b;
+			};
+		};
+	};
 
-	static constexpr GLenum gldatatype() {return GL_UNSIGNED_SHORT;}
+	template<typename DataType>
+	struct VectorData<4, DataType, VectorType::Color>{
+		union{
+			DataType value[4];
+			struct{
+				DataType r;
+				DataType g;
+				DataType b;
+				DataType a;
+			};
+		};
+	};
 
-	Vector(glm::vec<Length, unsigned short, Q> c): glm::vec<Length, unsigned short, Q>::vec(c){}
-};
+	template<typename DataType>
+	struct VectorData<1, DataType, VectorType::Size>{
+		union{
+			DataType value;
+			DataType w;
+		};
+	};
 
-template<glm::length_t Length, glm::qualifier Q>
-struct Vector<Length, unsigned char, Q>: public glm::vec<Length, unsigned char, Q>{
-	using glm::vec<Length, unsigned char, Q>::vec;
+	template<typename DataType>
+	struct VectorData<2, DataType, VectorType::Size>{
+		union{
+			DataType value[2];
+			struct{
+				DataType w;
+				DataType h;
+			};
+		};
+	};
 
-	static constexpr GLenum gldatatype() {return GL_UNSIGNED_BYTE;}
+	template<typename DataType>
+	struct VectorData<3, DataType, VectorType::Size>{
+		union{
+			DataType value[3];
+			struct{
+				DataType w;
+				DataType h;
+				DataType d;
+			};
+		};
+	};
 
-	Vector(glm::vec<Length, unsigned char, Q> c): glm::vec<Length, unsigned char, Q>::vec(c){}
-};
+	template<length_t Length, typename DataType, VectorType VectorPurpose>
+	struct VectorMethods: VectorData<Length, DataType, VectorPurpose>{
+		const DataType& operator[](unsigned index) const{
+			return VectorMethods::value[index];
+		}
+		DataType& operator[](const unsigned index){
+			return VectorMethods::value[index];
+		}
+	};
+
+	template<length_t Length, typename DataType, VectorType VectorPurpose>
+	struct Vector: VectorDataType<DataType>, VectorMethods<Length, DataType, VectorPurpose>{
+
+	};
+
+	template<typename DataType, VectorType VectorPurpose>
+	struct Vector<1, DataType, VectorPurpose>: VectorDataType<DataType>, VectorMethods<1, DataType, VectorPurpose>{
+
+		Vector() = default;
+		Vector(DataType value) {
+			Vector::value = value;
+		}
+		
+		static inline constexpr length_t length() {return 1;}
+		glm::vec<1, DataType> toGlm() {return {this->value};}
+
+		bool operator==(Vector<1, DataType, VectorPurpose> value){
+			return Vector::value == value.value;
+		}
+		bool operator!=(Vector<1, DataType, VectorPurpose> value){
+			return Vector::value == value.value;
+		}
+		bool operator==(DataType value){
+			return Vector::value == value.value;
+		}
+		bool operator!=(DataType value){
+			return Vector::value != value.value;
+		}
+		Vector operator+(Vector value){
+			return Vector::value + value;
+		}
+	};
+
+	template<typename DataType, VectorType VectorPurpose>
+	struct Vector<2, DataType, VectorPurpose>: VectorDataType<DataType>, VectorMethods<2, DataType, VectorPurpose>{
+
+		Vector() = default;
+		Vector(DataType value){
+			Vector::value[0] = value;
+			Vector::value[1] = value;
+		}
+		Vector(DataType v1, DataType v2){
+			Vector::value[0] = v1;
+			Vector::value[1] = v2;
+		}
+
+		static inline constexpr length_t length() {return 2;}
+		glm::vec<2, DataType> toGlm() {return {this->value[0], this->value[1]};}
+
+		bool operator==(Vector<2, DataType, VectorPurpose> value){
+			return 
+				Vector::value[0] == value.value[0] and 
+				Vector::value[1] == value.value[1];
+		}
+		bool operator!=(Vector<2, DataType, VectorPurpose> value){
+			return 
+				Vector::value[0] != value.value[0] or
+				Vector::value[1] != value.value[1];
+		}
+		Vector operator+(Vector value){
+			return {Vector::value[0] + value.value[0], 
+					Vector::value[1] + value.value[1]};
+		}
+	};
+
+	template<typename DataType, VectorType VectorPurpose>
+	struct Vector<3, DataType, VectorPurpose>: VectorDataType<DataType>, VectorMethods<3, DataType, VectorPurpose>{
+
+		Vector() = default;
+		Vector(DataType value){
+			Vector::value[0] = value;
+			Vector::value[1] = value;
+			Vector::value[2] = value;
+		}
+		Vector(DataType v1, DataType v2, DataType v3){
+			Vector::value[0] = v1;
+			Vector::value[1] = v2;
+			Vector::value[2] = v3;
+		}
+
+		static inline constexpr length_t length() {return 3;}
+		glm::vec<3, DataType> toGlm() {return {this->value[0], this->value[1], this->value[2]};}
+
+		bool operator==(Vector<3, DataType, VectorPurpose> value){
+			return
+				Vector::value[0] == value.value[0] and
+				Vector::value[1] == value.value[1] and
+				Vector::value[2] == value.value[2];
+		}
+		bool operator!=(Vector<3, DataType, VectorPurpose> value){
+			return
+				Vector::value[0] != value.value[0] or
+				Vector::value[1] != value.value[1] or
+				Vector::value[2] != value.value[2];
+		}
+		Vector operator+(Vector value){
+			return {Vector::value[0] + value.value[0], 
+					Vector::value[1] + value.value[1], 
+					Vector::value[2] + value.value[2]};
+		}
+		Vector operator*(Vector value){
+			return {Vector::value[0] * value.value[0], 
+					Vector::value[1] * value.value[1], 
+					Vector::value[2] * value.value[2]};
+		}
+	};
+
+	template<typename DataType, VectorType VectorPurpose>
+	struct Vector<4, DataType, VectorPurpose>: VectorDataType<DataType>, VectorMethods<4, DataType, VectorPurpose>{
+		
+		Vector() = default;
+		Vector(DataType value){
+			Vector::value[0] = value;
+			Vector::value[1] = value;
+			Vector::value[2] = value;
+			Vector::value[3] = value;
+		}
+		Vector(DataType v1, DataType v2, DataType v3, DataType v4){
+			Vector::value[0] = v1;
+			Vector::value[1] = v2;
+			Vector::value[2] = v3;
+			Vector::value[3] = v4;
+		}
+
+		static inline constexpr length_t length() {return 4;}
+		glm::vec<4, DataType> toGlm() {return {this->value[0], this->value[1], this->value[2], this->value[3]};}
+
+		bool operator==(Vector<4, DataType, VectorPurpose> value){
+			return
+				Vector::value[0] == value.value[0] and
+				Vector::value[1] == value.value[1] and
+				Vector::value[2] == value.value[2] and
+				Vector::value[3] == value.value[3];
+		}
+		bool operator!=(Vector<4, DataType, VectorPurpose> value){
+			return
+				Vector::value[0] != value.value[0] or
+				Vector::value[1] != value.value[1] or
+				Vector::value[2] != value.value[2] or
+				Vector::value[3] != value.value[3];
+		}
+		Vector operator+(Vector value){
+			return {Vector::value[0] + value.value[0], 
+					Vector::value[1] + value.value[1], 
+					Vector::value[2] + value.value[2], 
+					Vector::value[3] + value.value[3]};
+		}
+	};
+}

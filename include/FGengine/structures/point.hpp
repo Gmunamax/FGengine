@@ -16,14 +16,14 @@
 #pragma once
 #include "vector.hpp"
 
-using Point2d = Vector<2,double>;
-using Point3d = Vector<3,double>;
-using Point4d = Vector<4,double>;
+using Point2d = _Vector::Vector<2, double, _Vector::VectorType::Point>;
+using Point3d = _Vector::Vector<3, double, _Vector::VectorType::Point>;
+using Point4d = _Vector::Vector<4, double, _Vector::VectorType::Point>;
 
-using Point2i = Vector<2,int>;
-using Point3i = Vector<3,int>;
-using Point4i = Vector<4,int>;
+using Point2i = _Vector::Vector<2, int, _Vector::VectorType::Point>;
+using Point3i = _Vector::Vector<3, int, _Vector::VectorType::Point>;
+using Point4i = _Vector::Vector<4, int, _Vector::VectorType::Point>;
 
-using Point2f = Vector<2,float>;
-using Point3f = Vector<3,float>;
-using Point4f = Vector<4,float>;
+using Point2f = _Vector::Vector<2, float, _Vector::VectorType::Point>;
+using Point3f = _Vector::Vector<3, float, _Vector::VectorType::Point>;
+using Point4f = _Vector::Vector<4, float, _Vector::VectorType::Point>;

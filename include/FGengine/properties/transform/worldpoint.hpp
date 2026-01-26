@@ -33,7 +33,7 @@ protected:
 				this->mat = glm::rotate(this->mat.GetValue(), glm::radians(rotation.y), glm::dvec3{0,1,0});
 			if(rotation.z != 0)
 				this->mat = glm::rotate(this->mat.GetValue(), glm::radians(rotation.z), glm::dvec3{0,0,1});
-			this->mat = glm::translate(this->mat.GetValue(), position);
+			this->mat = glm::translate(this->mat.GetValue(), position.toGlm());
 			needupdate = false;
 		}
 	}
