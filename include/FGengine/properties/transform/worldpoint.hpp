@@ -33,46 +33,37 @@ protected:
 				this->mat = glm::rotate(this->mat.GetValue(), glm::radians(rotation.y), glm::dvec3{0,1,0});
 			if(rotation.z != 0)
 				this->mat = glm::rotate(this->mat.GetValue(), glm::radians(rotation.z), glm::dvec3{0,0,1});
-			this->mat = glm::translate(this->mat.GetValue(), position);
+			this->mat = glm::translate(this->mat.GetValue(), position.toGlm());
 			needupdate = false;
 		}
 	}
-	Uniforms::Umat4* GetMatrix(){
-		return &mat;
+	const Uniforms::Umat4& GetMatrix() const{
+		return mat;
 	}
-	void SendMatrix(){
+	void SendMatrix() const{
 		mat.Send();
 	}
-	void SetShader(Shader*& newshader){
-		mat.SetShader(newshader->ToGL());
+	void SetShader(const Shader& newshader){
+		mat.SetShader(newshader.ToGL());
 	}
 	
-	// ?
-	// WorldPoint(const char* matrixname){
-	// 	mat = new {matrixname};
-	// };
-	// ~WorldPoint(){
-	// 	delete mat;
-	// }
-
-
 public:
 
-	const PointType& GetPosition(){
+	const PointType& GetPosition() const{
 		return position;
 	}
-	void SetPosition(PointType newposition){
+	void SetPosition(const PointType& newposition){
 		position = newposition;
 		needupdate = true;
 	}
 
-	const PointType& GetRotation(){
+	const PointType& GetRotation() const{
 		return rotation;
 	}
-	void SetRotation(PointType newrotation){
+	void SetRotation(const PointType& newrotation){
 		rotation = newrotation;
 		needupdate = true;
 	}
 
-	WorldPoint(const char* uniformname): mat(uniformname){}
+	WorldPoint(const char* const uniformname): mat(uniformname){}
 };

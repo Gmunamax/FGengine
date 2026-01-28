@@ -19,6 +19,7 @@
 
 template<typename PointType>
 void Camera<PointType>::SendMatrix(){
+	Uniforms::Umat4 view{Camera::WorldPoint::GetMatrix()}; // Getting copy because SendUniformToAll recieves default link, but GetMatrix returns constant link
 	Shader::SendUniformToAll(proj);
-	Shader::SendUniformToAll(*Camera::WorldPoint::GetMatrix());
+	Shader::SendUniformToAll(view);
 }

@@ -16,6 +16,7 @@
 #pragma once
 #include "FGengine/structures/geometry.hpp"
 #include "FGengine/structures/point.hpp"
+#include "FGengine/structures/color.hpp"
 #include "FGengine/properties/transform/worldpoint.hpp"
 #include "FGengine/shaders/shader.hpp"
 
@@ -37,8 +38,8 @@ private:
 	double aspectratio = 1;
 
 public:
-	void SetAspectRatio(double newaspectratio);
-	double GetAspectRatio();
+	void SetAspectRatio(const double& newaspectratio);
+	const double& GetAspectRatio() const;
 
 //aspectratio
 
@@ -49,8 +50,8 @@ private:
 	double fov = 75;
 
 public:
-	void SetFOV(double newfov);
-	double GetFOV();
+	void SetFOV(const double& newfov);
+	const double& GetFOV() const;
 
 //fov
 
@@ -58,8 +59,15 @@ public:
 //viewdistance
 
 private:
-	double nearz = 1;
-	double farz = 200;
+	Point2d viewdistance {1, 200};
+
+public:
+	void SetNearDistance(const double& newNearDistance);
+	void SetFarDistance(const double& newFarDistance);
+	void SetDistance(const Point2d& newDistance);
+	const double& GetNearDistance() const;
+	const double& GetFarDistance() const;
+	const Point2d& GetDistance() const;
 
 //viewdistance
 
@@ -71,11 +79,11 @@ private:
 	Geometry2i viewportgeom;
 
 public:
-	void SetViewportGeom(Geometry2i newgeom);
+	void SetViewportGeom(const Geometry2i& newgeom);
 
-	Geometry2i GetViewportGeom();
+	const Geometry2i& GetViewportGeom() const;
 
-	void Resize(Geometry2i newviewport);
+	void Resize(const Geometry2i& newviewport);
 
 //viewport
 
@@ -86,8 +94,8 @@ private:
 	Color4d backgroundcolor = {0,0,0,1};
 
 public:
-	void SetBackgroundColor(Color4d newbgcolor);
-	Color4d GetBackgroundColor();
+	void SetBackgroundColor(const Color4d& newbgcolor);
+	const Color4d& GetBackgroundColor() const;
 
 //background
 

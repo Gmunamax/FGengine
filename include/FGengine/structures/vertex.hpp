@@ -16,6 +16,7 @@
 #pragma once
 #include <GL/glew.h>
 #include "point.hpp"
+#include "color.hpp"
 
 template<typename PosType, class Base>
 class VertexPosition{
