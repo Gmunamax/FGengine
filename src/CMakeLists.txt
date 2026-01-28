@@ -23,4 +23,8 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 add_subdirectory(window)
 add_subdirectory(shaders)
 
-target_link_libraries(FGengine SDL2 GL GLEW)
+find_package(SDL2 2.32 REQUIRED)
+find_package(OpenGL REQUIRED)
+find_package(GLEW 2.2 REQUIRED)
+
+target_link_libraries(FGengine SDL2::SDL2 OpenGL::GL GLEW::GLEW)
