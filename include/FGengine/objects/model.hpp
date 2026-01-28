@@ -51,6 +51,7 @@ public:
 	}
 
 	void Load(const Model::Mesh::VertexesList& vertexes, const Model::Mesh::ElementsList& elements){
+		Model::Mesh::Select();
 		Model::Mesh::Load(vertexes, elements);
 	}
 };
