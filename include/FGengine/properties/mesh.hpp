@@ -71,7 +71,6 @@ public:
 	}
 	
 	void Draw(){
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ebo);
 		for(typename std::vector<FaceLocation>::reference modelface : facelocators){
 			modelface.Draw();
 		}
