@@ -28,10 +28,9 @@ private:
 	GLuint ebo;
 
 	struct FaceLocation{
-		using SizeType = short;
 
-		SizeType offset;
-		SizeType size;
+		long offset;
+		int size;
 
 		void Draw(){
 			glDrawElements(GL_TRIANGLE_STRIP, size, ElementsType::gldatatype(), (void*)(sizeof(ElementsType) * offset));
