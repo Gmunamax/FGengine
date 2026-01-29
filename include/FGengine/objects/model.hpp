@@ -20,12 +20,12 @@
 template<typename VertexType, typename ElementType>
 class Model: public Transform<typename VertexType::VertexPosition::DataType>, private Mesh<VertexType, ElementType>{
 	bool visible = true;
+	Shader* shader = &nullshader;
 
 public:
 
 	Model(): Model::Transform("fg_objectmatrix", "fg_normalmatrix"){};
 
-	Shader* shader = &nullshader;
 
 	void SetShader(Shader* newshader){
 		shader = newshader;
