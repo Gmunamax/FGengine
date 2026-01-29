@@ -62,6 +62,11 @@ namespace _Vector{
 	};
 
 	template<typename DataType>
+	struct VectorData<1, DataType, VectorType::Indice>{
+		DataType value;
+	};
+
+	template<typename DataType>
 	struct VectorData<1, DataType, VectorType::Point>{
 		union{
 			DataType value;

@@ -15,15 +15,17 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
 #include "FGengine/properties/transform/transform.hpp"
-#include "FGengine/objects/model/datastorer.hpp"
+#include "FGengine/properties/mesh.hpp"
 
-template<typename VertexType>
-class Model: public Transform<typename VertexType::VertexPosition::DataType>, public VertexDataStorage<VertexType>{
+template<typename VertexType, typename ElementType>
+class Model: public Transform<typename VertexType::VertexPosition::DataType>, private Mesh<VertexType, ElementType>{
+	bool visible = true;
+	Shader* shader = &nullshader;
+
 public:
 
 	Model(): Model::Transform("fg_objectmatrix", "fg_normalmatrix"){};
 
-	Shader* shader = &nullshader;
 
 	void SetShader(Shader* newshader){
 		shader = newshader;
@@ -31,18 +33,35 @@ public:
 	}
 
 	void Init(){
-		Model::VertexDataStorage::Init();
+		Model::Mesh::Init();
 	}
 
 	void Select(){
-		Model::VertexDataStorage::Select();
+		Model::Mesh::Select();
 		glUseProgram(shader->ToGL());
 	}
 
 	void Draw(){
-		Model::Select();
+		Model::Mesh::Select();
 		Model::ProceedTransformations();
 		Model::SendMatrix();
-		Model::DrawData();
+		if(visible)
+			Model::Mesh::Draw();
+	}
+
+	void Delete(){
+		Model::Mesh::Delete();
+	}
+
+	void Load(const Model::Mesh::VertexesList& vertexes, const Model::Mesh::ElementsList& elements){
+		Model::Mesh::Select();
+		Model::Mesh::Load(vertexes, elements);
+	}
+
+	void SetVisible(const bool& newvisiblity){
+		this->visible = newvisiblity;
+	}
+	const bool& GetVisiblity(){
+		return visible;
 	}
 };
