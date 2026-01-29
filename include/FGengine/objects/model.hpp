@@ -19,6 +19,8 @@
 
 template<typename VertexType, typename ElementType>
 class Model: public Transform<typename VertexType::VertexPosition::DataType>, private Mesh<VertexType, ElementType>{
+	bool visible = true;
+
 public:
 
 	Model(): Model::Transform("fg_objectmatrix", "fg_normalmatrix"){};
@@ -43,7 +45,8 @@ public:
 		Model::Mesh::Select();
 		Model::ProceedTransformations();
 		Model::SendMatrix();
-		Model::Mesh::Draw();
+		if(visible)
+			Model::Mesh::Draw();
 	}
 
 	void Delete(){
@@ -53,5 +56,12 @@ public:
 	void Load(const Model::Mesh::VertexesList& vertexes, const Model::Mesh::ElementsList& elements){
 		Model::Mesh::Select();
 		Model::Mesh::Load(vertexes, elements);
+	}
+
+	void SetVisible(const bool& newvisiblity){
+		this->visible = newvisiblity;
+	}
+	const bool& GetVisiblity(){
+		return visible;
 	}
 };
