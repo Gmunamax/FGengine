@@ -34,7 +34,7 @@ private:
 		SizeType size;
 
 		void Draw(){
-			glDrawElements(GL_TRIANGLE_STRIP, size, GL_UNSIGNED_INT, (void*)(sizeof(ElementsType) * offset));
+			glDrawElements(GL_TRIANGLE_STRIP, size, ElementsType::gldatatype(), (void*)(sizeof(ElementsType) * offset));
 		}
 	};
 	

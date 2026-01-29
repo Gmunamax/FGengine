@@ -17,8 +17,8 @@
 #include "FGengine/properties/transform/transform.hpp"
 #include "FGengine/properties/mesh.hpp"
 
-template<typename VertexType>
-class Model: public Transform<typename VertexType::VertexPosition::DataType>, private Mesh<VertexType, unsigned int>{
+template<typename VertexType, typename ElementType>
+class Model: public Transform<typename VertexType::VertexPosition::DataType>, private Mesh<VertexType, ElementType>{
 public:
 
 	Model(): Model::Transform("fg_objectmatrix", "fg_normalmatrix"){};
