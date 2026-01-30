@@ -13,25 +13,18 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <SDL2/SDL.h>
+#include "FGengine/window/window.hpp"
 
-class WindowVsync{
-	bool vsync = false;
-	bool adaptive = true;
-
-	bool needupdate = true;
-
-protected:
-	void Apply(){
-		if(needupdate){
-			SDL_GL_SetSwapInterval((-1*adaptive)*vsync);
-			needupdate = false;
-		}
+void Window::ApplyTitle(){
+	if(title_needupdate){
+		SDL_SetWindowTitle(SDL_GL_GetCurrentWindow(),title.c_str());
+		title_needupdate = false;
 	}
+}
 
-public:
-	bool GetVsync(){
-		return vsync;
-	}
-};
+void Window::SetTitle(std::string newtitle){
+	title = newtitle;
+}
+std::string Window::GetTitle(){
+	return title;
+}

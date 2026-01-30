@@ -13,29 +13,16 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <SDL2/SDL.h>
-#include "FGengine/structures/point.hpp"
+#include "FGengine/window/window.hpp"
 
-class WindowMinSize{
-	using PointType = Point2i;
-	PointType minsize {0};
-	bool needupdate = true;
+void Window::ApplyPosition(){
+	if(position_needupdate)
+		SDL_SetWindowPosition(SDL_GL_GetCurrentWindow(), position.x, position.y);
+}
 
-protected:
-	void Apply(){
-		if(needupdate){
-			SDL_SetWindowMinimumSize(SDL_GL_GetCurrentWindow(),minsize.x,minsize.y);
-			needupdate = false;
-		}
-	}
-
-public:
-	void SetMinSize(PointType newminsize){
-		minsize = newminsize;
-		needupdate = true;
-	}
-	PointType GetMinSize(){
-		return minsize;
-	}
-};
+void Window::SetPosition(Point2i newposition){
+	position = newposition;
+}
+Point2i Window::GetPosition(){
+	return position;
+}

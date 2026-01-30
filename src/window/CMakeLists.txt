@@ -17,8 +17,14 @@ cmake_minimum_required(VERSION 2.8)
 
 target_sources(FGengine
 PRIVATE
-	${CMAKE_CURRENT_SOURCE_DIR}/window.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/windowBase.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/events.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/drawing.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/cycle.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/minsize.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/vsync.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/size.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/title.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/flags.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/position.cpp
 )
-
-add_subdirectory(scene)

@@ -26,8 +26,7 @@ void mainCycle(){
 
 	while (run) {
 
-		Window::SendEvent();
-		Window::DrawAll();
+		Window::CycleAll();
 
 		SDL_Delay((1.0/60)*1000);
 	}

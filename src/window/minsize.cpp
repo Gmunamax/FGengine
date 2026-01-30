@@ -13,18 +13,19 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <SDL2/SDL.h>
+#include "FGengine/window/window.hpp"
 
-
-class WindowFlags{
-	Uint32 flags = SDL_WINDOW_OPENGL;
-
-public:
-	void SetFlags(Uint32 newflags){
-		flags = SDL_WINDOW_OPENGL | newflags;
+void Window::ApplyMinSize(){
+	if(minsize_needupdate){
+		SDL_SetWindowMinimumSize(SDL_GL_GetCurrentWindow(),minsize.x,minsize.y);
+		minsize_needupdate = false;
 	}
-	Uint32 GetFlags(){
-		return flags;
-	}
-};
+}
+
+void Window::SetMinSize(MinSizeType newminsize){
+	minsize = newminsize;
+	minsize_needupdate = true;
+}
+Window::MinSizeType Window::GetMinSize(){
+	return minsize;
+}

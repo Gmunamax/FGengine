@@ -13,27 +13,24 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <SDL2/SDL.h>
-#include <string>
+#include "FGengine/window/window.hpp"
 
-class WindowTitle{
-	std::string title;
-	bool needupdate = true;
+void Window::CycleAll(){
+	SendEvents();
+	for(Window*& w : allwindows){
+		w->Cycle();
+	}
+}
 
-protected:
-	void Apply(){
-		if(needupdate){
-			SDL_SetWindowTitle(SDL_GL_GetCurrentWindow(),title.c_str());
-			needupdate = false;
-		}
+void Window::Cycle(){
+	Select();
+	GetScene()->Cycle();
+	if(opened){
+		ApplyMinSize();
+		ApplyPosition();
+		ApplySize();
+		ApplyVsync();
+		ApplyTitle();
 	}
-
-public:
-	void SetTitle(std::string newtitle){
-		title = newtitle;
-	}
-	std::string GetTitle(){
-		return title;
-	}
-};
+	Draw();
+}
