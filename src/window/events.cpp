@@ -60,7 +60,7 @@ void Window::SendEvents(){
 }
 
 void Window::Load(){
-	scene->Loading(this);
+	scene->Loading();
 }
 
 Scene* Window::GetScene(){
@@ -68,4 +68,5 @@ Scene* Window::GetScene(){
 }
 void Window::SetScene(Scene* newscene){
 	scene = newscene;
+	scene->win = this;
 }

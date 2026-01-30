@@ -21,13 +21,14 @@
 class Window;
 
 struct Scene{
+	friend class Window;
+
+protected:
 	using PointType = Point3d;
 
 	Camera<> cam;
 
-	virtual void Loading(Window* window) {
-		this->win = window;
-	};
+	virtual void Loading() {};
 	//virtual void Placing() {};
 	virtual void Drawing() {};
 	virtual void KeyPressed(SDL_KeyboardEvent&) {};
@@ -36,7 +37,6 @@ struct Scene{
 
 	virtual void Deleting() = 0;
 
-protected:
 	Window* win;
 	Scene() {};
 };
