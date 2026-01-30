@@ -13,15 +13,24 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include "FGengine/window/window.hpp"
+#include "FGengine/objects/window.hpp"
 
-void Window::ApplyVsync(){
-	if(vsync_needupdate){
-		SDL_GL_SetSwapInterval((-1*adaptive)*vsync);
-		vsync_needupdate = false;
+void Window::CycleAll(){
+	SendEvents();
+	for(Window*& w : allwindows){
+		w->Cycle();
 	}
 }
 
-bool Window::GetVsync(){
-	return vsync;
+void Window::Cycle(){
+	Select();
+	GetScene()->Cycle();
+	if(opened){
+		ApplyMinSize();
+		ApplyPosition();
+		ApplySize();
+		ApplyVsync();
+		ApplyTitle();
+	}
+	Draw();
 }

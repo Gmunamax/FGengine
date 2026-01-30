@@ -13,18 +13,26 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include "FGengine/window/window.hpp"
+#include "FGengine/objects/window.hpp"
 
-void Window::ApplyTitle(){
-	if(title_needupdate){
-		SDL_SetWindowTitle(SDL_GL_GetCurrentWindow(),title.c_str());
-		title_needupdate = false;
+void Window::ApplySize(){
+	if(size_needupdate){
+		SDL_SetWindowSize(SDL_GL_GetCurrentWindow(), size.x, size.y);
+		Resize(size);
+		size_needupdate = false;
 	}
 }
 
-void Window::SetTitle(std::string newtitle){
-	title = newtitle;
+void Window::Resize(SizeType newsize){
+	size = newsize;
+	GetScene()->cam.Resize({0,0,newsize.x,newsize.y});
+	Update();
 }
-std::string Window::GetTitle(){
-	return title;
+
+void Window::SetSize(SizeType newsize){
+	size = newsize;
+	size_needupdate = true;
+}
+Window::SizeType Window::GetSize(){
+	return size;
 }

@@ -13,7 +13,7 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include "FGengine/window/window.hpp"
+#include "FGengine/objects/window.hpp"
 
 Window* Window::GetWindowFromID(Uint32 id){
 	return (Window*)SDL_GetWindowData(SDL_GetWindowFromID(id), GetSDLWindowDataName());

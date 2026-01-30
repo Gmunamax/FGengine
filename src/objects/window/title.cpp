@@ -13,19 +13,18 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include "FGengine/window/window.hpp"
+#include "FGengine/objects/window.hpp"
 
-void Window::ApplyMinSize(){
-	if(minsize_needupdate){
-		SDL_SetWindowMinimumSize(SDL_GL_GetCurrentWindow(),minsize.x,minsize.y);
-		minsize_needupdate = false;
+void Window::ApplyTitle(){
+	if(title_needupdate){
+		SDL_SetWindowTitle(SDL_GL_GetCurrentWindow(),title.c_str());
+		title_needupdate = false;
 	}
 }
 
-void Window::SetMinSize(MinSizeType newminsize){
-	minsize = newminsize;
-	minsize_needupdate = true;
+void Window::SetTitle(std::string newtitle){
+	title = newtitle;
 }
-Window::MinSizeType Window::GetMinSize(){
-	return minsize;
+std::string Window::GetTitle(){
+	return title;
 }
