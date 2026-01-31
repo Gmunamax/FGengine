@@ -103,15 +103,16 @@ public:
 //position
 
 private:
-	Point2i position {SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED};
+	using PositionType = Point2i;
+	PositionType position {SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED};
 	bool position_needupdate = false;
 
 protected:
 	void ApplyPosition();
 
 public:
-	void SetPosition(const Point2i& newposition);
-	const Point2i& GetPosition();
+	void SetPosition(const PositionType& newposition);
+	const PositionType& GetPosition();
 
 //position
 

@@ -20,9 +20,9 @@ void Window::ApplyPosition(){
 		SDL_SetWindowPosition(SDL_GL_GetCurrentWindow(), position.x, position.y);
 }
 
-void Window::SetPosition(const Point2i& newposition){
+void Window::SetPosition(const PositionType& newposition){
 	position = newposition;
 }
-const Point2i& Window::GetPosition(){
+const Window::PositionType& Window::GetPosition(){
 	return position;
 }
