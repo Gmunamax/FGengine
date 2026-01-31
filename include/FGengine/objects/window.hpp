@@ -147,7 +147,6 @@ public:
 private:
 	Scene* scene = nullptr;
 
-	static constexpr const char* const GetSDLWindowDataName() { return "Scene"; }
 	static Window* GetWindowFromID(const Uint32& id);
 
 	static void SendEvents();

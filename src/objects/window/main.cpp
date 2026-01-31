@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #include "FGengine/objects/window.hpp"
+#include "./windowdatanames.hpp"
 #include <SDL2/SDL.h>
 
 void Window::Select(){
@@ -43,7 +44,7 @@ void Window::Open(){
 		glEnable(GL_DEPTH_CLAMP);
 		glDepthRange(0.5,100);
 
-		SDL_SetWindowData(win, GetSDLWindowDataName(), this);
+		SDL_SetWindowData(win, WindowDataNames::thisclasspointer, this);
 		if(scene != nullptr)
 			scene->Load();
 		opened = true;
