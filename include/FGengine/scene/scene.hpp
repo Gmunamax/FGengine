@@ -32,7 +32,7 @@ protected:
 	virtual void KeyReleased(SDL_KeyboardEvent&) {};
 	virtual void Cycle() {};
 
-	virtual void Deleting() = 0;
+	virtual void Deleting() {};
 
 	Scene() {};
 };
