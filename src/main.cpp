@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #include "FGengine/main.hpp"
-#include "FGengine/window/window.hpp"
+#include "FGengine/objects/window.hpp"
 
 static bool run = true;
 
@@ -26,8 +26,7 @@ void mainCycle(){
 
 	while (run) {
 
-		Window::SendEvent();
-		Window::DrawAll();
+		Window::CycleAll();
 
 		SDL_Delay((1.0/60)*1000);
 	}

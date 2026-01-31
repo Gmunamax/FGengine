@@ -13,9 +13,4 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, see <https://www.gnu.org/licenses/>.
-cmake_minimum_required(VERSION 2.8)
-
-target_sources(FGengine
-PRIVATE
-	${CMAKE_CURRENT_SOURCE_DIR}/scene.cpp
-)
+add_subdirectory(window)

@@ -13,18 +13,24 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <SDL2/SDL.h>
+#include "FGengine/objects/window.hpp"
 
-
-class WindowFlags{
-	Uint32 flags = SDL_WINDOW_OPENGL;
-
-public:
-	void SetFlags(Uint32 newflags){
-		flags = SDL_WINDOW_OPENGL | newflags;
+void Window::CycleAll(){
+	SendEvents();
+	for(Window*& w : allwindows){
+		w->Cycle();
 	}
-	Uint32 GetFlags(){
-		return flags;
+}
+
+void Window::Cycle(){
+	Select();
+	GetScene()->Cycle();
+	if(opened){
+		ApplyMinSize();
+		ApplyPosition();
+		ApplySize();
+		ApplyVsync();
+		ApplyTitle();
 	}
-};
+	Draw();
+}

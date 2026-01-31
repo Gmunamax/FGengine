@@ -13,57 +13,32 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include "FGengine/window/window.hpp"
-#include <SDL2/SDL.h>
-#include <iostream>
+#include "FGengine/objects/window.hpp"
+#include "./windowdatanames.hpp"
 
-void Window::AddSelf(){
-	allwindows.push_back(this);
-	vectorpos = allwindows.size() - 1;
+Window* Window::GetWindowFromID(const Uint32& id){
+	return (Window*)SDL_GetWindowData(SDL_GetWindowFromID(id), WindowDataNames::thisclasspointer);
 }
 
-void Window::RemoveSelf(){
-	allwindows.erase(allwindows.begin() + vectorpos);
-}
-
-Window::Window(){
-	AddSelf();
-}
-
-Window::~Window(){
-	RemoveSelf();
-	Close();
-}
-
-void Window::Load(){
-	scene->Loading(this);
-}
-
-void Window::CloseAll(){
-	for(Window* w : allwindows){
-		w->Close();
-	}
-}
-
-bool needupdateevent = true;
-SDL_Event event;
-void Window::SendEvent(){
-
-	WindowBase* windowptr;
+void Window::SendEvents(){
+	static SDL_Event event;
+	Window* windowptr;
 	while(SDL_PollEvent(&event)){
-		
+
 		switch(event.type){
 
 		case SDL_KEYDOWN:
 			windowptr = GetWindowFromID(event.key.windowID);
-			if(windowptr != nullptr) 
-				windowptr->EventKeyPressed(event.key);
+			if(windowptr != nullptr)
+				if(windowptr->scene != nullptr)
+					windowptr->scene->KeyPressed(event.key);
 			break;
 
 		case SDL_KEYUP:
 			windowptr = GetWindowFromID(event.key.windowID);
 			if(windowptr != nullptr)
-				windowptr->EventKeyReleased(event.key);
+				if(windowptr->scene != nullptr)
+					windowptr->scene->KeyReleased(event.key);
 			break;
 
 		case SDL_WINDOWEVENT:
@@ -80,17 +55,30 @@ void Window::SendEvent(){
 				break;
 			}
 			break;
-			
+
 		}
 	}
 }
 
-void Window::DrawAll(){
-	for(Window* w : allwindows){
-		w->Select();
-		w->GetScene()->Cycle();
-		w->Apply();
+void Window::BindWindowToScene(){
+	scene->win = this;
+	if(opened){
+		Select();
+		scene->Load();
+	}
+}
 
-		w->Draw();
-	}		
+Scene* const& Window::GetScene(){
+	return scene;
+}
+void Window::SetScene(Scene* const& newscene){
+	scene = newscene;
+	if(scene->win != nullptr){
+		if(scene->win->glcon != this->glcon){
+			BindWindowToScene();
+		}
+	}
+	else{
+		BindWindowToScene();
+	}
 }

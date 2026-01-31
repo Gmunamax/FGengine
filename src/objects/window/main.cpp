@@ -13,58 +13,65 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include "FGengine/window/windowBase.hpp"
+#include "FGengine/objects/window.hpp"
+#include "./windowdatanames.hpp"
+#include <SDL2/SDL.h>
 
-void WindowBase::InitBackend(){
-		GLenum glewres = glewInit();
-	if(glewres != GLEW_OK)
-		std::cout << glewGetErrorString(glewres) << std::endl;
-
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_DEPTH_CLAMP);
-	glDepthRange(0.5,100);
-}
-
-WindowBase* WindowBase::GetWindowFromID(Uint32 id){
-	return static_cast<WindowBase*>(SDL_GetWindowData(SDL_GetWindowFromID(id), windowdataname));
-}
-
-void WindowBase::Apply(){
-	if(opened){
-		WindowTitle::Apply();
-		WindowSize::Apply();
-		WindowVsync::Apply();
-		WindowMinSize::Apply();
-	}
-}
-
-void WindowBase::Select(){
+void Window::Select(){
 	if(opened){
 		SDL_GL_MakeCurrent(win,glcon);
 	}
 }
 
-void SDL_TestForNull(void* pointer){
-	if(pointer == nullptr){
-		throw SDL_GetError();
-	}
-}
-
-void WindowBase::Open(){
+void Window::Open(){
 	if(not opened){
-		win = SDL_CreateWindow(GetTitle().c_str(),GetPosition().x,GetPosition().y,GetSize().x,GetSize().y,GetFlags());
-		SDL_TestForNull(win);
+		win = SDL_CreateWindow(GetTitle().c_str(), GetPosition().x, GetPosition().y, GetSize().x, GetSize().y, GetFlags());
+		if(win == nullptr){
+			throw SDL_GetError();
+		}
+
 		glcon = SDL_GL_CreateContext(win);
-		SDL_TestForNull(glcon);
-		InitBackend();
-		SDL_SetWindowData(win,windowdataname,this);
+		if(glcon == nullptr){
+			throw SDL_GetError();
+		}
+
+		GLenum glewres = glewInit();
+		if(glewres != GLEW_OK){
+			throw glewGetErrorString(glewres);
+		}
+
+		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_DEPTH_CLAMP);
+		glDepthRange(0.5,100);
+
+		SDL_SetWindowData(win, WindowDataNames::thisclasspointer, this);
+		if(scene != nullptr)
+			scene->Load();
 		opened = true;
 	}
 }
-void WindowBase::Close(){
+
+void Window::Close(){
 	if(opened){
-		SDL_DestroyWindow(win);
 		SDL_GL_DeleteContext(glcon);
+		SDL_DestroyWindow(win);
 		opened = false;
 	}
+}
+
+void Window::CloseAll(){
+	for(Window* w : allwindows){
+		w->Close();
+	}
+}
+
+
+Window::Window(){
+	allwindows.push_back(this);
+	vectorpos = allwindows.size() - 1;
+}
+
+Window::~Window(){
+	Close();
+	allwindows.erase(allwindows.begin() + vectorpos);
 }

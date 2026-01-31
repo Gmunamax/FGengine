@@ -13,30 +13,18 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <vector>
-#include "windowBase.hpp"
+#include "FGengine/objects/window.hpp"
 
+void Window::ApplyTitle(){
+	if(title_needupdate){
+		SDL_SetWindowTitle(SDL_GL_GetCurrentWindow(),title.c_str());
+		title_needupdate = false;
+	}
+}
 
-
-class Window: public WindowBase{
-
-	static inline std::vector<Window*> allwindows;
-	std::vector<Window*>::size_type vectorpos;
-
-	void AddSelf();
-
-	void RemoveSelf();
-
-public:
-
-	Window();
-	~Window();
-
-	static void CloseAll();
-
-	void Load();
-
-	static void SendEvent();
-	static void DrawAll();
-};
+void Window::SetTitle(const std::string& newtitle){
+	title = newtitle;
+}
+const std::string& Window::GetTitle(){
+	return title;
+}

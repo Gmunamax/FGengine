@@ -13,12 +13,11 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include <iostream>
-#include "FGengine/window/windowScene.hpp"
+#include "FGengine/objects/window.hpp"
 
-void WindowDrawing::Draw(){
+void Window::Draw(){
 	if(frameskip <= 0){
-		if(needupdate){
+		if(drawing_needupdate){
 
 			t1 = std::chrono::steady_clock::now();
 
@@ -31,13 +30,12 @@ void WindowDrawing::Draw(){
 			std::chrono::nanoseconds t = (t2 - t1);
 
 
-			needupdate = false;
+			drawing_needupdate = false;
 
 			glFlush();
 
 			frameskip = std::chrono::duration_cast<std::chrono::milliseconds>(t).count()/frametime;
 
-			long long f = (frametime *1000 *1000); //nanoseconds
 			stepsize = ((double)t.count()/frametime)*(frameskip+1);
 			stepsize = stepsize /1000 /1000; //to miliseconds
 
@@ -51,4 +49,16 @@ void WindowDrawing::Draw(){
 	else{
 		frameskip--;
 	}
+}
+
+const double& Window::GetStepCoefficient(){
+	return stepsize;
+}
+
+void Window::SetFPS(const short& newfps){
+	frametime = 1.0/newfps*1000;
+}
+
+void Window::Update(){
+	drawing_needupdate = true;
 }

@@ -13,39 +13,26 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <SDL2/SDL.h>
-#include "FGengine/scene/scene.hpp"
-#include "FGengine/structures/point.hpp"
+#include "FGengine/objects/window.hpp"
 
-class WindowSize: virtual public WindowScene{
-	using PointType = Point2i;
-
-	PointType size {0,0};
-	bool needupdate = true;
-
-protected:
-	void Apply(){
-		if(needupdate){
-			SDL_SetWindowSize(SDL_GL_GetCurrentWindow(), size.x, size.y);
-			Resize(size);
-			needupdate = false;
-		}
-
+void Window::ApplySize(){
+	if(size_needupdate){
+		SDL_SetWindowSize(SDL_GL_GetCurrentWindow(), size.x, size.y);
+		Resize(size);
+		size_needupdate = false;
 	}
+}
 
-	void Resize(PointType newsize){
-		size = newsize;
-		GetScene()->cam.Resize({0,0,newsize.x,newsize.y});
-		Update();
-	}
+void Window::Resize(const SizeType& newsize){
+	size = newsize;
+	GetScene()->cam.Resize({0,0,newsize.x,newsize.y});
+	Update();
+}
 
-public:
-	void SetSize(PointType newsize){
-		size = newsize;
-		needupdate = true;
-	}
-	PointType GetSize(){
-		return size;
-	}
-};
+void Window::SetSize(const SizeType& newsize){
+	size = newsize;
+	size_needupdate = true;
+}
+const Window::SizeType& Window::GetSize(){
+	return size;
+}

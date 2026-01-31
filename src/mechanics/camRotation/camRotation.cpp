@@ -16,7 +16,7 @@
 #include <iostream>
 #include "FGengine/structures/point.hpp"
 #include "FGengine/objects/camera/camera.hpp"
-#include "FGengine/window/window.hpp"
+#include "FGengine/objects/window.hpp"
 #include "camRotation.hpp"
 
 void CamRotation::UpdateFlags(SDL_KeyboardEvent& key, bool newval){

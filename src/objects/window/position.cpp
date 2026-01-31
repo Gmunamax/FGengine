@@ -13,37 +13,16 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <SDL2/SDL.h>
-#include <GL/glew.h>
-#include <iostream>
+#include "FGengine/objects/window.hpp"
 
-#include "windowScene.hpp"
-#include "data/position.hpp"
-#include "data/flags.hpp"
-#include "data/title.hpp"
-#include "data/size.hpp"
-#include "data/vsync.hpp"
-#include "data/minSize.hpp"
+void Window::ApplyPosition(){
+	if(position_needupdate)
+		SDL_SetWindowPosition(SDL_GL_GetCurrentWindow(), position.x, position.y);
+}
 
-class WindowBase: public WindowPosition, public WindowFlags, public WindowTitle, public WindowSize, public WindowVsync, public WindowMinSize{
-	friend class Window;
-	static inline const char* windowdataname = "Scene";
-
-	SDL_GLContext glcon;
-	SDL_Window* win;
-	bool opened = false;
-
-	void InitBackend();
-
-protected:
-	static WindowBase* GetWindowFromID(Uint32 id);
-
-	void Apply();
-
-public:
-	void Select();
-
-	void Open();
-	void Close();
-};
+void Window::SetPosition(const PositionType& newposition){
+	position = newposition;
+}
+const Window::PositionType& Window::GetPosition(){
+	return position;
+}

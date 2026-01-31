@@ -20,7 +20,7 @@ add_compile_options(-fPIC)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
-add_subdirectory(window)
+add_subdirectory(objects)
 add_subdirectory(shaders)
 
 find_package(SDL2 2.32 REQUIRED)
