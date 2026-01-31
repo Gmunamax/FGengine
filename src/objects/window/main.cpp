@@ -45,7 +45,7 @@ void Window::Open(){
 
 		SDL_SetWindowData(win, GetSDLWindowDataName(), this);
 		if(scene != nullptr)
-			scene->Loading();
+			scene->Load();
 		opened = true;
 	}
 }

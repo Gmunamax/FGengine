@@ -28,7 +28,7 @@ protected:
 
 	Camera<> cam;
 
-	virtual void Loading() {};
+	virtual void Load() {};
 	//virtual void Placing() {};
 	virtual void Drawing() {};
 	virtual void KeyPressed(SDL_KeyboardEvent&) {};

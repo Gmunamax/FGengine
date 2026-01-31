@@ -63,7 +63,7 @@ void Window::BindWindowToScene(){
 	scene->win = this;
 	if(opened){
 		Select();
-		scene->Loading();
+		scene->Load();
 	}
 }
 
