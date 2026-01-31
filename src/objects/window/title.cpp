@@ -22,9 +22,9 @@ void Window::ApplyTitle(){
 	}
 }
 
-void Window::SetTitle(std::string newtitle){
+void Window::SetTitle(const std::string& newtitle){
 	title = newtitle;
 }
-std::string Window::GetTitle(){
+const std::string& Window::GetTitle(){
 	return title;
 }

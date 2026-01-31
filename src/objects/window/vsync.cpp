@@ -22,6 +22,6 @@ void Window::ApplyVsync(){
 	}
 }
 
-bool Window::GetVsync(){
+const bool& Window::GetVsync(){
 	return vsync;
 }

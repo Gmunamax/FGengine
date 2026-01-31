@@ -15,7 +15,7 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #include "FGengine/objects/window.hpp"
 
-Window* Window::GetWindowFromID(Uint32 id){
+Window* Window::GetWindowFromID(const Uint32& id){
 	return (Window*)SDL_GetWindowData(SDL_GetWindowFromID(id), GetSDLWindowDataName());
 }
 
@@ -67,10 +67,10 @@ void Window::BindWindowToScene(){
 	}
 }
 
-Scene* Window::GetScene(){
+Scene* const& Window::GetScene(){
 	return scene;
 }
-void Window::SetScene(Scene* newscene){
+void Window::SetScene(Scene* const& newscene){
 	scene = newscene;
 	if(scene->win != nullptr){
 		if(scene->win->glcon != this->glcon){

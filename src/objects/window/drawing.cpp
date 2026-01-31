@@ -51,11 +51,11 @@ void Window::Draw(){
 	}
 }
 
-double Window::GetStepCoefficient(){
+const double& Window::GetStepCoefficient(){
 	return stepsize;
 }
 
-void Window::SetFPS(short newfps){
+void Window::SetFPS(const short& newfps){
 	frametime = 1.0/newfps*1000;
 }
 

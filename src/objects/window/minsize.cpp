@@ -22,10 +22,10 @@ void Window::ApplyMinSize(){
 	}
 }
 
-void Window::SetMinSize(MinSizeType newminsize){
+void Window::SetMinSize(const MinSizeType& newminsize){
 	minsize = newminsize;
 	minsize_needupdate = true;
 }
-Window::MinSizeType Window::GetMinSize(){
+const Window::MinSizeType& Window::GetMinSize(){
 	return minsize;
 }

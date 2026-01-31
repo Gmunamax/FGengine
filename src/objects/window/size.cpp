@@ -23,16 +23,16 @@ void Window::ApplySize(){
 	}
 }
 
-void Window::Resize(SizeType newsize){
+void Window::Resize(const SizeType& newsize){
 	size = newsize;
 	GetScene()->cam.Resize({0,0,newsize.x,newsize.y});
 	Update();
 }
 
-void Window::SetSize(SizeType newsize){
+void Window::SetSize(const SizeType& newsize){
 	size = newsize;
 	size_needupdate = true;
 }
-Window::SizeType Window::GetSize(){
+const Window::SizeType& Window::GetSize(){
 	return size;
 }

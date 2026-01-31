@@ -31,8 +31,8 @@ private:
 	void ApplyMinSize();
 
 public:
-	void SetMinSize(MinSizeType newminsize);
-	MinSizeType GetMinSize();
+	void SetMinSize(const MinSizeType& newminsize);
+	const MinSizeType& GetMinSize();
 
 //minsize
 
@@ -48,7 +48,7 @@ private:
 	void ApplyVsync();
 
 public:
-	bool GetVsync();
+	const bool& GetVsync();
 
 //vsync
 
@@ -63,11 +63,11 @@ private:
 
 	void ApplySize();
 
-	void Resize(SizeType newsize);
+	void Resize(const SizeType& newsize);
 
 public:
-	void SetSize(SizeType newsize);
-	SizeType GetSize();
+	void SetSize(const SizeType& newsize);
+	const SizeType& GetSize();
 
 //size
 
@@ -82,8 +82,8 @@ protected:
 	void ApplyTitle();
 
 public:
-	void SetTitle(std::string newtitle);
-	std::string GetTitle();
+	void SetTitle(const std::string& newtitle);
+	const std::string& GetTitle();
 
 //title
 
@@ -94,8 +94,8 @@ private:
 	Uint32 flags = SDL_WINDOW_OPENGL;
 
 public:
-	void SetFlags(Uint32 newflags);
-	Uint32 GetFlags();
+	void SetFlags(const Uint32& newflags);
+	const Uint32& GetFlags();
 
 //flags
 
@@ -110,8 +110,8 @@ protected:
 	void ApplyPosition();
 
 public:
-	void SetPosition(Point2i newposition);
-	Point2i GetPosition();
+	void SetPosition(const Point2i& newposition);
+	const Point2i& GetPosition();
 
 //position
 
@@ -133,9 +133,9 @@ private:
 	void Draw();
 
 public:
-	double GetStepCoefficient();
+	const double& GetStepCoefficient();
 	
-	void SetFPS(short newfps);
+	void SetFPS(const short& newfps);
 
 	void Update();
 
@@ -148,15 +148,15 @@ private:
 	Scene* scene = nullptr;
 
 	static constexpr const char* const GetSDLWindowDataName() { return "Scene"; }
-	static Window* GetWindowFromID(Uint32 id);
+	static Window* GetWindowFromID(const Uint32& id);
 
 	static void SendEvents();
 
 	void BindWindowToScene();
 	
 public:
-	Scene* GetScene();
-	void SetScene(Scene* newscene);
+	Scene* const& GetScene();
+	void SetScene(Scene* const& newscene);
 
 //events
 
