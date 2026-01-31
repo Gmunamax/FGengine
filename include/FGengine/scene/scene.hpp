@@ -16,7 +16,6 @@
 #pragma once
 #include <SDL2/SDL.h>
 #include "FGengine/objects/camera.hpp"
-#include "FGengine/structures/vertex.hpp"
 
 class Window;
 
@@ -24,12 +23,10 @@ struct Scene{
 	friend class Window;
 
 protected:
-	using PointType = Point3d;
-
 	Camera<> cam;
+	Window* win;
 
 	virtual void Load() {};
-	//virtual void Placing() {};
 	virtual void Drawing() {};
 	virtual void KeyPressed(SDL_KeyboardEvent&) {};
 	virtual void KeyReleased(SDL_KeyboardEvent&) {};
@@ -37,6 +34,5 @@ protected:
 
 	virtual void Deleting() = 0;
 
-	Window* win;
 	Scene() {};
 };
