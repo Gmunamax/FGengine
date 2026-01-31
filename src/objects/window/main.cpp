@@ -44,6 +44,8 @@ void Window::Open(){
 		glDepthRange(0.5,100);
 
 		SDL_SetWindowData(win, GetSDLWindowDataName(), this);
+		if(scene != nullptr)
+			scene->Loading();
 		opened = true;
 	}
 }

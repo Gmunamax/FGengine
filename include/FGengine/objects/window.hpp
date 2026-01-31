@@ -152,9 +152,9 @@ private:
 
 	static void SendEvents();
 
+	void BindWindowToScene();
+	
 public:
-	void Load();
-
 	Scene* GetScene();
 	void SetScene(Scene* newscene);
 

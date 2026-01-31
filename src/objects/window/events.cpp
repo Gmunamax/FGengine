@@ -59,8 +59,12 @@ void Window::SendEvents(){
 	}
 }
 
-void Window::Load(){
-	scene->Loading();
+void Window::BindWindowToScene(){
+	scene->win = this;
+	if(opened){
+		Select();
+		scene->Loading();
+	}
 }
 
 Scene* Window::GetScene(){
@@ -68,5 +72,12 @@ Scene* Window::GetScene(){
 }
 void Window::SetScene(Scene* newscene){
 	scene = newscene;
-	scene->win = this;
+	if(scene->win != nullptr){
+		if(scene->win->glcon != this->glcon){
+			BindWindowToScene();
+		}
+	}
+	else{
+		BindWindowToScene();
+	}
 }
