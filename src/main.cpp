@@ -17,9 +17,19 @@
 #include "FGengine/objects/window.hpp"
 
 static bool run = true;
+static double cycletime = 0;
 
 void quit(){
 	run = false;
+}
+
+void setCycleRate(int hz){
+	cycletime = 1.0f/hz * 1000;
+}
+
+static void quitOnEndOfMainCycle(){
+	Window::CloseAll();
+	SDL_Quit();
 }
 
 void mainCycle(){
@@ -28,13 +38,12 @@ void mainCycle(){
 
 		Window::CycleAll();
 
-		SDL_Delay((1.0/60)*1000);
+		SDL_Delay(cycletime);
 	}
 	
-	Window::CloseAll();
-	SDL_Quit();
+	quitOnEndOfMainCycle();
 }
 
 void init(){
-	SDL_Init(SDL_INIT_EVERYTHING);
+	SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO | SDL_INIT_EVENTS);
 }
