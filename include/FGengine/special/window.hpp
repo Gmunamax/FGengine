@@ -42,16 +42,23 @@ public:
 
 //vsync
 
+public:
+	enum class VsyncModes{
+		Off = 0,
+		On = 1,
+		Adaptive = -1
+	};
+
 private:
-	bool vsync = false;
-	bool adaptive = true;
+	VsyncModes vsyncmode;
 
 	bool vsync_needupdate = true;
 
 	void ApplyVsync();
 
 public:
-	const bool& GetVsync();
+	void SetVsyncMode(const VsyncModes& newstate);
+	const VsyncModes& GetVsyncMode();
 
 //vsync
 
