@@ -17,6 +17,8 @@
 #include "FGengine/objects/camera.hpp"
 #endif
 
+namespace FGengine{
+
 template<typename PointType>
 void Camera<PointType>::SetAspectRatio(const double& newaspectratio){
 	aspectratio = newaspectratio;
@@ -25,4 +27,6 @@ void Camera<PointType>::SetAspectRatio(const double& newaspectratio){
 template<typename PointType>
 const double& Camera<PointType>::GetAspectRatio() const{
 	return aspectratio;
+}
+
 }

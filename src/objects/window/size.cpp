@@ -15,6 +15,8 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #include "FGengine/objects/window.hpp"
 
+namespace FGengine{
+
 void Window::ApplySize(){
 	if(size_needupdate){
 		SDL_SetWindowSize(SDL_GL_GetCurrentWindow(), size.x, size.y);
@@ -35,4 +37,6 @@ void Window::SetSize(const SizeType& newsize){
 }
 const Window::SizeType& Window::GetSize(){
 	return size;
+}
+
 }

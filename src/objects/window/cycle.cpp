@@ -15,6 +15,8 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #include "FGengine/objects/window.hpp"
 
+namespace FGengine{
+
 void Window::CycleAll(){
 	SendEvents();
 	for(Window*& w : allwindows){
@@ -33,4 +35,6 @@ void Window::Cycle(){
 		ApplyTitle();
 	}
 	Draw();
+}
+
 }

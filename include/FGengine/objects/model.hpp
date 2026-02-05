@@ -17,6 +17,8 @@
 #include "FGengine/properties/transform/transform.hpp"
 #include "FGengine/properties/mesh.hpp"
 
+namespace FGengine{
+
 template<typename VertexType, typename ElementType>
 class Model: public Transform<typename VertexType::VertexPosition::DataType>, private Mesh<VertexType, ElementType>{
 	bool visible = true;
@@ -65,3 +67,5 @@ public:
 		return visible;
 	}
 };
+
+}

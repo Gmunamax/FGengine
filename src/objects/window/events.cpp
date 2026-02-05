@@ -16,6 +16,8 @@
 #include "FGengine/objects/window.hpp"
 #include "./windowdatanames.hpp"
 
+namespace FGengine{
+
 Window* Window::GetWindowFromID(const Uint32& id){
 	return (Window*)SDL_GetWindowData(SDL_GetWindowFromID(id), WindowDataNames::thisclasspointer);
 }
@@ -81,4 +83,6 @@ void Window::SetScene(Scene* const& newscene){
 	else{
 		BindWindowToScene();
 	}
+}
+
 }

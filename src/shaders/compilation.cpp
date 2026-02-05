@@ -15,6 +15,8 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #include "compilation.hpp"
 
+namespace FGengine{
+
 static const char* const fileNotFoundError = "File not found";
 static const char* const linkFailedError = "Shader link failed";
 
@@ -97,3 +99,5 @@ static void DeleteParts(std::vector<GLuint> parts){
 }
 
 Shader nullshader{};
+
+}

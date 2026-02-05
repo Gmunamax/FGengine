@@ -15,6 +15,10 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
 
+namespace FGengine{
+
 namespace WindowDataNames{
 	const char* const thisclasspointer = "0";
+}
+
 }

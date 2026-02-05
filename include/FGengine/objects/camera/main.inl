@@ -17,6 +17,8 @@
 #include "FGengine/objects/camera.hpp"
 #endif
 
+namespace FGengine{
+
 template<typename PointType>
 void Camera<PointType>::StartDrawing(){
 
@@ -27,4 +29,6 @@ void Camera<PointType>::StartDrawing(){
 	Camera::ProceedTransformations();
 	Camera::ProceedProjection();
 	Camera::SendMatrix();
+}
+
 }

@@ -15,6 +15,8 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #include "FGengine/objects/window.hpp"
 
+namespace FGengine{
+
 void Window::ApplyTitle(){
 	if(title_needupdate){
 		SDL_SetWindowTitle(SDL_GL_GetCurrentWindow(),title.c_str());
@@ -27,4 +29,6 @@ void Window::SetTitle(const std::string& newtitle){
 }
 const std::string& Window::GetTitle(){
 	return title;
+}
+
 }

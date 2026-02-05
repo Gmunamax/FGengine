@@ -16,6 +16,8 @@
 #include "FGengine/main.hpp"
 #include "FGengine/objects/window.hpp"
 
+namespace FGengine{
+
 static bool run = true;
 static double cycletime = 0;
 
@@ -46,4 +48,6 @@ void mainCycle(){
 
 void init(){
 	SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO | SDL_INIT_EVENTS);
+}
+
 }

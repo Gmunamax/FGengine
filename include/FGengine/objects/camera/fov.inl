@@ -17,6 +17,8 @@
 #include "FGengine/objects/camera.hpp"
 #endif
 
+namespace FGengine{
+
 template<typename PointType>
 void Camera<PointType>::SetFOV(const double& newfov){
 	this->fov = glm::radians(newfov);
@@ -25,4 +27,6 @@ void Camera<PointType>::SetFOV(const double& newfov){
 template<typename PointType>
 const double& Camera<PointType>::GetFOV() const{
 	return fov;
+}
+
 }

@@ -17,6 +17,8 @@
 #include <SDL2/SDL.h>
 #include "FGengine/objects/camera.hpp"
 
+namespace FGengine{
+
 class Window;
 
 struct Scene{
@@ -36,3 +38,5 @@ protected:
 
 	Scene() {};
 };
+
+}

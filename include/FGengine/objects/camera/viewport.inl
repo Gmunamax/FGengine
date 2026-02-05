@@ -17,6 +17,8 @@
 #include "FGengine/objects/camera.hpp"
 #endif
 
+namespace FGengine{
+
 template<typename PointType>
 void Camera<PointType>::SetViewportGeom(const Geometry2i& newgeom){
 	glViewport(newgeom.x,newgeom.y,newgeom.w,newgeom.h);
@@ -43,4 +45,6 @@ void Camera<PointType>::Resize(const Geometry2i& newviewport){
 		SetUI();
 		break;
 	}
+}
+
 }

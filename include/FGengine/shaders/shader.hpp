@@ -22,6 +22,8 @@
 #include <GL/glew.h>
 #include "uniform.hpp"
 
+namespace FGengine{
+
 class Shader{
 
 	class ShadersList{
@@ -166,3 +168,5 @@ public:
 };
 
 extern Shader nullshader;
+
+}

@@ -17,6 +17,8 @@
 #include <GL/glew.h>
 #include <vector>
 
+namespace FGengine{
+
 template<typename VertexType, typename ElementsType>
 class Mesh{
 private:
@@ -97,3 +99,5 @@ public:
 	}
 
 };
+
+}

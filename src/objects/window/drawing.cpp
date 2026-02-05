@@ -15,6 +15,8 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #include "FGengine/objects/window.hpp"
 
+namespace FGengine{
+
 void Window::Draw(){
 	if(frameskip <= 0){
 		if(drawing_needupdate){
@@ -61,4 +63,6 @@ void Window::SetFPS(const short& newfps){
 
 void Window::Update(){
 	drawing_needupdate = true;
+}
+
 }

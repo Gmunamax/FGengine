@@ -16,8 +16,12 @@
 #pragma once
 #include "vector.hpp"
 
+namespace FGengine{
+
 using Color3f = _Vector::Vector<3,float, _Vector::VectorType::Color>;
 using Color3d = _Vector::Vector<3,double, _Vector::VectorType::Color>;
 
 using Color4f = _Vector::Vector<4,float, _Vector::VectorType::Color>;
 using Color4d = _Vector::Vector<4,double, _Vector::VectorType::Color>;
+
+}

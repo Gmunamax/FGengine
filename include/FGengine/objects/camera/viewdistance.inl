@@ -17,6 +17,8 @@
 #include "FGengine/objects/camera.hpp"
 #endif
 
+namespace FGengine{
+
 template<typename PointType>
 void Camera<PointType>::SetNearDistance(const double& newNearDistance){
 	viewdistance[0] = newNearDistance;
@@ -45,4 +47,6 @@ const double& Camera<PointType>::GetFarDistance() const{
 template<typename PointType>
 const Point2d& Camera<PointType>::GetDistance() const{
 	return viewdistance;
+}
+
 }

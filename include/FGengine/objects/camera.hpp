@@ -20,6 +20,8 @@
 #include "FGengine/properties/transform/worldpoint.hpp"
 #include "FGengine/shaders/shader.hpp"
 
+namespace FGengine{
+
 template<typename PointType = Point3d>
 class Camera: public WorldPoint<PointType>{
 //uniform
@@ -129,6 +131,8 @@ public:
 
 //main
 };
+
+}
 
 #include "camera/uniform.inl"
 #include "camera/aspectratio.inl"

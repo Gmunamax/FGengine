@@ -15,9 +15,13 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #include "FGengine/objects/window.hpp"
 
+namespace FGengine{
+
 void Window::SetFlags(const Uint32& newflags){
 	flags = SDL_WINDOW_OPENGL | newflags;
 }
 const Uint32& Window::GetFlags(){
 	return flags;
+}
+
 }

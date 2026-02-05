@@ -15,6 +15,8 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #include "FGengine/objects/window.hpp"
 
+namespace FGengine{
+
 void Window::ApplyVsync(){
 	if(vsync_needupdate){
 		SDL_GL_SetSwapInterval((-1*adaptive)*vsync);
@@ -24,4 +26,6 @@ void Window::ApplyVsync(){
 
 const bool& Window::GetVsync(){
 	return vsync;
+}
+
 }

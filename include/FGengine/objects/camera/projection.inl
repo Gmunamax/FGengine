@@ -17,6 +17,8 @@
 #include "FGengine/objects/camera.hpp"
 #endif
 
+namespace FGengine{
+
 template<typename PointType>
 void Camera<PointType>::SetFrustum(){
 	glDepthFunc(GL_LESS);
@@ -59,4 +61,6 @@ void Camera<PointType>::ProceedProjection(){
 		}
 		needupdateprojection = false;
 	}
+}
+
 }

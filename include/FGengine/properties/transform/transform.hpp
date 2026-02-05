@@ -17,6 +17,8 @@
 #include "FGengine/shaders/uniform.hpp"
 #include "FGengine/shaders/shader.hpp"
 
+namespace FGengine{
+
 template<typename PointType>
 class Transform{
 
@@ -100,3 +102,5 @@ public:
 	Transform(const char* uniformname, const char* normaluniformname): objm(uniformname), normalm(normaluniformname){}
 
 };
+
+}

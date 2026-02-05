@@ -17,6 +17,8 @@
 #include "FGengine/objects/camera.hpp"
 #endif
 
+namespace FGengine{
+
 template<typename PointType>
 void Camera<PointType>::SetBackgroundColor(const Color4d& newbgcolor){
 	backgroundcolor = newbgcolor;
@@ -25,4 +27,6 @@ void Camera<PointType>::SetBackgroundColor(const Color4d& newbgcolor){
 template<typename PointType>
 const Color4d& Camera<PointType>::GetBackgroundColor() const{
 	return backgroundcolor;
+}
+
 }

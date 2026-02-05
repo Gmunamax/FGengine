@@ -17,6 +17,8 @@
 #include "./windowdatanames.hpp"
 #include <SDL2/SDL.h>
 
+namespace FGengine{
+
 void Window::Select(){
 	if(opened){
 		SDL_GL_MakeCurrent(win,glcon);
@@ -74,4 +76,6 @@ Window::Window(){
 Window::~Window(){
 	Close();
 	allwindows.erase(allwindows.begin() + vectorpos);
+}
+
 }

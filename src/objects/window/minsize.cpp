@@ -15,6 +15,8 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #include "FGengine/objects/window.hpp"
 
+namespace FGengine{
+
 void Window::ApplyMinSize(){
 	if(minsize_needupdate){
 		SDL_SetWindowMinimumSize(SDL_GL_GetCurrentWindow(),minsize.x,minsize.y);
@@ -28,4 +30,6 @@ void Window::SetMinSize(const MinSizeType& newminsize){
 }
 const Window::MinSizeType& Window::GetMinSize(){
 	return minsize;
+}
+
 }

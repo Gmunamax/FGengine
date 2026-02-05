@@ -16,8 +16,12 @@
 #pragma once
 #include <SDL2/SDL.h>
 
+namespace FGengine{
+
 void quit();
 
 void mainCycle();
 
 void init();
+
+}

@@ -15,6 +15,8 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #include "FGengine/objects/window.hpp"
 
+namespace FGengine{
+
 void Window::ApplyPosition(){
 	if(position_needupdate)
 		SDL_SetWindowPosition(SDL_GL_GetCurrentWindow(), position.x, position.y);
@@ -25,4 +27,6 @@ void Window::SetPosition(const PositionType& newposition){
 }
 const Window::PositionType& Window::GetPosition(){
 	return position;
+}
+
 }

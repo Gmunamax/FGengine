@@ -19,6 +19,8 @@
 #include <string>
 #include <GL/glew.h>
 
+namespace FGengine{
+
 namespace Uniforms{
 
 	template<typename ValueType>
@@ -70,5 +72,7 @@ namespace Uniforms{
 	using Umat3 = Uniform<glm::dmat3>;
 	using Uvec4 = Uniform<glm::dvec4>;
 	using Uvec3 = Uniform<glm::dvec3>;
+
+}
 
 }

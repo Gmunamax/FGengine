@@ -16,6 +16,8 @@
 #pragma once
 #include "FGengine/shaders/shader.hpp"
 
+namespace FGengine{
+
 template<typename PointType>
 class WorldPoint{
 	Uniforms::Umat4 mat;
@@ -67,3 +69,5 @@ public:
 
 	WorldPoint(const char* const uniformname): mat(uniformname){}
 };
+
+}

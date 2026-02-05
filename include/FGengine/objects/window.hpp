@@ -20,6 +20,8 @@
 #include "FGengine/structures/point.hpp"
 #include "FGengine/scene/scene.hpp"
 
+namespace FGengine{
+
 class Window{
 //minsize
 
@@ -194,3 +196,5 @@ public:
 
 //main
 };
+
+}
