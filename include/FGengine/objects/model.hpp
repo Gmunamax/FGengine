@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
-#include "FGengine/properties/transform/transform.hpp"
+#include "FGengine/properties/transform.hpp"
 #include "FGengine/properties/mesh.hpp"
 
 namespace FGengine{
