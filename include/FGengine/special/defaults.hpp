@@ -18,7 +18,10 @@
 #include "shader.hpp"
 
 namespace FGengine{
+
 	namespace Defaults{
-		extern Shader shader;
+		inline Scene* scene;
+		inline Shader* shader;
 	}
+
 }

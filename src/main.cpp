@@ -15,6 +15,7 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #include "FGengine/main.hpp"
 #include "FGengine/special/window.hpp"
+#include "special/defaults.hpp"
 
 namespace FGengine{
 
@@ -48,6 +49,7 @@ void mainCycle(){
 
 void init(){
 	SDL_Init(SDL_INIT_TIMER | SDL_INIT_VIDEO | SDL_INIT_EVENTS);
+	Defaults::init();
 }
 
 }

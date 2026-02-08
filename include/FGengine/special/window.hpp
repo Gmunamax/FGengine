@@ -19,6 +19,7 @@
 #include <SDL2/SDL.h>
 #include "FGengine/structures/point.hpp"
 #include "FGengine/special/scene.hpp"
+#include "FGengine/special/defaults.hpp"
 
 namespace FGengine{
 
@@ -148,7 +149,7 @@ public:
 //events
 
 private:
-	Scene* scene = nullptr;
+	Scene* scene = Defaults::scene;
 
 	static Window* GetWindowFromID(const Uint32& id);
 
