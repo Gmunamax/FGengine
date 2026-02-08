@@ -13,28 +13,20 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include "FGengine/objects/window.hpp"
+#include "FGengine/special/window.hpp"
 
 namespace FGengine{
 
-void Window::CycleAll(){
-	SendEvents();
-	for(Window*& w : allwindows){
-		w->Cycle();
-	}
+void Window::ApplyPosition(){
+	if(position_needupdate)
+		SDL_SetWindowPosition(SDL_GL_GetCurrentWindow(), position.x, position.y);
 }
 
-void Window::Cycle(){
-	Select();
-	GetScene()->Cycle();
-	if(opened){
-		ApplyMinSize();
-		ApplyPosition();
-		ApplySize();
-		ApplyVsync();
-		ApplyTitle();
-	}
-	Draw();
+void Window::SetPosition(const PositionType& newposition){
+	position = newposition;
+}
+const Window::PositionType& Window::GetPosition(){
+	return position;
 }
 
 }

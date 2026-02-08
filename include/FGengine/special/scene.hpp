@@ -15,7 +15,7 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
 #include <SDL2/SDL.h>
-#include "FGengine/objects/camera.hpp"
+#include "FGengine/renderable/camera.hpp"
 
 namespace FGengine{
 

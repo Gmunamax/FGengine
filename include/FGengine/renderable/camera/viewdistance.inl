@@ -14,19 +14,39 @@
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #ifdef __INTELLISENSE__
-#include "FGengine/objects/camera.hpp"
+#include "FGengine/renderable/camera.hpp"
 #endif
 
 namespace FGengine{
 
 template<typename PointType>
-void Camera<PointType>::SetFOV(const double& newfov){
-	this->fov = glm::radians(newfov);
+void Camera<PointType>::SetNearDistance(const double& newNearDistance){
+	viewdistance[0] = newNearDistance;
 }
 
 template<typename PointType>
-const double& Camera<PointType>::GetFOV() const{
-	return fov;
+void Camera<PointType>::SetFarDistance(const double& newFarDistance){
+	viewdistance[1] = newFarDistance;
+}
+
+template<typename PointType>
+void Camera<PointType>::SetDistance(const Point2d& newDistance){
+	viewdistance = newDistance;
+}
+
+template<typename PointType>
+const double& Camera<PointType>::GetNearDistance() const{
+	return viewdistance[0];
+}
+
+template<typename PointType>
+const double& Camera<PointType>::GetFarDistance() const{
+	return viewdistance[1];
+}
+
+template<typename PointType>
+const Point2d& Camera<PointType>::GetDistance() const{
+	return viewdistance;
 }
 
 }

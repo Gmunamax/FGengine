@@ -13,19 +13,17 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include "FGengine/objects/window.hpp"
+#ifdef __INTELLISENSE__
+#include "FGengine/renderable/camera.hpp"
+#endif
 
 namespace FGengine{
 
-void Window::ApplyVsync(){
-	if(vsync_needupdate){
-		SDL_GL_SetSwapInterval((-1*adaptive)*vsync);
-		vsync_needupdate = false;
-	}
-}
-
-const bool& Window::GetVsync(){
-	return vsync;
+template<typename PointType>
+void Camera<PointType>::SendMatrix(){
+	Uniforms::Umat4 view{Camera::WorldPoint::GetMatrix()}; // Getting copy because SendUniformToAll recieves default link, but GetMatrix returns constant link
+	Shader::SendUniformToAll(proj);
+	Shader::SendUniformToAll(view);
 }
 
 }

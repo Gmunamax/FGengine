@@ -13,23 +13,22 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include "FGengine/objects/window.hpp"
+#ifdef __INTELLISENSE__
+#include "FGengine/renderable/camera.hpp"
+#endif
 
 namespace FGengine{
 
-void Window::ApplyMinSize(){
-	if(minsize_needupdate){
-		SDL_SetWindowMinimumSize(SDL_GL_GetCurrentWindow(),minsize.x,minsize.y);
-		minsize_needupdate = false;
-	}
-}
+template<typename PointType>
+void Camera<PointType>::StartDrawing(){
 
-void Window::SetMinSize(const MinSizeType& newminsize){
-	minsize = newminsize;
-	minsize_needupdate = true;
-}
-const Window::MinSizeType& Window::GetMinSize(){
-	return minsize;
+	glClearColor(backgroundcolor.r,backgroundcolor.g,backgroundcolor.b,backgroundcolor.a);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	Camera::ProceedTransformations();
+	Camera::ProceedProjection();
+	Camera::SendMatrix();
 }
 
 }

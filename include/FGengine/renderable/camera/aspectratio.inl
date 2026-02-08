@@ -13,30 +13,20 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include "FGengine/objects/window.hpp"
+#ifdef __INTELLISENSE__
+#include "FGengine/renderable/camera.hpp"
+#endif
 
 namespace FGengine{
 
-void Window::ApplySize(){
-	if(size_needupdate){
-		SDL_SetWindowSize(SDL_GL_GetCurrentWindow(), size.x, size.y);
-		Resize(size);
-		size_needupdate = false;
-	}
+template<typename PointType>
+void Camera<PointType>::SetAspectRatio(const double& newaspectratio){
+	aspectratio = newaspectratio;
 }
 
-void Window::Resize(const SizeType& newsize){
-	size = newsize;
-	GetScene()->cam.Resize({0,0,newsize.x,newsize.y});
-	Update();
-}
-
-void Window::SetSize(const SizeType& newsize){
-	size = newsize;
-	size_needupdate = true;
-}
-const Window::SizeType& Window::GetSize(){
-	return size;
+template<typename PointType>
+const double& Camera<PointType>::GetAspectRatio() const{
+	return aspectratio;
 }
 
 }

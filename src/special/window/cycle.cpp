@@ -13,22 +13,28 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include "FGengine/objects/window.hpp"
+#include "FGengine/special/window.hpp"
 
 namespace FGengine{
 
-void Window::ApplyTitle(){
-	if(title_needupdate){
-		SDL_SetWindowTitle(SDL_GL_GetCurrentWindow(),title.c_str());
-		title_needupdate = false;
+void Window::CycleAll(){
+	SendEvents();
+	for(Window*& w : allwindows){
+		w->Cycle();
 	}
 }
 
-void Window::SetTitle(const std::string& newtitle){
-	title = newtitle;
-}
-const std::string& Window::GetTitle(){
-	return title;
+void Window::Cycle(){
+	Select();
+	GetScene()->Cycle();
+	if(opened){
+		ApplyMinSize();
+		ApplyPosition();
+		ApplySize();
+		ApplyVsync();
+		ApplyTitle();
+	}
+	Draw();
 }
 
 }

@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #ifdef __INTELLISENSE__
-#include "FGengine/objects/camera.hpp"
+#include "FGengine/renderable/camera.hpp"
 #endif
 
 namespace FGengine{

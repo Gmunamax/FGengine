@@ -18,7 +18,7 @@
 #include <chrono>
 #include <SDL2/SDL.h>
 #include "FGengine/structures/point.hpp"
-#include "FGengine/scene/scene.hpp"
+#include "FGengine/special/scene.hpp"
 
 namespace FGengine{
 

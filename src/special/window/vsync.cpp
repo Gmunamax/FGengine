@@ -13,20 +13,19 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#ifdef __INTELLISENSE__
-#include "FGengine/objects/camera.hpp"
-#endif
+#include "FGengine/special/window.hpp"
 
 namespace FGengine{
 
-template<typename PointType>
-void Camera<PointType>::SetAspectRatio(const double& newaspectratio){
-	aspectratio = newaspectratio;
+void Window::ApplyVsync(){
+	if(vsync_needupdate){
+		SDL_GL_SetSwapInterval((-1*adaptive)*vsync);
+		vsync_needupdate = false;
+	}
 }
 
-template<typename PointType>
-const double& Camera<PointType>::GetAspectRatio() const{
-	return aspectratio;
+const bool& Window::GetVsync(){
+	return vsync;
 }
 
 }

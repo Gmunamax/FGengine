@@ -13,17 +13,23 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#ifdef __INTELLISENSE__
-#include "FGengine/objects/camera.hpp"
-#endif
+#include "FGengine/special/window.hpp"
 
 namespace FGengine{
 
-template<typename PointType>
-void Camera<PointType>::SendMatrix(){
-	Uniforms::Umat4 view{Camera::WorldPoint::GetMatrix()}; // Getting copy because SendUniformToAll recieves default link, but GetMatrix returns constant link
-	Shader::SendUniformToAll(proj);
-	Shader::SendUniformToAll(view);
+void Window::ApplyMinSize(){
+	if(minsize_needupdate){
+		SDL_SetWindowMinimumSize(SDL_GL_GetCurrentWindow(),minsize.x,minsize.y);
+		minsize_needupdate = false;
+	}
+}
+
+void Window::SetMinSize(const MinSizeType& newminsize){
+	minsize = newminsize;
+	minsize_needupdate = true;
+}
+const Window::MinSizeType& Window::GetMinSize(){
+	return minsize;
 }
 
 }

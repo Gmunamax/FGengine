@@ -13,15 +13,22 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include "FGengine/shaders/shader.hpp"
+#include "FGengine/special/window.hpp"
 
 namespace FGengine{
 
-static std::string ReadFile(const char*);
-static GLuint CompilePart(Shader::ObjectDescription);
-static void PrintLinkStatus(GLuint);
-static std::vector<GLuint> CompileAllParts(std::vector<Shader::ObjectDescription>);
-static GLuint LinkShader(std::vector<GLuint>);
-static void DeleteParts(std::vector<GLuint>);
+void Window::ApplyTitle(){
+	if(title_needupdate){
+		SDL_SetWindowTitle(SDL_GL_GetCurrentWindow(),title.c_str());
+		title_needupdate = false;
+	}
+}
+
+void Window::SetTitle(const std::string& newtitle){
+	title = newtitle;
+}
+const std::string& Window::GetTitle(){
+	return title;
+}
 
 }

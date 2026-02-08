@@ -13,22 +13,30 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#ifdef __INTELLISENSE__
-#include "FGengine/objects/camera.hpp"
-#endif
+#include "FGengine/special/window.hpp"
 
 namespace FGengine{
 
-template<typename PointType>
-void Camera<PointType>::StartDrawing(){
+void Window::ApplySize(){
+	if(size_needupdate){
+		SDL_SetWindowSize(SDL_GL_GetCurrentWindow(), size.x, size.y);
+		Resize(size);
+		size_needupdate = false;
+	}
+}
 
-	glClearColor(backgroundcolor.r,backgroundcolor.g,backgroundcolor.b,backgroundcolor.a);
-	glClear(GL_COLOR_BUFFER_BIT);
-	glClear(GL_DEPTH_BUFFER_BIT);
+void Window::Resize(const SizeType& newsize){
+	size = newsize;
+	GetScene()->cam.Resize({0,0,newsize.x,newsize.y});
+	Update();
+}
 
-	Camera::ProceedTransformations();
-	Camera::ProceedProjection();
-	Camera::SendMatrix();
+void Window::SetSize(const SizeType& newsize){
+	size = newsize;
+	size_needupdate = true;
+}
+const Window::SizeType& Window::GetSize(){
+	return size;
 }
 
 }

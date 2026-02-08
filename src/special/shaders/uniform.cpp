@@ -13,38 +13,29 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#ifdef __INTELLISENSE__
-#include "FGengine/objects/camera.hpp"
-#endif
+#include "FGengine/structures/uniform.hpp"
 
 namespace FGengine{
 
-template<typename PointType>
-void Camera<PointType>::SetViewportGeom(const Geometry2i& newgeom){
-	glViewport(newgeom.x,newgeom.y,newgeom.w,newgeom.h);
-	viewportgeom = newgeom;
-}
+namespace Uniforms{
 
-template<typename PointType>
-const Geometry2i& Camera<PointType>::GetViewportGeom() const{
-	return viewportgeom;
-}
-
-template<typename PointType>
-void Camera<PointType>::Resize(const Geometry2i& newviewport){
-	SetAspectRatio((double)newviewport.w/(double)newviewport.h);
-	SetViewportGeom(newviewport);
-	switch (cameratype) {
-	case CAMERA_FRUSTUM:
-		SetFrustum();
-		break;
-	case CAMERA_ORTHO:
-		SetOrtho();
-		break;
-	case CAMERA_UI:
-		SetUI();
-		break;
+	template<>
+	void Uniform<glm::dmat4>::TemplateSend() const{
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr( (glm::mat4)value ));
 	}
+	template<>
+	void Uniform<glm::dmat3>::TemplateSend() const{
+		glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr( (glm::mat3)value ));
+	}
+	template<>
+	void Uniform<glm::dvec4>::TemplateSend() const{
+		glUniform4f(location, value.x, value.y, value.z, value.w);
+	}
+	template<>
+	void Uniform<glm::dvec3>::TemplateSend() const{
+		glUniform3f(location, value.x, value.y, value.z);
+	}
+	
 }
 
 }

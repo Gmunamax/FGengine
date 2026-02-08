@@ -14,19 +14,37 @@
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #ifdef __INTELLISENSE__
-#include "FGengine/objects/camera.hpp"
+#include "FGengine/renderable/camera.hpp"
 #endif
 
 namespace FGengine{
 
 template<typename PointType>
-void Camera<PointType>::SetBackgroundColor(const Color4d& newbgcolor){
-	backgroundcolor = newbgcolor;
+void Camera<PointType>::SetViewportGeom(const Geometry2i& newgeom){
+	glViewport(newgeom.x,newgeom.y,newgeom.w,newgeom.h);
+	viewportgeom = newgeom;
 }
 
 template<typename PointType>
-const Color4d& Camera<PointType>::GetBackgroundColor() const{
-	return backgroundcolor;
+const Geometry2i& Camera<PointType>::GetViewportGeom() const{
+	return viewportgeom;
+}
+
+template<typename PointType>
+void Camera<PointType>::Resize(const Geometry2i& newviewport){
+	SetAspectRatio((double)newviewport.w/(double)newviewport.h);
+	SetViewportGeom(newviewport);
+	switch (cameratype) {
+	case CAMERA_FRUSTUM:
+		SetFrustum();
+		break;
+	case CAMERA_ORTHO:
+		SetOrtho();
+		break;
+	case CAMERA_UI:
+		SetUI();
+		break;
+	}
 }
 
 }
