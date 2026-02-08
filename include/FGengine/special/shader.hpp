@@ -167,6 +167,4 @@ public:
 	}
 };
 
-extern Shader nullshader;
-
 }

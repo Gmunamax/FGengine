@@ -16,13 +16,14 @@
 #pragma once
 #include "FGengine/properties/transform.hpp"
 #include "FGengine/properties/mesh.hpp"
+#include "FGengine/special/defaults.hpp"
 
 namespace FGengine{
 
 template<typename VertexType, typename ElementType>
 class Model: public Transform<typename VertexType::VertexPosition::DataType>, private Mesh<VertexType, ElementType>{
 	bool visible = true;
-	Shader* shader = &nullshader;
+	Shader* shader = &Defaults::shader;
 
 public:
 

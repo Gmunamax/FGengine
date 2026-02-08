@@ -98,6 +98,4 @@ static void DeleteParts(std::vector<GLuint> parts){
 	}
 }
 
-Shader nullshader{};
-
 }
