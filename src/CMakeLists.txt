@@ -13,17 +13,5 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, see <https://www.gnu.org/licenses/>.
-cmake_minimum_required(VERSION 3.19)
-
-add_library(FGengine SHARED main.cpp)
-add_compile_options(-fPIC)
-
-include_directories(${PROJECT_SOURCE_DIR}/include)
-
+target_sources(FGengine PUBLIC main.cpp)
 add_subdirectory(special)
-
-find_package(SDL2 2.32 REQUIRED)
-find_package(OpenGL REQUIRED)
-find_package(GLEW 2.2 REQUIRED)
-
-target_link_libraries(FGengine SDL2::SDL2 OpenGL::GL GLEW::GLEW)
