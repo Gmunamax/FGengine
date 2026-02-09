@@ -21,7 +21,7 @@ namespace FGengine{
 
 template<typename PointType>
 void Camera<PointType>::SetBackgroundColor(const Color4d& newbgcolor){
-	backgroundcolor = newbgcolor;
+	UpdateProjectionPropertyValue(backgroundcolor, newbgcolor);
 }
 
 template<typename PointType>

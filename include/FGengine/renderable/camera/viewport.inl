@@ -22,7 +22,7 @@ namespace FGengine{
 template<typename PointType>
 void Camera<PointType>::SetViewportGeom(const Geometry2i& newgeom){
 	glViewport(newgeom.x,newgeom.y,newgeom.w,newgeom.h);
-	viewportgeom = newgeom;
+	UpdateProjectionPropertyValue(viewportgeom, newgeom);
 }
 
 template<typename PointType>

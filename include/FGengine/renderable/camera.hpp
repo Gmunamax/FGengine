@@ -25,14 +25,20 @@ namespace FGengine{
 template<typename PointType = Point3d>
 class Camera: public WorldPoint<PointType>{
 //uniform
-	bool needupdateprojection = true;
+	bool needupdate = true;
 	Uniforms::Umat4 proj {"fg_projectionmatrix"};
 
-protected:
+private:
+
+	template<typename T>
+	void UpdateProjectionPropertyValue(T& target, const T& newvalue){
+		target = newvalue;
+		needupdate = true;
+	}
+
 	void SendMatrix();
 
 //uniform
-
 
 //aspectratio
 
@@ -77,7 +83,6 @@ public:
 //viewport
 
 private:
-
 	Geometry2i viewportgeom;
 
 public:

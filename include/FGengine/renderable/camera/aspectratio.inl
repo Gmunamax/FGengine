@@ -21,7 +21,7 @@ namespace FGengine{
 
 template<typename PointType>
 void Camera<PointType>::SetAspectRatio(const double& newaspectratio){
-	aspectratio = newaspectratio;
+	UpdateProjectionPropertyValue(aspectratio, newaspectratio);
 }
 
 template<typename PointType>

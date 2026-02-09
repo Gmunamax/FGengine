@@ -21,7 +21,7 @@ namespace FGengine{
 
 template<typename PointType>
 void Camera<PointType>::SetFOV(const double& newfov){
-	this->fov = glm::radians(newfov);
+	UpdateProjectionPropertyValue(fov, glm::radians(newfov));
 }
 
 template<typename PointType>

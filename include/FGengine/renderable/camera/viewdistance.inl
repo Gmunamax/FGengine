@@ -21,17 +21,17 @@ namespace FGengine{
 
 template<typename PointType>
 void Camera<PointType>::SetNearDistance(const double& newNearDistance){
-	viewdistance[0] = newNearDistance;
+	UpdateProjectionPropertyValue(viewdistance[0], newNearDistance);
 }
 
 template<typename PointType>
 void Camera<PointType>::SetFarDistance(const double& newFarDistance){
-	viewdistance[1] = newFarDistance;
+	UpdateProjectionPropertyValue(viewdistance[1], newFarDistance);
 }
 
 template<typename PointType>
 void Camera<PointType>::SetDistance(const Point2d& newDistance){
-	viewdistance = newDistance;
+	UpdateProjectionPropertyValue(viewdistance, newDistance);
 }
 
 template<typename PointType>
