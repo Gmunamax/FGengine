@@ -133,7 +133,7 @@ private:
 	double frametime = 0;
 	Uint8 frameskip = 0;
 
-	double stepsize;
+	double stepcoefficient;
 
 	std::chrono::time_point<std::chrono::steady_clock> secs;
 

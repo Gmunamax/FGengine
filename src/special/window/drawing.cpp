@@ -38,8 +38,8 @@ void Window::Draw(){
 
 			frameskip = std::chrono::duration_cast<std::chrono::milliseconds>(t).count()/frametime;
 
-			stepsize = ((double)t.count()/frametime)*(frameskip+1);
-			stepsize = stepsize /1000 /1000; //to miliseconds
+			stepcoefficient = (t.count()/frametime)*(frameskip+1);
+			stepcoefficient = stepcoefficient /1000 /1000; //to miliseconds
 
 			/* to avoid false positives */
 			if(frameskip == 1)
@@ -49,12 +49,13 @@ void Window::Draw(){
 		}
 	}
 	else{
+		stepcoefficient = 0;
 		frameskip--;
 	}
 }
 
 const double& Window::GetStepCoefficient(){
-	return stepsize;
+	return stepcoefficient;
 }
 
 void Window::SetFPS(const short& newfps){
