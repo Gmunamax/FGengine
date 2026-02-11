@@ -36,7 +36,10 @@ void Window::Draw(){
 
 			glFlush();
 
-			frameskip = std::chrono::duration_cast<std::chrono::milliseconds>(t).count()/frametime;
+			if(frametime == 0)
+				frameskip = 0;
+			else
+				frameskip = std::chrono::duration_cast<std::chrono::milliseconds>(t).count()/frametime;
 
 			stepcoefficient = (t.count()/frametime)*(frameskip+1);
 			stepcoefficient = stepcoefficient /1000 /1000; //to miliseconds
@@ -59,7 +62,10 @@ const double& Window::GetStepCoefficient(){
 }
 
 void Window::SetFPS(const short& newfps){
-	frametime = 1.0/newfps*1000;
+	if(newfps == 0)
+		frametime = 0;
+	else
+		frametime = 1.0/newfps*1000;
 }
 
 void Window::Update(){
