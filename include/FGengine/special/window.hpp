@@ -122,7 +122,7 @@ public:
 //drawing
 
 private:
-	double frametime;
+	double frametime = 0;
 	Uint8 frameskip = 0;
 
 	double stepsize;

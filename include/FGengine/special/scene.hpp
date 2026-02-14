@@ -26,7 +26,7 @@ struct Scene{
 
 protected:
 	Camera<> cam;
-	Window* win;
+	Window* win = nullptr;
 
 	virtual void Load() {};
 	virtual void Drawing() {};
