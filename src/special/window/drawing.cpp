@@ -37,17 +37,14 @@ void Window::Draw(){
 			glFlush();
 
 			if(frametime == 0)
-				frameskip = 0;
+				stepcoefficient = 1;
 			else
-				frameskip = std::chrono::duration_cast<std::chrono::milliseconds>(t).count()/frametime;
+				stepcoefficient = std::chrono::duration_cast<std::chrono::milliseconds>(t).count()/frametime;
 
-			stepcoefficient = (t.count()/frametime)*(frameskip+1);
-			stepcoefficient = stepcoefficient /1000 /1000; //to miliseconds
+			frameskip = stepcoefficient;
+			
 
-			/* to avoid false positives */
-			if(frameskip == 1)
-				frameskip = 0;
-			if(frameskip > 0)
+			if(frameskip > 1)
 				std::cout << "Frameskip: " << (int)frameskip << "frames" << std::endl;
 		}
 	}
