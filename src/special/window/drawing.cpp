@@ -58,11 +58,11 @@ const double& Window::GetStepCoefficient(){
 	return stepcoefficient;
 }
 
-void Window::SetFPS(const short& newfps){
-	if(newfps == 0)
+void Window::SetFrametimeLimit(const double& newframetime){
+	if(newframetime == 0)
 		frametime = 0;
 	else
-		frametime = 1.0/newfps*1000;
+		frametime = newframetime;
 }
 
 void Window::Update(){

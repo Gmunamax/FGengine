@@ -146,7 +146,7 @@ private:
 public:
 	const double& GetStepCoefficient();
 	
-	void SetFPS(const short& newfps);
+	void SetFrametimeLimit(const double& ms);
 
 	void Update();
 
