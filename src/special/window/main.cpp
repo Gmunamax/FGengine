@@ -68,14 +68,14 @@ void Window::CloseAll(){
 }
 
 
-Window::Window(){
-	allwindows.push_back(this);
-	vectorpos = allwindows.size() - 1;
+Window::Window(): scene(Defaults::scene){
+	allwindows.emplace_front(this);
+	elementBeforeThisInList = allwindows.before_begin();
 }
 
 Window::~Window(){
 	Close();
-	allwindows.erase(allwindows.begin() + vectorpos);
+	allwindows.erase_after(elementBeforeThisInList);
 }
 
 }

@@ -174,8 +174,8 @@ public:
 //cycle
 
 private:
-	static inline std::vector<Window*> allwindows;
-	std::vector<Window*>::size_type vectorpos;
+	static inline std::forward_list<Window*> allwindows;
+	std::forward_list<Window*>::iterator elementBeforeThisInList;
 
 public:
 	static void CycleAll();
