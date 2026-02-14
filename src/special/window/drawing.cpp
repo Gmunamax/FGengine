@@ -64,6 +64,9 @@ void Window::SetFrametimeLimit(const double& newframetime){
 	else
 		frametime = newframetime;
 }
+const double& Window::GetFrametimeLimit(){
+	return frametime;
+}
 
 void Window::Update(){
 	drawing_needupdate = true;

@@ -147,6 +147,7 @@ public:
 	const double& GetStepCoefficient();
 	
 	void SetFrametimeLimit(const double& ms);
+	const double& GetFrametimeLimit();
 
 	void Update();
 
