@@ -45,6 +45,7 @@ void Window::SendEvents(){
 
 		case SDL_WINDOWEVENT:
 			windowptr = GetWindowFromID(event.window.windowID);
+			if(windowptr == nullptr) break;
 			windowptr->Select();
 
 			switch(event.window.event){
