@@ -50,7 +50,7 @@ public:
 	};
 
 private:
-	VsyncModes vsyncmode;
+	VsyncModes vsyncmode {VsyncModes::Off};
 
 	bool vsync_needupdate = true;
 
@@ -85,7 +85,7 @@ public:
 //title
 
 private:
-	std::string title;
+	std::string title{};
 	bool title_needupdate = true;
 
 protected:
@@ -101,7 +101,7 @@ public:
 //flags
 
 private:
-	Uint32 flags = SDL_WINDOW_OPENGL;
+	Uint32 flags {SDL_WINDOW_OPENGL};
 
 public:
 	void SetFlags(const Uint32& newflags);
@@ -156,7 +156,7 @@ public:
 //events
 
 private:
-	Scene* scene = Defaults::scene;
+	Scene* scene {Defaults::scene};
 
 	static Window* GetWindowFromID(const Uint32& id);
 
