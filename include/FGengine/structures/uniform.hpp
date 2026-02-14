@@ -57,9 +57,10 @@ namespace Uniforms{
 			TemplateSend();
 		}
 
-		Uniform(const char* const name, const GLuint shaderid = 0, const ValueType value = 1){
-			location = glGetUniformLocation(shaderid, name);
+		Uniform(const char* const name){
 			this->name = name;
+		}
+		Uniform(const char* const name, const ValueType& value): Uniform(name){
 			SetValue(value);
 		}
 		void operator=(const ValueType& newvalue){
