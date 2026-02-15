@@ -20,6 +20,7 @@
 #include "FGengine/structures/point.hpp"
 #include "FGengine/special/scene.hpp"
 #include "FGengine/special/defaults.hpp"
+#include "FGengine/structures/frametime.hpp"
 
 namespace FGengine{
 
@@ -128,28 +129,40 @@ public:
 
 
 //drawing
+public:
+	enum class FramerateLimitType{
+		Delay,
+		Check,
+	};
 
 private:
-	double frametime = 0;
-	Uint8 frameskip = 0;
+	Frametime frametimelimit {0};
+	FramerateLimitType limittype{FramerateLimitType::Delay};
+	Uint8 frameskip {0};
+	std::chrono::steady_clock::time_point t1, t2;
 
-	double stepcoefficient;
-
-	std::chrono::time_point<std::chrono::steady_clock> secs;
-
-	std::chrono::steady_clock::time_point t1;
-	std::chrono::steady_clock::time_point t2;
+	Frametime realframetime;
 	bool drawing_needupdate = true;
 
-	void Draw();
+	void RenderScene();
+	
+	void ProceedUpdate();
+	void UpdateByDelayLimit();
+	void UpdateByCheckLimit();
+	void UpdateByNoneLimit();
+
+	void UpdateFrameskip();
 
 public:
-	const double& GetStepCoefficient();
+	const Uint8& GetFrameskip();
+	const Frametime& GetRealFrametime();
 	
-	void SetFrametimeLimit(const double& ms);
-	const double& GetFrametimeLimit();
+	void SetFrametimeLimit(const Frametime& ms);
+	const Frametime& GetFrametimeLimit();
+	void SetFramerateLimitType(const FramerateLimitType& limittype);
+	const FramerateLimitType& GetFramerateLimitType();
 
-	void Update();
+	void RequestNewFrame();
 
 //drawing
 

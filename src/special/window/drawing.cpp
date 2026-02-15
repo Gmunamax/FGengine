@@ -17,58 +17,95 @@
 
 namespace FGengine{
 
-void Window::Draw(){
-	if(frameskip <= 0){
-		if(drawing_needupdate){
-
-			t1 = std::chrono::steady_clock::now();
-
-			GetScene()->cam.ProceedUpdate();
-			GetScene()->Drawing();
-
-			SDL_GL_SwapWindow(SDL_GL_GetCurrentWindow());
-
-			t2 = std::chrono::steady_clock::now();
-			std::chrono::nanoseconds t = (t2 - t1);
-
-
-			drawing_needupdate = false;
-
-			glFlush();
-
-			if(frametime == 0)
-				stepcoefficient = 1;
-			else
-				stepcoefficient = std::chrono::duration_cast<std::chrono::milliseconds>(t).count()/frametime;
-
-			frameskip = stepcoefficient;
-			
-
-			if(frameskip > 1)
-				std::cout << "Frameskip: " << (int)frameskip << "frames" << std::endl;
+void Window::ProceedUpdate(){
+	if(!frameskip){
+		if(!frametimelimit.toDataType())
+			UpdateByNoneLimit();
+		else{
+			switch(limittype){
+			case FramerateLimitType::Delay:
+				UpdateByDelayLimit();
+			case FramerateLimitType::Check:
+				UpdateByCheckLimit();
+			}
 		}
 	}
 	else{
-		stepcoefficient = 0;
-		frameskip--;
+		--frameskip;
 	}
 }
 
-const double& Window::GetStepCoefficient(){
-	return stepcoefficient;
+void Window::UpdateByNoneLimit(){
+	t1 = std::chrono::steady_clock::now();
+	RenderScene();
+	t2 = std::chrono::steady_clock::now();
+	realframetime = t1-t2;
 }
 
-void Window::SetFrametimeLimit(const double& newframetime){
-	if(newframetime == 0)
-		frametime = 0;
+void Window::UpdateByDelayLimit(){
+	t1 = std::chrono::steady_clock::now();
+	RenderScene();
+	t2 = std::chrono::steady_clock::now();
+	realframetime = t1-t2;
+	if(realframetime < frametimelimit){
+		SDL_Delay(Frametime(frametimelimit - realframetime).toDataType());
+		realframetime = frametimelimit;
+	}
+	UpdateFrameskip();
+}
+
+void Window::UpdateByCheckLimit(){
+	if(realframetime > frametimelimit){
+		RenderScene();
+		UpdateFrameskip();
+		realframetime = 0;
+	}
+	else{
+		t2 = std::chrono::steady_clock::now();
+		std::chrono::duration<Frametime::DataType, Frametime::ratio> t = t2-t1;
+		t1 = std::chrono::steady_clock::now();
+		realframetime += t;
+	}
+}
+
+void Window::RenderScene(){
+	if(!drawing_needupdate) return;
+	GetScene()->cam.ProceedUpdate();
+	GetScene()->Drawing();
+	SDL_GL_SwapWindow(SDL_GL_GetCurrentWindow());
+	drawing_needupdate = false;
+}
+
+void Window::UpdateFrameskip(){
+	if(frametimelimit.toDataType())
+		frameskip = Frametime(realframetime/frametimelimit).toDataType();
 	else
-		frametime = newframetime;
-}
-const double& Window::GetFrametimeLimit(){
-	return frametime;
+		frameskip = 0;
 }
 
-void Window::Update(){
+const Uint8& Window::GetFrameskip(){
+	return frameskip;
+}
+
+const Frametime& Window::GetRealFrametime(){
+	return realframetime;
+}
+
+void Window::SetFrametimeLimit(const Frametime& newframetime){
+	frametimelimit = newframetime;
+}
+const Frametime& Window::GetFrametimeLimit(){
+	return frametimelimit;
+}
+
+void Window::SetFramerateLimitType(const FramerateLimitType& newlimittype){
+	limittype = newlimittype;
+}
+const Window::FramerateLimitType& Window::GetFramerateLimitType(){
+	return limittype;
+}
+
+void Window::RequestNewFrame(){
 	drawing_needupdate = true;
 }
 

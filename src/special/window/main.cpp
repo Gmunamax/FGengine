@@ -68,7 +68,7 @@ void Window::CloseAll(){
 }
 
 
-Window::Window(): scene(Defaults::scene){
+Window::Window(): scene(Defaults::scene), t1(std::chrono::steady_clock::now()){
 	allwindows.emplace_front(this);
 	elementBeforeThisInList = allwindows.before_begin();
 }

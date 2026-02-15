@@ -54,7 +54,7 @@ void Window::SendEvents(){
 				windowptr->Resize({event.window.data1,event.window.data2});
 				break;
 			case SDL_WINDOWEVENT_EXPOSED:
-				windowptr->Update();
+				windowptr->RequestNewFrame();
 				break;
 			}
 			break;

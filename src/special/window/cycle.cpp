@@ -34,7 +34,7 @@ void Window::Cycle(){
 		ApplyVsync();
 		ApplyTitle();
 	}
-	Draw();
+	ProceedUpdate();
 }
 
 }
