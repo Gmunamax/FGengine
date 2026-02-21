@@ -20,7 +20,7 @@
 namespace FGengine{
 
 template<typename PointType>
-void Camera<PointType>::StartDrawing(){
+void Camera<PointType>::ProceedUpdate(){
 
 	glClearColor(backgroundcolor.r,backgroundcolor.g,backgroundcolor.b,backgroundcolor.a);
 	glClear(GL_COLOR_BUFFER_BIT);

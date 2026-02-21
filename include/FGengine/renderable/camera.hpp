@@ -132,7 +132,7 @@ public:
 
 	Camera(): Camera::WorldPoint("fg_viewmatrix"){};
 
-	void StartDrawing();
+	void ProceedUpdate();
 
 //main
 };

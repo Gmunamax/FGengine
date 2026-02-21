@@ -23,7 +23,7 @@ void Window::Draw(){
 
 			t1 = std::chrono::steady_clock::now();
 
-			GetScene()->cam.StartDrawing();
+			GetScene()->cam.ProceedUpdate();
 			GetScene()->Drawing();
 
 			SDL_GL_SwapWindow(SDL_GL_GetCurrentWindow());
