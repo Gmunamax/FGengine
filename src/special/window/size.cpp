@@ -13,15 +13,30 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <SDL2/SDL.h>
+#include "FGengine/special/window.hpp"
 
 namespace FGengine{
 
-void quit();
+void Window::ApplySize(){
+	if(GetFlags(Flags::Size)){
+		SDL_SetWindowSize(SDL_GL_GetCurrentWindow(), size.x, size.y);
+		Resize(size);
+		RemoveFlags(Flags::Size);
+	}
+}
 
-void mainCycle();
+void Window::Resize(const SizeType& newsize){
+	size = newsize;
+	GetScene()->cam.Resize({0,0,newsize.x,newsize.y});
+	RequestNewFrame();
+}
 
-void init();
+void Window::SetSize(const SizeType& newsize){
+	size = newsize;
+	SetFlags(Flags::Size);
+}
+const Window::SizeType& Window::GetSize(){
+	return size;
+}
 
 }

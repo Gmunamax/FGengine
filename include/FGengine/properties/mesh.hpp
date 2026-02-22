@@ -17,6 +17,8 @@
 #include <GL/glew.h>
 #include <vector>
 
+namespace FGengine{
+
 template<typename VertexType, typename ElementsType>
 class Mesh{
 private:
@@ -54,7 +56,7 @@ public:
 		glBindVertexArray(vao);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-
+		
 		glVertexAttribPointer(0, VertexType::VertexPosition::GetLength(), VertexType::VertexPosition::DataType::gldatatype(), false, VertexType::GetStride(), (void*)VertexType::VertexPosition::GetOffset());
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(1, VertexType::VertexColor::GetLength(), VertexType::VertexColor::DataType::gldatatype(), false, VertexType::GetStride(), (void*)VertexType::VertexColor::GetOffset());
@@ -67,8 +69,9 @@ public:
 
 	void Select(){
 		glBindVertexArray(vao);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	}
-	
+
 	void Draw(){
 		for(typename std::vector<FaceLocation>::reference modelface : facelocators){
 			modelface.Draw();
@@ -97,3 +100,5 @@ public:
 	}
 
 };
+
+}

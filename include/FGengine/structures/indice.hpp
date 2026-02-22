@@ -16,6 +16,10 @@
 #pragma once
 #include "vector.hpp"
 
+namespace FGengine{
+
 using Indicei = _Vector::Vector<1, unsigned int, _Vector::VectorType::Indice>;
 using Indices = _Vector::Vector<1, unsigned short, _Vector::VectorType::Indice>;
 using Indiceb = _Vector::Vector<1, unsigned char, _Vector::VectorType::Indice>;
+
+}

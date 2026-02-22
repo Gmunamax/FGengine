@@ -18,7 +18,7 @@
 #include <math.h>
 #include "FGengine/structures/point.hpp"
 #include "FGengine/objects/camera/camera.hpp"
-#include "FGengine/objects/window.hpp"
+#include "FGengine/special/window.hpp"
 
 Point3d Walking::MakeStep(){
 

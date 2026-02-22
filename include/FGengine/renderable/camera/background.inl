@@ -13,15 +13,20 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <SDL2/SDL.h>
+#ifdef __INTELLISENSE__
+#include "FGengine/renderable/camera.hpp"
+#endif
 
 namespace FGengine{
 
-void quit();
+template<typename PointType>
+void Camera<PointType>::SetBackgroundColor(const Color4d& newbgcolor){
+	UpdateProjectionPropertyValue(backgroundcolor, newbgcolor);
+}
 
-void mainCycle();
-
-void init();
+template<typename PointType>
+const Color4d& Camera<PointType>::GetBackgroundColor() const{
+	return backgroundcolor;
+}
 
 }

@@ -13,15 +13,23 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <SDL2/SDL.h>
+#include "FGengine/special/window.hpp"
 
 namespace FGengine{
 
-void quit();
+void Window::ApplyTitle(){
+	if(GetFlags(Flags::Title)){
+		SDL_SetWindowTitle(SDL_GL_GetCurrentWindow(),title.c_str());
+		RemoveFlags(Flags::Title);
+	}
+}
 
-void mainCycle();
-
-void init();
+void Window::SetTitle(const std::string& newtitle){
+	title = newtitle;
+	SetFlags(Flags::Title);
+}
+const std::string& Window::GetTitle(){
+	return title;
+}
 
 }

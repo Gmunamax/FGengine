@@ -13,15 +13,23 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <SDL2/SDL.h>
+#include "FGengine/special/window.hpp"
 
 namespace FGengine{
 
-void quit();
+void Window::ApplyPosition(){
+	if(GetFlags(Flags::Position)){
+		SDL_SetWindowPosition(SDL_GL_GetCurrentWindow(), position.x, position.y);
+		RemoveFlags(Flags::Position);
+	}
+}
 
-void mainCycle();
-
-void init();
+void Window::SetPosition(const PositionType& newposition){
+	position = newposition;
+	SetFlags(Flags::Position);
+}
+const Window::PositionType& Window::GetPosition(){
+	return position;
+}
 
 }

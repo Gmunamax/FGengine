@@ -13,15 +13,15 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <SDL2/SDL.h>
+#include "FGengine/special/window.hpp"
 
 namespace FGengine{
 
-void quit();
-
-void mainCycle();
-
-void init();
+void Window::SetSDLFlags(const Uint32& newflags){
+	sdlflags = SDL_WINDOW_OPENGL | newflags;
+}
+const Uint32& Window::GetSDLFlags(){
+	return sdlflags;
+}
 
 }

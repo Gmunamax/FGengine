@@ -13,15 +13,38 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <SDL2/SDL.h>
+#ifdef __INTELLISENSE__
+#include "FGengine/renderable/camera.hpp"
+#endif
 
 namespace FGengine{
 
-void quit();
+template<typename PointType>
+void Camera<PointType>::SetViewportGeom(const Geometry2i& newgeom){
+	glViewport(newgeom.x,newgeom.y,newgeom.w,newgeom.h);
+	UpdateProjectionPropertyValue(viewportgeom, newgeom);
+}
 
-void mainCycle();
+template<typename PointType>
+const Geometry2i& Camera<PointType>::GetViewportGeom() const{
+	return viewportgeom;
+}
 
-void init();
+template<typename PointType>
+void Camera<PointType>::Resize(const Geometry2i& newviewport){
+	SetAspectRatio((double)newviewport.w/(double)newviewport.h);
+	SetViewportGeom(newviewport);
+	switch (cameratype) {
+	case CAMERA_FRUSTUM:
+		SetFrustum();
+		break;
+	case CAMERA_ORTHO:
+		SetOrtho();
+		break;
+	case CAMERA_UI:
+		SetUI();
+		break;
+	}
+}
 
 }

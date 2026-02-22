@@ -13,15 +13,23 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <SDL2/SDL.h>
+#include "FGengine/special/window.hpp"
 
 namespace FGengine{
 
-void quit();
+void Window::ApplyMinSize(){
+	if(GetFlags(Flags::MinSize)){
+		SDL_SetWindowMinimumSize(SDL_GL_GetCurrentWindow(),minsize.x,minsize.y);
+		RemoveFlags(Flags::MinSize);
+	}
+}
 
-void mainCycle();
-
-void init();
+void Window::SetMinSize(const MinSizeType& newminsize){
+	minsize = newminsize;
+	SetFlags(Flags::MinSize);
+}
+const Window::MinSizeType& Window::GetMinSize(){
+	return minsize;
+}
 
 }

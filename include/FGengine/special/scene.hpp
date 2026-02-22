@@ -15,13 +15,28 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
 #include <SDL2/SDL.h>
+#include "FGengine/renderable/camera.hpp"
 
 namespace FGengine{
 
-void quit();
+class Window;
 
-void mainCycle();
+struct Scene{
+	friend class Window;
 
-void init();
+protected:
+	Camera<> cam;
+	Window* win = nullptr;
+
+	virtual void Load() {};
+	virtual void Drawing() {};
+	virtual void KeyPressed(SDL_KeyboardEvent&) {};
+	virtual void KeyReleased(SDL_KeyboardEvent&) {};
+	virtual void Cycle() {};
+
+	virtual void Deleting() {};
+
+	Scene() {};
+};
 
 }

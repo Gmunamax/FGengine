@@ -14,14 +14,31 @@
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
-#include <SDL2/SDL.h>
 
 namespace FGengine{
 
-void quit();
+class Framerate{
+public:
+	using DataType = unsigned short;
 
-void mainCycle();
+private:
+	DataType fps;
 
-void init();
+public:
+	Framerate();
+	Framerate(const DataType& fps);
+	
+	bool operator==(const Framerate& fps) const;
+	bool operator!=(const Framerate& fps) const;
+	bool operator>(const Framerate& fps) const;
+	bool operator<(const Framerate& fps) const;
+	bool operator>=(const Framerate& fps) const;
+	bool operator<=(const Framerate& fps) const;
+	const DataType& toDataType() const;
+};
+
+inline Framerate operator ""_fps(unsigned long long fps){
+	return Framerate(fps);
+}
 
 }

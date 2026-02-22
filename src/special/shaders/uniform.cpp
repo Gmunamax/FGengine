@@ -13,15 +13,29 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <SDL2/SDL.h>
+#include "FGengine/structures/uniform.hpp"
 
 namespace FGengine{
 
-void quit();
+namespace Uniforms{
 
-void mainCycle();
-
-void init();
+	template<>
+	void Uniform<glm::dmat4>::TemplateSend() const{
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr( (glm::mat4)value ));
+	}
+	template<>
+	void Uniform<glm::dmat3>::TemplateSend() const{
+		glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr( (glm::mat3)value ));
+	}
+	template<>
+	void Uniform<glm::dvec4>::TemplateSend() const{
+		glUniform4f(location, value.x, value.y, value.z, value.w);
+	}
+	template<>
+	void Uniform<glm::dvec3>::TemplateSend() const{
+		glUniform3f(location, value.x, value.y, value.z);
+	}
+	
+}
 
 }

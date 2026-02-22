@@ -13,15 +13,20 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <SDL2/SDL.h>
+#ifdef __INTELLISENSE__
+#include "FGengine/renderable/camera.hpp"
+#endif
 
 namespace FGengine{
 
-void quit();
+template<typename PointType>
+void Camera<PointType>::SetAspectRatio(const double& newaspectratio){
+	UpdateProjectionPropertyValue(aspectratio, newaspectratio);
+}
 
-void mainCycle();
-
-void init();
+template<typename PointType>
+const double& Camera<PointType>::GetAspectRatio() const{
+	return aspectratio;
+}
 
 }

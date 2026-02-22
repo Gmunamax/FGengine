@@ -15,6 +15,8 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #include "vector.hpp"
 
+namespace FGengine{
+
 template<_Vector::length_t Length, typename DataType>
 union Geometry{
 	struct{
@@ -85,3 +87,5 @@ using Geometry2i = Geometry<2, int>;
 using Geometry2s = Geometry<2, short>;
 using Geometry2f = Geometry<2, float>;
 using Geometry2d = Geometry<2, double>;
+
+}

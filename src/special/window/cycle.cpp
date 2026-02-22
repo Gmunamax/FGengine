@@ -13,15 +13,28 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <SDL2/SDL.h>
+#include "FGengine/special/window.hpp"
 
 namespace FGengine{
 
-void quit();
+void Window::CycleAll(){
+	SendEvents();
+	for(Window*& w : allwindows){
+		w->Cycle();
+	}
+}
 
-void mainCycle();
-
-void init();
+void Window::Cycle(){
+	Select();
+	GetScene()->Cycle();
+	if(opened){
+		ApplyMinSize();
+		ApplyPosition();
+		ApplySize();
+		ApplyVsync();
+		ApplyTitle();
+	}
+	ProceedUpdate();
+}
 
 }

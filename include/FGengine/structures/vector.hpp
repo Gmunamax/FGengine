@@ -17,6 +17,8 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
+namespace FGengine{
+
 namespace _Vector{
 
 
@@ -324,4 +326,6 @@ namespace _Vector{
 					Vector::value[3] + value.value[3]};
 		}
 	};
+}
+
 }

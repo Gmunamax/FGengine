@@ -13,15 +13,22 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <SDL2/SDL.h>
+#ifdef __INTELLISENSE__
+#include "FGengine/renderable/camera.hpp"
+#endif
 
 namespace FGengine{
 
-void quit();
+template<typename PointType>
+void Camera<PointType>::ProceedUpdate(){
 
-void mainCycle();
+	glClearColor(backgroundcolor.r,backgroundcolor.g,backgroundcolor.b,backgroundcolor.a);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_DEPTH_BUFFER_BIT);
 
-void init();
+	Camera::ProceedTransformations();
+	Camera::ProceedProjection();
+	Camera::SendMatrix();
+}
 
 }

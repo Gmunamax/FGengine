@@ -13,15 +13,17 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <SDL2/SDL.h>
+#ifdef __INTELLISENSE__
+#include "FGengine/renderable/camera.hpp"
+#endif
 
 namespace FGengine{
 
-void quit();
-
-void mainCycle();
-
-void init();
+template<typename PointType>
+void Camera<PointType>::SendMatrix(){
+	Uniforms::Umat4 view{Camera::WorldPoint::GetMatrix()}; // Getting copy because SendUniformToAll recieves default link, but GetMatrix returns constant link
+	Shader::SendUniformToAll(proj);
+	Shader::SendUniformToAll(view);
+}
 
 }

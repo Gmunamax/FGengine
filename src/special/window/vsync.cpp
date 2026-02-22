@@ -13,15 +13,23 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include <SDL2/SDL.h>
+#include "FGengine/special/window.hpp"
 
 namespace FGengine{
 
-void quit();
+void Window::ApplyVsync(){
+	if(GetFlags(Flags::Vsync)){
+		SDL_GL_SetSwapInterval((int)vsyncmode);
+		RemoveFlags(Flags::Vsync);
+	}
+}
 
-void mainCycle();
-
-void init();
+void Window::SetVsyncMode(const VsyncModes& newstate){
+	vsyncmode = newstate;
+	SetFlags(Flags::Vsync);
+}
+const Window::VsyncModes& Window::GetVsyncMode(){
+	return vsyncmode;
+}
 
 }
