@@ -138,7 +138,6 @@ public:
 private:
 	Frametime frametimelimit {0};
 	FramerateLimitType limittype{FramerateLimitType::Delay};
-	Uint8 frameskip {0};
 	std::chrono::steady_clock::time_point t1, t2;
 
 	Frametime realframetime;
@@ -151,10 +150,7 @@ private:
 	void UpdateByCheckLimit();
 	void UpdateByNoneLimit();
 
-	void UpdateFrameskip();
-
 public:
-	const Uint8& GetFrameskip();
 	const Frametime& GetRealFrametime();
 	
 	void SetFrametimeLimit(const Frametime& ms);

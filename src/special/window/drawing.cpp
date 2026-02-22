@@ -18,20 +18,15 @@
 namespace FGengine{
 
 void Window::ProceedUpdate(){
-	if(!frameskip){
-		if(!frametimelimit.toDataType())
-			UpdateByNoneLimit();
-		else{
-			switch(limittype){
-			case FramerateLimitType::Delay:
-				UpdateByDelayLimit();
-			case FramerateLimitType::Check:
-				UpdateByCheckLimit();
-			}
-		}
-	}
+	if(!frametimelimit.toDataType())
+		UpdateByNoneLimit();
 	else{
-		--frameskip;
+		switch(limittype){
+		case FramerateLimitType::Delay:
+			UpdateByDelayLimit();
+		case FramerateLimitType::Check:
+			UpdateByCheckLimit();
+		}
 	}
 }
 
@@ -51,13 +46,11 @@ void Window::UpdateByDelayLimit(){
 		SDL_Delay(Frametime(frametimelimit - realframetime).toDataType());
 		realframetime = frametimelimit;
 	}
-	UpdateFrameskip();
 }
 
 void Window::UpdateByCheckLimit(){
 	if(realframetime > frametimelimit){
 		RenderScene();
-		UpdateFrameskip();
 		realframetime = 0;
 	}
 	else{
@@ -74,17 +67,6 @@ void Window::RenderScene(){
 	GetScene()->Drawing();
 	SDL_GL_SwapWindow(SDL_GL_GetCurrentWindow());
 	drawing_needupdate = false;
-}
-
-void Window::UpdateFrameskip(){
-	if(frametimelimit.toDataType())
-		frameskip = Frametime(realframetime/frametimelimit).toDataType();
-	else
-		frameskip = 0;
-}
-
-const Uint8& Window::GetFrameskip(){
-	return frameskip;
 }
 
 const Frametime& Window::GetRealFrametime(){
