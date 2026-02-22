@@ -18,15 +18,15 @@
 namespace FGengine{
 
 void Window::ApplyVsync(){
-	if(vsync_needupdate){
+	if(GetFlags(Flags::Vsync)){
 		SDL_GL_SetSwapInterval((int)vsyncmode);
-		vsync_needupdate = false;
+		RemoveFlags(Flags::Vsync);
 	}
 }
 
 void Window::SetVsyncMode(const VsyncModes& newstate){
 	vsyncmode = newstate;
-	vsync_needupdate = true;
+	SetFlags(Flags::Vsync);
 }
 const Window::VsyncModes& Window::GetVsyncMode(){
 	return vsyncmode;

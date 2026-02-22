@@ -18,14 +18,15 @@
 namespace FGengine{
 
 void Window::ApplyTitle(){
-	if(title_needupdate){
+	if(GetFlags(Flags::Title)){
 		SDL_SetWindowTitle(SDL_GL_GetCurrentWindow(),title.c_str());
-		title_needupdate = false;
+		RemoveFlags(Flags::Title);
 	}
 }
 
 void Window::SetTitle(const std::string& newtitle){
 	title = newtitle;
+	SetFlags(Flags::Title);
 }
 const std::string& Window::GetTitle(){
 	return title;

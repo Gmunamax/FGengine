@@ -25,12 +25,41 @@
 namespace FGengine{
 
 class Window{
+//flags
+
+private:
+	using FlagFieldType = Uint8;
+	FlagFieldType flagsfield = 0;
+	enum class Flags{
+		MinSize    = 0b00000001,
+		Vsync      = 0b00000010,
+		Size       = 0b00000100,
+		Title      = 0b00001000,
+		Position   = 0b00010000,
+		Drawing    = 0b00100000,
+	};
+
+	void SetFlags(Flags flags){
+		flagsfield |= (FlagFieldType)flags;
+	}
+	void RemoveFlags(Flags flags){
+		flagsfield &= ~(FlagFieldType)flags;
+	}
+	void InverseFlags(Flags flags){
+		flagsfield &= (FlagFieldType)flags;
+	}
+	FlagFieldType GetFlags(Flags flags){
+		return flagsfield & (FlagFieldType)flags;
+	}
+
+//flags
+
+
 //minsize
 
 private:
 	using MinSizeType = Point2i;
 	MinSizeType minsize {0};
-	bool minsize_needupdate = true;
 
 	void ApplyMinSize();
 
@@ -53,8 +82,6 @@ public:
 private:
 	VsyncModes vsyncmode {VsyncModes::Off};
 
-	bool vsync_needupdate = true;
-
 	void ApplyVsync();
 
 public:
@@ -70,7 +97,6 @@ private:
 	using SizeType = Point2i;
 
 	SizeType size {0,0};
-	bool size_needupdate = true;
 
 	void ApplySize();
 
@@ -87,7 +113,6 @@ public:
 
 private:
 	std::string title{};
-	bool title_needupdate = true;
 
 protected:
 	void ApplyTitle();
@@ -99,16 +124,16 @@ public:
 //title
 
 
-//flags
+//sdlflags
 
 private:
-	Uint32 flags {SDL_WINDOW_OPENGL};
+	Uint32 sdlflags {SDL_WINDOW_OPENGL};
 
 public:
-	void SetFlags(const Uint32& newflags);
-	const Uint32& GetFlags();
+	void SetSDLFlags(const Uint32& newflags);
+	const Uint32& GetSDLFlags();
 
-//flags
+//sdlflags
 
 
 //position
@@ -116,7 +141,6 @@ public:
 private:
 	using PositionType = Point2i;
 	PositionType position {SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED};
-	bool position_needupdate = false;
 
 protected:
 	void ApplyPosition();
@@ -141,7 +165,6 @@ private:
 	std::chrono::steady_clock::time_point t1, t2;
 
 	Frametime realframetime;
-	bool drawing_needupdate = true;
 
 	void RenderScene();
 	

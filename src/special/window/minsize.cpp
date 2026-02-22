@@ -18,15 +18,15 @@
 namespace FGengine{
 
 void Window::ApplyMinSize(){
-	if(minsize_needupdate){
+	if(GetFlags(Flags::MinSize)){
 		SDL_SetWindowMinimumSize(SDL_GL_GetCurrentWindow(),minsize.x,minsize.y);
-		minsize_needupdate = false;
+		RemoveFlags(Flags::MinSize);
 	}
 }
 
 void Window::SetMinSize(const MinSizeType& newminsize){
 	minsize = newminsize;
-	minsize_needupdate = true;
+	SetFlags(Flags::MinSize);
 }
 const Window::MinSizeType& Window::GetMinSize(){
 	return minsize;

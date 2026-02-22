@@ -27,7 +27,7 @@ void Window::Select(){
 
 void Window::Open(){
 	if(not opened){
-		win = SDL_CreateWindow(GetTitle().c_str(), GetPosition().x, GetPosition().y, GetSize().x, GetSize().y, GetFlags());
+		win = SDL_CreateWindow(GetTitle().c_str(), GetPosition().x, GetPosition().y, GetSize().x, GetSize().y, GetSDLFlags());
 		if(win == nullptr){
 			throw SDL_GetError();
 		}

@@ -62,11 +62,11 @@ void Window::UpdateByCheckLimit(){
 }
 
 void Window::RenderScene(){
-	if(!drawing_needupdate) return;
+	if(!GetFlags(Flags::Drawing)) return;
 	GetScene()->cam.ProceedUpdate();
 	GetScene()->Drawing();
 	SDL_GL_SwapWindow(SDL_GL_GetCurrentWindow());
-	drawing_needupdate = false;
+	RemoveFlags(Flags::Drawing);
 }
 
 void Window::SetFrametimeLimit(const Frametime& newframetime){
@@ -84,7 +84,7 @@ const Window::FramerateLimitType& Window::GetFramerateLimitType(){
 }
 
 void Window::RequestNewFrame(){
-	drawing_needupdate = true;
+	SetFlags(Flags::Drawing);
 }
 
 }

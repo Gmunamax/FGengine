@@ -18,10 +18,10 @@
 namespace FGengine{
 
 void Window::ApplySize(){
-	if(size_needupdate){
+	if(GetFlags(Flags::Size)){
 		SDL_SetWindowSize(SDL_GL_GetCurrentWindow(), size.x, size.y);
 		Resize(size);
-		size_needupdate = false;
+		RemoveFlags(Flags::Size);
 	}
 }
 
@@ -33,7 +33,7 @@ void Window::Resize(const SizeType& newsize){
 
 void Window::SetSize(const SizeType& newsize){
 	size = newsize;
-	size_needupdate = true;
+	SetFlags(Flags::Size);
 }
 const Window::SizeType& Window::GetSize(){
 	return size;

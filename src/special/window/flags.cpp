@@ -17,11 +17,11 @@
 
 namespace FGengine{
 
-void Window::SetFlags(const Uint32& newflags){
-	flags = SDL_WINDOW_OPENGL | newflags;
+void Window::SetSDLFlags(const Uint32& newflags){
+	sdlflags = SDL_WINDOW_OPENGL | newflags;
 }
-const Uint32& Window::GetFlags(){
-	return flags;
+const Uint32& Window::GetSDLFlags(){
+	return sdlflags;
 }
 
 }

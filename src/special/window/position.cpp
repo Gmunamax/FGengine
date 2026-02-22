@@ -18,12 +18,15 @@
 namespace FGengine{
 
 void Window::ApplyPosition(){
-	if(position_needupdate)
+	if(GetFlags(Flags::Position)){
 		SDL_SetWindowPosition(SDL_GL_GetCurrentWindow(), position.x, position.y);
+		RemoveFlags(Flags::Position);
+	}
 }
 
 void Window::SetPosition(const PositionType& newposition){
 	position = newposition;
+	SetFlags(Flags::Position);
 }
 const Window::PositionType& Window::GetPosition(){
 	return position;
