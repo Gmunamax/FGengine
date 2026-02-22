@@ -150,9 +150,7 @@ private:
 	void UpdateByCheckLimit();
 	void UpdateByNoneLimit();
 
-public:
-	const Frametime& GetRealFrametime();
-	
+public:	
 	void SetFrametimeLimit(const Frametime& ms);
 	const Frametime& GetFrametimeLimit();
 	void SetFramerateLimitType(const FramerateLimitType& limittype);

@@ -69,10 +69,6 @@ void Window::RenderScene(){
 	drawing_needupdate = false;
 }
 
-const Frametime& Window::GetRealFrametime(){
-	return realframetime;
-}
-
 void Window::SetFrametimeLimit(const Frametime& newframetime){
 	frametimelimit = newframetime;
 }
