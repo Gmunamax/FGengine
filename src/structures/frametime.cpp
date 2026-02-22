@@ -18,7 +18,7 @@ using namespace FGengine;
 
 Frametime::Frametime(): frametime(0) {}
 Frametime::Frametime(const DataType& frametime): frametime(frametime) {}
-Frametime::Frametime(const FPS& fps): frametime(double(ratio::num) * fps.toDataType()/ratio::den) {}
+Frametime::Frametime(const Framerate& fps): frametime(double(ratio::num) * fps.toDataType()/ratio::den) {}
 Frametime::Frametime(const std::chrono::duration<DataType, ratio>& duration): frametime(duration.count()) {}
 const Frametime::DataType& Frametime::toDataType() const { return frametime; }
 

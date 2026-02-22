@@ -17,7 +17,7 @@
 
 namespace FGengine{
 
-class FPS{
+class Framerate{
 public:
 	using DataType = unsigned short;
 
@@ -25,20 +25,20 @@ private:
 	DataType fps;
 
 public:
-	FPS();
-	FPS(const DataType& fps);
+	Framerate();
+	Framerate(const DataType& fps);
 	
-	bool operator==(const FPS& fps) const;
-	bool operator!=(const FPS& fps) const;
-	bool operator>(const FPS& fps) const;
-	bool operator<(const FPS& fps) const;
-	bool operator>=(const FPS& fps) const;
-	bool operator<=(const FPS& fps) const;
+	bool operator==(const Framerate& fps) const;
+	bool operator!=(const Framerate& fps) const;
+	bool operator>(const Framerate& fps) const;
+	bool operator<(const Framerate& fps) const;
+	bool operator>=(const Framerate& fps) const;
+	bool operator<=(const Framerate& fps) const;
 	const DataType& toDataType() const;
 };
 
-inline FPS operator ""_fps(unsigned long long fps){
-	return FPS(fps);
+inline Framerate operator ""_fps(unsigned long long fps){
+	return Framerate(fps);
 }
 
 }

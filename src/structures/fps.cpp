@@ -16,27 +16,27 @@
 #include "FGengine/structures/fps.hpp"
 using namespace FGengine;
 
-FPS::FPS(): fps(0){}
-FPS::FPS(const DataType& fps): fps(fps){}
+Framerate::Framerate(): fps(0){}
+Framerate::Framerate(const DataType& fps): fps(fps){}
 
-bool FPS::operator==(const FPS& fps) const{
+bool Framerate::operator==(const Framerate& fps) const{
 	return this->fps == fps.fps;
 }
-bool FPS::operator!=(const FPS& fps) const{
+bool Framerate::operator!=(const Framerate& fps) const{
 	return this->fps != fps.fps;
 }
-bool FPS::operator>(const FPS& fps) const{
+bool Framerate::operator>(const Framerate& fps) const{
 	return this->fps > fps.fps;
 }
-bool FPS::operator<(const FPS& fps) const{
+bool Framerate::operator<(const Framerate& fps) const{
 	return this->fps < fps.fps;
 }
-bool FPS::operator>=(const FPS& fps) const{
+bool Framerate::operator>=(const Framerate& fps) const{
 	return this->fps >= fps.fps;
 }
-bool FPS::operator<=(const FPS& fps) const{
+bool Framerate::operator<=(const Framerate& fps) const{
 	return this->fps <= fps.fps;
 }
-const FPS::DataType& FPS::toDataType() const{
+const Framerate::DataType& Framerate::toDataType() const{
 	return fps;
 }

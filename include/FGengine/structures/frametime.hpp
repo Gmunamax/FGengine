@@ -31,7 +31,7 @@ private:
 public:
 	Frametime();
 	Frametime(const DataType& frametime);
-	Frametime(const FPS& fps);
+	Frametime(const Framerate& fps);
 	Frametime(const std::chrono::duration<DataType, ratio>& duration);
 	
 	void operator=(const std::chrono::duration<DataType, ratio>& duration);
