@@ -14,11 +14,12 @@
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #include "FGengine/structures/frametime.hpp"
+#include <iostream>
 using namespace FGengine;
 
 Frametime::Frametime(): frametime(0) {}
 Frametime::Frametime(const DataType& frametime): frametime(frametime) {}
-Frametime::Frametime(const Framerate& fps): frametime(double(ratio::num) * fps.toDataType()/ratio::den) {}
+Frametime::Frametime(const Framerate& fps): frametime(double(ratio::num) / fps.toDataType()*ratio::den) {}
 Frametime::Frametime(const std::chrono::duration<DataType, ratio>& duration): frametime(duration.count()) {}
 const Frametime::DataType& Frametime::toDataType() const { return frametime; }
 
