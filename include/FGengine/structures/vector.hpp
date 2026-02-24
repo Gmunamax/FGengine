@@ -59,9 +59,7 @@ namespace _Vector{
 	inline constexpr GLenum VectorDataType<unsigned char>::gldatatype() {return GL_UNSIGNED_BYTE;}
 
 	template<length_t Length, typename DataType, VectorType VectorPurpose>
-	struct VectorData{
-		DataType value[Length];
-	};
+	struct VectorData;
 
 	template<typename DataType>
 	struct VectorData<1, DataType, VectorType::Indice>{
@@ -179,9 +177,7 @@ namespace _Vector{
 	};
 
 	template<length_t Length, typename DataType, VectorType VectorPurpose>
-	struct Vector: VectorDataType<DataType>, VectorMethods<Length, DataType, VectorPurpose>{
-
-	};
+	struct Vector: VectorDataType<DataType>, VectorMethods<Length, DataType, VectorPurpose>;
 
 	template<typename DataType, VectorType VectorPurpose>
 	struct Vector<1, DataType, VectorPurpose>: VectorDataType<DataType>, VectorMethods<1, DataType, VectorPurpose>{
