@@ -172,6 +172,7 @@ namespace _Vector{
 		DataType& operator[](const unsigned index){
 			return VectorMethods::value[index];
 		}
+		static inline constexpr length_t length() {return Length;}
 	};
 
 	template<length_t Length, typename DataType, VectorType VectorPurpose>
@@ -185,7 +186,6 @@ namespace _Vector{
 			Vector::value = value;
 		}
 		
-		static inline constexpr length_t length() {return 1;}
 		glm::vec<1, DataType> toGlm() {return {this->value};}
 
 		Vector& operator=(const Vector& value){
@@ -329,7 +329,6 @@ namespace _Vector{
 			Vector::value[1] = v2;
 		}
 
-		static inline constexpr length_t length() {return 2;}
 		glm::vec<2, DataType> toGlm() {return {this->value[0], this->value[1]};}
 
 		Vector& operator=(const Vector& value){
@@ -498,7 +497,6 @@ namespace _Vector{
 			Vector::value[2] = v3;
 		}
 
-		static inline constexpr length_t length() {return 3;}
 		glm::vec<3, DataType> toGlm() {return {this->value[0], this->value[1], this->value[2]};}
 
 		Vector& operator=(const Vector& value){
@@ -697,7 +695,6 @@ namespace _Vector{
 			Vector::value[3] = v4;
 		}
 
-		static inline constexpr length_t length() {return 4;}
 		glm::vec<4, DataType> toGlm() {return {this->value[0], this->value[1], this->value[2], this->value[3]};}
 
 		Vector& operator=(const Vector& value){
