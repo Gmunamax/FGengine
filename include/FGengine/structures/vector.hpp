@@ -21,7 +21,6 @@ namespace FGengine{
 
 namespace _Vector{
 
-
 	enum class VectorType{
 		Point,
 		Color,
@@ -30,7 +29,6 @@ namespace _Vector{
 	};
 
 	using length_t = char;
-	constexpr char qualifier = glm::packed;
 
 	template<typename DataType>
 	struct VectorDataType{
