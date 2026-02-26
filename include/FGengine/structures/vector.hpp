@@ -332,7 +332,7 @@ namespace _Vector{
 	struct Vector<2, DataType, VectorPurpose>: VectorDataType<DataType>, VectorMethods<2, DataType, VectorPurpose>{
 
 		Vector() = default;
-		Vector(DataType value){
+		explicit Vector(DataType value){
 			Vector::value[0] = value;
 			Vector::value[1] = value;
 		}
@@ -498,7 +498,7 @@ namespace _Vector{
 	struct Vector<3, DataType, VectorPurpose>: VectorDataType<DataType>, VectorMethods<3, DataType, VectorPurpose>{
 
 		Vector() = default;
-		Vector(DataType value){
+		explicit Vector(DataType value){
 			Vector::value[0] = value;
 			Vector::value[1] = value;
 			Vector::value[2] = value;
@@ -694,7 +694,7 @@ namespace _Vector{
 	struct Vector<4, DataType, VectorPurpose>: VectorDataType<DataType>, VectorMethods<4, DataType, VectorPurpose>{
 		
 		Vector() = default;
-		Vector(DataType value){
+		explicit Vector(DataType value){
 			Vector::value[0] = value;
 			Vector::value[1] = value;
 			Vector::value[2] = value;
