@@ -175,735 +175,735 @@ namespace _Vector{
 		static inline constexpr length_t length() {return Length;}
 	};
 
-	template<length_t Length, typename DataType, VectorType VectorPurpose>
-	struct Vector;
-
-	template<typename DataType, VectorType VectorPurpose>
-	struct Vector<1, DataType, VectorPurpose>: VectorDataType<DataType>, VectorMethods<1, DataType, VectorPurpose>{
-
-		Vector() = default;
-		Vector(DataType value) {
-			Vector::value = value;
-		}
-		
-		glm::vec<1, DataType> toGlm() {return {this->value};}
-
-		Vector& operator=(const Vector& value){
-			Vector::value = value.value;
-			return *this;
-		}
-
-		bool operator==(const Vector& value) const{
-			return Vector::value == value.value;
-		}
-		bool operator!=(const Vector& value) const{
-			return Vector::value == value.value;
-		}
-		bool operator!() const{
-			return !Vector::value;
-		}
-		bool operator&&(const Vector& value) const{
-			return Vector::value && value.value;
-		}
-		bool operator||(const Vector& value) const{
-			return Vector::value || value.value;
-		}
-		bool operator>(const Vector& value) const{
-			return Vector::value > value.value;
-		}
-		bool operator<(const Vector& value) const{
-			return Vector::value < value.value;
-		}
-		bool operator>=(const Vector& value) const{
-			return Vector::value >= value.value;
-		}
-		bool operator<=(const Vector& value) const{
-			return Vector::value <= value.value;
-		}
-
-		Vector operator+(const Vector& value) const{
-			return Vector::value + value.value;
-		}
-		Vector operator-(const Vector& value) const{
-			return Vector::value - value.value;
-		}
-		Vector operator*(const Vector& value) const{
-			return Vector::value * value.value;
-		}
-		Vector operator/(const Vector& value) const{
-			return Vector::value / value.value;
-		}
-		Vector operator%(const Vector& value) const{
-			return Vector::value % value.value;
-		}
-		Vector operator&(const Vector& value) const{
-			return Vector::value & value.value;
-		}
-		Vector operator|(const Vector& value) const{
-			return Vector::value | value.value;
-		}
-		Vector operator^(const Vector& value) const{
-			return Vector::value ^ value.value;
-		}
-		Vector operator>>(const Vector& value) const{
-			return Vector::value >> value.value;
-		}
-		Vector operator<<(const Vector& value) const{
-			return Vector::value << value.value;
-		}
-		Vector operator~() const{
-			return ~Vector::value;
-		}
-
-		Vector& operator+=(const Vector& value){
-			Vector::value += value.value;
-			return *this;
-		}
-		Vector& operator-=(const Vector& value){
-			Vector::value -= value.value;
-			return *this;
-		}
-		Vector& operator*=(const Vector& value){
-			Vector::value *= value.value;
-			return *this;
-		}
-		Vector& operator/=(const Vector& value){
-			Vector::value /= value.value;
-			return *this;
-		}
-		Vector& operator%=(const Vector& value){
-			Vector::value %= value.value;
-			return *this;
-		}
-		Vector& operator&=(const Vector& value){
-			Vector::value &= value.value;
-			return *this;
-		}
-		Vector& operator|=(const Vector& value){
-			Vector::value |= value.value;
-			return *this;
-		}
-		Vector& operator^=(const Vector& value){
-			Vector::value ^= value.value;
-			return *this;
-		}
-		Vector& operator>>=(const Vector& value){
-			Vector::value >>= value.value;
-			return *this;
-		}
-		Vector& operator<<=(const Vector& value){
-			Vector::value <<= value.value;
-			return *this;
-		}
-
-		Vector& operator++(){
-			++Vector::value;
-			return *this;
-		}
-		Vector operator++(int){
-			Vector t{*this};
-			++*this;
-			return t;
-		}
-		Vector& operator--(){
-			--Vector::value;
-			return *this;
-		}
-		Vector operator--(int){
-			Vector t{*this};
-			--*this;
-			return t;
-		}
-	};
-
-	template<typename DataType, VectorType VectorPurpose>
-	struct Vector<2, DataType, VectorPurpose>: VectorDataType<DataType>, VectorMethods<2, DataType, VectorPurpose>{
-
-		Vector() = default;
-		explicit Vector(DataType value){
-			Vector::value[0] = value;
-			Vector::value[1] = value;
-		}
-		Vector(DataType v1, DataType v2){
-			Vector::value[0] = v1;
-			Vector::value[1] = v2;
-		}
-
-		glm::vec<2, DataType> toGlm() {return {this->value[0], this->value[1]};}
-
-		Vector& operator=(const Vector& value){
-			Vector::value[0] = value.value[0];
-			Vector::value[1] = value.value[1];
-			return *this;
-		}
-
-		bool operator==(const Vector& value) const{
-			return 
-				Vector::value[0] == value.value[0] and 
-				Vector::value[1] == value.value[1];
-		}
-		bool operator!=(const Vector& value) const{
-			return 
-				Vector::value[0] != value.value[0] or
-				Vector::value[1] != value.value[1];
-		}
-		bool operator!() const{
-			return
-				!Vector::value[0] and
-				!Vector::value[1];
-		}
-		bool operator&&(const Vector& value) const{
-			return
-				(Vector::value[0] && value.value[0]) and
-				(Vector::value[1] && value.value[1]);
-		}
-		bool operator||(const Vector& value) const{
-			return
-				(Vector::value[0] || value.value[0]) or
-				(Vector::value[1] || value.value[1]);
-		}
-
-		Vector operator+(const Vector& value) const{
-			return {Vector::value[0] + value.value[0], 
-					Vector::value[1] + value.value[1]};
-		}
-		Vector operator-(const Vector& value) const{
-			return {Vector::value[0] + value.value[0],
-			        Vector::value[1] + value.value[1]};
-		}
-		Vector operator*(const Vector& value) const{
-			return {Vector::value[0] * value.value[0],
-			        Vector::value[1] * value.value[1]};
-		}
-		Vector operator/(const Vector& value) const{
-			return {Vector::value[0] / value.value[0],
-			        Vector::value[1] / value.value[1]};
-		}
-		Vector operator%(const Vector& value) const{
-			return {Vector::value[0] % value.value[0],
-			        Vector::value[1] % value.value[1]};
-		}
-		Vector operator&(const Vector& value) const{
-			return {Vector::value[0] & value.value[0],
-			        Vector::value[1] & value.value[1]};
-		}
-		Vector operator|(const Vector& value) const{
-			return {Vector::value[0] | value.value[0],
-			        Vector::value[1] | value.value[1]};
-		}
-		Vector operator^(const Vector& value) const{
-			return {Vector::value[0] ^ value.value[0],
-			        Vector::value[1] ^ value.value[1]};
-		}
-		Vector operator>>(const Vector& value) const{
-			return {Vector::value[0] >> value.value[0],
-			        Vector::value[1] >> value.value[1]};
-		}
-		Vector operator<<(const Vector& value) const{
-			return {Vector::value[0] << value.value[0],
-			        Vector::value[1] << value.value[1]};
-		}
-		Vector operator~() const{
-			return{~Vector::value[0],
-			       ~Vector::value[1]};
-		}
-
-		Vector& operator+=(const Vector& value){
-			Vector::value[0] += value.value[0];
-			Vector::value[1] += value.value[1];
-			return *this;
-		}
-		Vector& operator-=(const Vector& value){
-			Vector::value[0] -= value.value[0];
-			Vector::value[1] -= value.value[1];
-			return *this;
-		}
-		Vector& operator*=(const Vector& value){
-			Vector::value[0] *= value.value[0];
-			Vector::value[1] *= value.value[1];
-			return *this;
-		}
-		Vector& operator/=(const Vector& value){
-			Vector::value[0] *= value.value[0];
-			Vector::value[1] *= value.value[1];
-			return *this;
-		}
-		Vector& operator%=(const Vector& value){
-			Vector::value[0] %= value.value[0];
-			Vector::value[1] %= value.value[1];
-			return *this;
-		}
-		Vector& operator&=(const Vector& value){
-			Vector::value[0] &= value.value[0];
-			Vector::value[1] &= value.value[1];
-			return *this;
-		}
-		Vector& operator|=(const Vector& value){
-			Vector::value[0] |= value.value[0];
-			Vector::value[1] |= value.value[1];
-			return *this;
-		}
-		Vector& operator^=(const Vector& value){
-			Vector::value[0] ^= value.value[0];
-			Vector::value[1] ^= value.value[1];
-			return *this;
-		}
-		Vector& operator>>=(const Vector& value){
-			Vector::value[0] >>= value.value[0];
-			Vector::value[1] >>= value.value[1];
-			return *this;
-		}
-		Vector& operator<<=(const Vector& value){
-			Vector::value[0] <<= value.value[0];
-			Vector::value[1] <<= value.value[1];
-			return *this;
-		}
-
-		Vector& operator++(){
-			++Vector::value[0];
-			++Vector::value[1];
-			return *this;
-		}
-		Vector operator++(int){
-			Vector t{*this};
-			++*this;
-			return t;
-		}
-		Vector& operator--(){
-			--Vector::value[0];
-			--Vector::value[1];
-			return *this;
-		}
-		Vector operator--(int){
-			Vector t{*this};
-			--*this;
-			return t;
-		}
-
-	};
-
-	template<typename DataType, VectorType VectorPurpose>
-	struct Vector<3, DataType, VectorPurpose>: VectorDataType<DataType>, VectorMethods<3, DataType, VectorPurpose>{
-
-		Vector() = default;
-		explicit Vector(DataType value){
-			Vector::value[0] = value;
-			Vector::value[1] = value;
-			Vector::value[2] = value;
-		}
-		Vector(DataType v1, DataType v2, DataType v3){
-			Vector::value[0] = v1;
-			Vector::value[1] = v2;
-			Vector::value[2] = v3;
-		}
-
-		glm::vec<3, DataType> toGlm() {return {this->value[0], this->value[1], this->value[2]};}
-
-		Vector& operator=(const Vector& value){
-			Vector::value[0] = value.value[0];
-			Vector::value[1] = value.value[1];
-			Vector::value[2] = value.value[2];
-			return *this;
-		}
-
-		bool operator==(const Vector& value) const{
-			return
-				Vector::value[0] == value.value[0] and
-				Vector::value[1] == value.value[1] and
-				Vector::value[2] == value.value[2];
-		}
-		bool operator!=(const Vector& value) const{
-			return
-				Vector::value[0] != value.value[0] or
-				Vector::value[1] != value.value[1] or
-				Vector::value[2] != value.value[2];
-		}
-		bool operator!() const{
-			return
-				!Vector::value[0] and
-				!Vector::value[1] and
-				!Vector::value[2];
-		}
-		bool operator&&(const Vector& value) const{
-			return
-				(Vector::value[0] && value.value[0]) and
-				(Vector::value[1] && value.value[1]) and
-				(Vector::value[2] && value.value[2]);
-		}
-		bool operator||(const Vector& value) const{
-			return
-				(Vector::value[0] || value.value[0]) or
-				(Vector::value[1] || value.value[1]) or
-				(Vector::value[2] || value.value[2]);
-		}
-		
-		Vector operator+(const Vector& value) const{
-			return {Vector::value[0] + value.value[0], 
-					Vector::value[1] + value.value[1], 
-					Vector::value[2] + value.value[2]};
-		}
-		Vector operator-(const Vector& value) const{
-			return {Vector::value[0] - value.value[0],
-			        Vector::value[1] - value.value[1],
-					Vector::value[2] - value.value[2]};
-		}
-		Vector operator*(const Vector& value) const{
-			return {Vector::value[0] * value.value[0], 
-					Vector::value[1] * value.value[1], 
-					Vector::value[2] * value.value[2]};
-		}
-		Vector operator/(const Vector& value) const{
-			return {Vector::value[0] / value.value[0],
-			        Vector::value[1] / value.value[1],
-					Vector::value[2] / value.value[2]};
-		}
-		Vector operator%(const Vector& value) const{
-			return {Vector::value[0] % value.value[0],
-			        Vector::value[1] % value.value[1],
-					Vector::value[2] % value.value[2]};
-		}
-		Vector operator&(const Vector& value) const{
-			return {Vector::value[0] & value.value[0],
-			        Vector::value[1] & value.value[1],
-					Vector::value[2] & value.value[2]};
-		}
-		Vector operator|(const Vector& value) const{
-			return {Vector::value[0] | value.value[0],
-			        Vector::value[1] | value.value[1],
-					Vector::value[2] | value.value[2]};
-		}
-		Vector operator^(const Vector& value) const{
-			return {Vector::value[0] ^ value.value[0],
-			        Vector::value[1] ^ value.value[1],
-					Vector::value[2] ^ value.value[2]};
-		}
-		Vector operator>>(const Vector& value) const{
-			return {Vector::value[0] >> value.value[0],
-			        Vector::value[1] >> value.value[1],
-					Vector::value[2] >> value.value[2]};
-		}
-		Vector operator<<(const Vector& value) const{
-			return {Vector::value[0] << value.value[0],
-			        Vector::value[1] << value.value[1],
-					Vector::value[2] << value.value[2]};
-		}
-		Vector operator~() const{
-			return {~Vector::value[0],
-			        ~Vector::value[1],
-					~Vector::value[2]};
-		}
-
-		Vector& operator+=(const Vector& value){
-			Vector::value[0] += value.value[0];
-			Vector::value[1] += value.value[1];
-			Vector::value[2] += value.value[2];
-			return *this;
-		}
-		Vector& operator-=(const Vector& value){
-			Vector::value[0] -= value.value[0];
-			Vector::value[1] -= value.value[1];
-			Vector::value[2] -= value.value[2];
-			return *this;
-		}
-		Vector& operator*=(const Vector& value){
-			Vector::value[0] *= value.value[0];
-			Vector::value[1] *= value.value[1];
-			Vector::value[2] *= value.value[2];
-			return *this;
-		}
-		Vector& operator/=(const Vector& value){
-			Vector::value[0] /= value.value[0];
-			Vector::value[1] /= value.value[1];
-			Vector::value[2] /= value.value[2];
-			return *this;
-		}
-		Vector& operator%=(const Vector& value){
-			Vector::value[0] %= value.value[0];
-			Vector::value[1] %= value.value[1];
-			Vector::value[2] %= value.value[2];
-			return *this;
-		}
-		Vector& operator&=(const Vector& value){
-			Vector::value[0] &= value.value[0];
-			Vector::value[1] &= value.value[1];
-			Vector::value[2] &= value.value[2];
-			return *this;
-		}
-		Vector& operator|=(const Vector& value){
-			Vector::value[0] |= value.value[0];
-			Vector::value[1] |= value.value[1];
-			Vector::value[2] |= value.value[2];
-			return *this;
-		}
-		Vector& operator^=(const Vector& value){
-			Vector::value[0] ^= value.value[0];
-			Vector::value[1] ^= value.value[1];
-			Vector::value[2] ^= value.value[2];
-			return *this;
-		}
-		Vector& operator>>=(const Vector& value){
-			Vector::value[0] >>= value.value[0];
-			Vector::value[1] >>= value.value[1];
-			Vector::value[2] >>= value.value[2];
-			return *this;
-		}
-		Vector& operator<<=(const Vector& value){
-			Vector::value[0] <<= value.value[0];
-			Vector::value[1] <<= value.value[1];
-			Vector::value[2] <<= value.value[2];
-			return *this;
-		}
-
-		Vector& operator++(){
-			++Vector::value[0];
-			++Vector::value[1];
-			++Vector::value[2];
-			return *this;
-		}
-		Vector operator++(int){
-			Vector t{*this};
-			++*this;
-			return t;
-		}
-		Vector& operator--(){
-			--Vector::value[0];
-			--Vector::value[1];
-			--Vector::value[2];
-			return *this;
-		}
-		Vector operator--(int){
-			Vector t{*this};
-			--*this;
-			return t;
-		}
-	};
-
-	template<typename DataType, VectorType VectorPurpose>
-	struct Vector<4, DataType, VectorPurpose>: VectorDataType<DataType>, VectorMethods<4, DataType, VectorPurpose>{
-		
-		Vector() = default;
-		explicit Vector(DataType value){
-			Vector::value[0] = value;
-			Vector::value[1] = value;
-			Vector::value[2] = value;
-			Vector::value[3] = value;
-		}
-		Vector(DataType v1, DataType v2, DataType v3, DataType v4){
-			Vector::value[0] = v1;
-			Vector::value[1] = v2;
-			Vector::value[2] = v3;
-			Vector::value[3] = v4;
-		}
-
-		glm::vec<4, DataType> toGlm() {return {this->value[0], this->value[1], this->value[2], this->value[3]};}
-
-		Vector& operator=(const Vector& value){
-			Vector::value[0] = value.value[0];
-			Vector::value[1] = value.value[1];
-			Vector::value[2] = value.value[2];
-			Vector::value[3] = value.value[3];
-			return *this;
-		}
-
-		bool operator==(const Vector& value) const{
-			return
-				Vector::value[0] == value.value[0] and
-				Vector::value[1] == value.value[1] and
-				Vector::value[2] == value.value[2] and
-				Vector::value[3] == value.value[3];
-		}
-		bool operator!=(const Vector& value) const{
-			return
-				Vector::value[0] != value.value[0] or
-				Vector::value[1] != value.value[1] or
-				Vector::value[2] != value.value[2] or
-				Vector::value[3] != value.value[3];
-		}
-		bool operator!() const{
-			return
-				!Vector::value[0] and
-				!Vector::value[1] and
-				!Vector::value[2] and
-				!Vector::value[3];
-		}
-		bool operator&&(const Vector& value) const{
-			return
-				(Vector::value[0] && value.value[0]) and
-				(Vector::value[1] && value.value[1]) and
-				(Vector::value[2] && value.value[2]) and
-				(Vector::value[3] && value.value[3]);
-		}
-		bool operator||(const Vector& value) const{
-			return
-				(Vector::value[0] || value.value[0]) or
-				(Vector::value[1] || value.value[1]) or
-				(Vector::value[2] || value.value[2]) or
-				(Vector::value[3] || value.value[3]);
-		}
-
-		Vector operator+(const Vector& value) const{
-			return {Vector::value[0] + value.value[0], 
-					Vector::value[1] + value.value[1], 
-					Vector::value[2] + value.value[2], 
-					Vector::value[3] + value.value[3]};
-		}
-		Vector operator-(const Vector& value) const{
-			return {Vector::value[0] - value.value[0],
-			        Vector::value[1] - value.value[1],
-					Vector::value[2] - value.value[2],
-					Vector::value[3] - value.value[3]};
-		}
-		Vector operator*(const Vector& value) const{
-			return {Vector::value[0] * value.value[0],
-			        Vector::value[1] * value.value[1],
-					Vector::value[2] * value.value[2],
-					Vector::value[3] * value.value[3]};
-		}
-		Vector operator/(const Vector& value) const{
-			return {Vector::value[0] / value.value[0],
-			        Vector::value[1] / value.value[1],
-					Vector::value[2] / value.value[2],
-					Vector::value[3] / value.value[3]};
-		}
-		Vector operator%(const Vector& value) const{
-			return {Vector::value[0] % value.value[0],
-			        Vector::value[1] % value.value[1],
-					Vector::value[2] % value.value[2],
-					Vector::value[3] % value.value[3]};
-		}
-		Vector operator&(const Vector& value) const{
-			return {Vector::value[0] & value.value[0],
-			        Vector::value[1] & value.value[1],
-					Vector::value[2] & value.value[2],
-					Vector::value[3] & value.value[3]};
-		}
-		Vector operator|(const Vector& value) const{
-			return {Vector::value[0] | value.value[0],
-			        Vector::value[1] | value.value[1],
-					Vector::value[2] | value.value[2],
-					Vector::value[3] | value.value[3]};
-		}
-		Vector operator^(const Vector& value) const{
-			return {Vector::value[0] ^ value.value[0],
-			        Vector::value[1] ^ value.value[1],
-					Vector::value[2] ^ value.value[2],
-					Vector::value[3] ^ value.value[3]};
-		}
-		Vector operator>>(const Vector& value) const{
-			return {Vector::value[0] >> value.value[0],
-			        Vector::value[1] >> value.value[1],
-					Vector::value[2] >> value.value[2],
-					Vector::value[3] >> value.value[3]};
-		}
-		Vector operator<<(const Vector& value) const{
-			return {Vector::value[0] << value.value[0],
-			        Vector::value[1] << value.value[1],
-					Vector::value[2] << value.value[2],
-					Vector::value[3] << value.value[3]};
-		}
-		Vector operator~() const{
-			return {~Vector::value[0],
-			        ~Vector::value[1],
-					~Vector::value[2],
-					~Vector::value[3]};
-		}
-
-		Vector& operator+=(const Vector& value){
-			Vector::value[0] += value.value[0];
-			Vector::value[1] += value.value[1];
-			Vector::value[2] += value.value[2];
-			Vector::value[3] += value.value[3];
-			return *this;
-		}
-		Vector& operator-=(const Vector& value){
-			Vector::value[0] -= value.value[0];
-			Vector::value[1] -= value.value[1];
-			Vector::value[2] -= value.value[2];
-			Vector::value[3] -= value.value[3];
-			return *this;
-		}
-		Vector& operator*=(const Vector& value){
-			Vector::value[0] *= value.value[0];
-			Vector::value[1] *= value.value[1];
-			Vector::value[2] *= value.value[2];
-			Vector::value[3] *= value.value[3];
-			return *this;
-		}
-		Vector& operator/=(const Vector& value){
-			Vector::value[0] /= value.value[0];
-			Vector::value[1] /= value.value[1];
-			Vector::value[2] /= value.value[2];
-			Vector::value[3] /= value.value[3];
-			return *this;
-		}
-		Vector& operator%=(const Vector& value){
-			Vector::value[0] %= value.value[0];
-			Vector::value[1] %= value.value[1];
-			Vector::value[2] %= value.value[2];
-			Vector::value[3] %= value.value[3];
-			return *this;
-		}
-		Vector& operator&=(const Vector& value){
-			Vector::value[0] &= value.value[0];
-			Vector::value[1] &= value.value[1];
-			Vector::value[2] &= value.value[2];
-			Vector::value[3] &= value.value[3];
-			return *this;
-		}
-		Vector& operator|=(const Vector& value){
-			Vector::value[0] |= value.value[0];
-			Vector::value[1] |= value.value[1];
-			Vector::value[2] |= value.value[2];
-			Vector::value[3] |= value.value[3];
-			return *this;
-		}
-		Vector& operator^=(const Vector& value){
-			Vector::value[0] ^= value.value[0];
-			Vector::value[1] ^= value.value[1];
-			Vector::value[2] ^= value.value[2];
-			Vector::value[3] ^= value.value[3];
-			return *this;
-		}
-		Vector& operator>>=(const Vector& value){
-			Vector::value[0] >>= value.value[0];
-			Vector::value[1] >>= value.value[1];
-			Vector::value[2] >>= value.value[2];
-			Vector::value[3] >>= value.value[3];
-			return *this;
-		}
-		Vector& operator<<=(const Vector& value){
-			Vector::value[0] <<= value.value[0];
-			Vector::value[1] <<= value.value[1];
-			Vector::value[2] <<= value.value[2];
-			Vector::value[3] <<= value.value[3];
-			return *this;
-		}
-
-		Vector& operator++(){
-			++Vector::value[0];
-			++Vector::value[1];
-			++Vector::value[2];
-			++Vector::value[3];
-			return *this;
-		}
-		Vector operator++(int){
-			Vector t{*this};
-			++*this;
-			return t;
-		}
-		Vector& operator--(){
-			--Vector::value[0];
-			--Vector::value[1];
-			--Vector::value[2];
-			--Vector::value[3];
-			return *this;
-		}
-		Vector operator--(int){
-			Vector t{*this};
-			--*this;
-			return t;
-		}
-	};
 }
+
+template<_Vector::length_t Length, typename DataType, _Vector::VectorType VectorPurpose>
+struct Vector;
+
+template<typename DataType, _Vector::VectorType VectorPurpose>
+struct Vector<1, DataType, VectorPurpose>: _Vector::VectorDataType<DataType>, _Vector::VectorMethods<1, DataType, VectorPurpose>{
+
+	Vector() = default;
+	Vector(DataType value) {
+		Vector::value = value;
+	}
+		
+	glm::vec<1, DataType> toGlm() {return {this->value};}
+
+	Vector& operator=(const Vector& value){
+		Vector::value = value.value;
+		return *this;
+	}
+
+	bool operator==(const Vector& value) const{
+		return Vector::value == value.value;
+	}
+	bool operator!=(const Vector& value) const{
+		return Vector::value == value.value;
+	}
+	bool operator!() const{
+		return !Vector::value;
+	}
+	bool operator&&(const Vector& value) const{
+		return Vector::value && value.value;
+	}
+	bool operator||(const Vector& value) const{
+		return Vector::value || value.value;
+	}
+	bool operator>(const Vector& value) const{
+		return Vector::value > value.value;
+	}
+	bool operator<(const Vector& value) const{
+		return Vector::value < value.value;
+	}
+	bool operator>=(const Vector& value) const{
+		return Vector::value >= value.value;
+	}
+	bool operator<=(const Vector& value) const{
+		return Vector::value <= value.value;
+	}
+
+	Vector operator+(const Vector& value) const{
+		return Vector::value + value.value;
+	}
+	Vector operator-(const Vector& value) const{
+		return Vector::value - value.value;
+	}
+	Vector operator*(const Vector& value) const{
+		return Vector::value * value.value;
+	}
+	Vector operator/(const Vector& value) const{
+		return Vector::value / value.value;
+	}
+	Vector operator%(const Vector& value) const{
+		return Vector::value % value.value;
+	}
+	Vector operator&(const Vector& value) const{
+		return Vector::value & value.value;
+	}
+	Vector operator|(const Vector& value) const{
+		return Vector::value | value.value;
+	}
+	Vector operator^(const Vector& value) const{
+		return Vector::value ^ value.value;
+	}
+	Vector operator>>(const Vector& value) const{
+		return Vector::value >> value.value;
+	}
+	Vector operator<<(const Vector& value) const{
+		return Vector::value << value.value;
+	}
+	Vector operator~() const{
+		return ~Vector::value;
+	}
+
+	Vector& operator+=(const Vector& value){
+		Vector::value += value.value;
+		return *this;
+	}
+	Vector& operator-=(const Vector& value){
+		Vector::value -= value.value;
+		return *this;
+	}
+	Vector& operator*=(const Vector& value){
+		Vector::value *= value.value;
+		return *this;
+	}
+	Vector& operator/=(const Vector& value){
+		Vector::value /= value.value;
+		return *this;
+	}
+	Vector& operator%=(const Vector& value){
+		Vector::value %= value.value;
+		return *this;
+	}
+	Vector& operator&=(const Vector& value){
+		Vector::value &= value.value;
+		return *this;
+	}
+	Vector& operator|=(const Vector& value){
+		Vector::value |= value.value;
+		return *this;
+	}
+	Vector& operator^=(const Vector& value){
+		Vector::value ^= value.value;
+		return *this;
+	}
+	Vector& operator>>=(const Vector& value){
+		Vector::value >>= value.value;
+		return *this;
+	}
+	Vector& operator<<=(const Vector& value){
+		Vector::value <<= value.value;
+		return *this;
+	}
+
+	Vector& operator++(){
+		++Vector::value;
+		return *this;
+	}
+	Vector operator++(int){
+		Vector t{*this};
+		++*this;
+		return t;
+	}
+	Vector& operator--(){
+		--Vector::value;
+		return *this;
+	}
+	Vector operator--(int){
+		Vector t{*this};
+		--*this;
+		return t;
+	}
+};
+
+template<typename DataType, _Vector::VectorType VectorPurpose>
+struct Vector<2, DataType, VectorPurpose>: _Vector::VectorDataType<DataType>, _Vector::VectorMethods<2, DataType, VectorPurpose>{
+
+	Vector() = default;
+	explicit Vector(DataType value){
+		Vector::value[0] = value;
+		Vector::value[1] = value;
+	}
+	Vector(DataType v1, DataType v2){
+		Vector::value[0] = v1;
+		Vector::value[1] = v2;
+	}
+
+	glm::vec<2, DataType> toGlm() {return {this->value[0], this->value[1]};}
+
+	Vector& operator=(const Vector& value){
+		Vector::value[0] = value.value[0];
+		Vector::value[1] = value.value[1];
+		return *this;
+	}
+
+	bool operator==(const Vector& value) const{
+		return 
+			Vector::value[0] == value.value[0] and 
+			Vector::value[1] == value.value[1];
+	}
+	bool operator!=(const Vector& value) const{
+		return 
+			Vector::value[0] != value.value[0] or
+			Vector::value[1] != value.value[1];
+	}
+	bool operator!() const{
+		return
+			!Vector::value[0] and
+			!Vector::value[1];
+	}
+	bool operator&&(const Vector& value) const{
+		return
+			(Vector::value[0] && value.value[0]) and
+			(Vector::value[1] && value.value[1]);
+	}
+	bool operator||(const Vector& value) const{
+		return
+			(Vector::value[0] || value.value[0]) or
+			(Vector::value[1] || value.value[1]);
+	}
+
+	Vector operator+(const Vector& value) const{
+		return {Vector::value[0] + value.value[0], 
+				Vector::value[1] + value.value[1]};
+	}
+	Vector operator-(const Vector& value) const{
+		return {Vector::value[0] + value.value[0],
+		        Vector::value[1] + value.value[1]};
+	}
+	Vector operator*(const Vector& value) const{
+		return {Vector::value[0] * value.value[0],
+		        Vector::value[1] * value.value[1]};
+	}
+	Vector operator/(const Vector& value) const{
+		return {Vector::value[0] / value.value[0],
+		        Vector::value[1] / value.value[1]};
+	}
+	Vector operator%(const Vector& value) const{
+		return {Vector::value[0] % value.value[0],
+		        Vector::value[1] % value.value[1]};
+	}
+	Vector operator&(const Vector& value) const{
+		return {Vector::value[0] & value.value[0],
+		        Vector::value[1] & value.value[1]};
+	}
+	Vector operator|(const Vector& value) const{
+		return {Vector::value[0] | value.value[0],
+		        Vector::value[1] | value.value[1]};
+	}
+	Vector operator^(const Vector& value) const{
+		return {Vector::value[0] ^ value.value[0],
+		        Vector::value[1] ^ value.value[1]};
+	}
+	Vector operator>>(const Vector& value) const{
+		return {Vector::value[0] >> value.value[0],
+		        Vector::value[1] >> value.value[1]};
+	}
+	Vector operator<<(const Vector& value) const{
+		return {Vector::value[0] << value.value[0],
+		        Vector::value[1] << value.value[1]};
+	}
+	Vector operator~() const{
+		return{~Vector::value[0],
+		       ~Vector::value[1]};
+	}
+
+	Vector& operator+=(const Vector& value){
+		Vector::value[0] += value.value[0];
+		Vector::value[1] += value.value[1];
+		return *this;
+	}
+	Vector& operator-=(const Vector& value){
+		Vector::value[0] -= value.value[0];
+		Vector::value[1] -= value.value[1];
+		return *this;
+	}
+	Vector& operator*=(const Vector& value){
+		Vector::value[0] *= value.value[0];
+		Vector::value[1] *= value.value[1];
+		return *this;
+	}
+	Vector& operator/=(const Vector& value){
+		Vector::value[0] *= value.value[0];
+		Vector::value[1] *= value.value[1];
+		return *this;
+	}
+	Vector& operator%=(const Vector& value){
+		Vector::value[0] %= value.value[0];
+		Vector::value[1] %= value.value[1];
+		return *this;
+	}
+	Vector& operator&=(const Vector& value){
+		Vector::value[0] &= value.value[0];
+		Vector::value[1] &= value.value[1];
+		return *this;
+	}
+	Vector& operator|=(const Vector& value){
+		Vector::value[0] |= value.value[0];
+		Vector::value[1] |= value.value[1];
+		return *this;
+	}
+	Vector& operator^=(const Vector& value){
+		Vector::value[0] ^= value.value[0];
+		Vector::value[1] ^= value.value[1];
+		return *this;
+	}
+	Vector& operator>>=(const Vector& value){
+		Vector::value[0] >>= value.value[0];
+		Vector::value[1] >>= value.value[1];
+		return *this;
+	}
+	Vector& operator<<=(const Vector& value){
+		Vector::value[0] <<= value.value[0];
+		Vector::value[1] <<= value.value[1];
+		return *this;
+	}
+
+	Vector& operator++(){
+		++Vector::value[0];
+		++Vector::value[1];
+		return *this;
+	}
+	Vector operator++(int){
+		Vector t{*this};
+		++*this;
+		return t;
+	}
+	Vector& operator--(){
+		--Vector::value[0];
+		--Vector::value[1];
+		return *this;
+	}
+	Vector operator--(int){
+		Vector t{*this};
+		--*this;
+		return t;
+	}
+};
+
+template<typename DataType, _Vector::VectorType VectorPurpose>
+struct Vector<3, DataType, VectorPurpose>: _Vector::VectorDataType<DataType>, _Vector::VectorMethods<3, DataType, VectorPurpose>{
+
+	Vector() = default;
+	explicit Vector(DataType value){
+		Vector::value[0] = value;
+		Vector::value[1] = value;
+		Vector::value[2] = value;
+	}
+	Vector(DataType v1, DataType v2, DataType v3){
+		Vector::value[0] = v1;
+		Vector::value[1] = v2;
+		Vector::value[2] = v3;
+	}
+
+	glm::vec<3, DataType> toGlm() {return {this->value[0], this->value[1], this->value[2]};}
+
+	Vector& operator=(const Vector& value){
+		Vector::value[0] = value.value[0];
+		Vector::value[1] = value.value[1];
+		Vector::value[2] = value.value[2];
+		return *this;
+	}
+
+	bool operator==(const Vector& value) const{
+		return
+			Vector::value[0] == value.value[0] and
+			Vector::value[1] == value.value[1] and
+			Vector::value[2] == value.value[2];
+	}
+	bool operator!=(const Vector& value) const{
+		return
+			Vector::value[0] != value.value[0] or
+			Vector::value[1] != value.value[1] or
+			Vector::value[2] != value.value[2];
+	}
+	bool operator!() const{
+		return
+			!Vector::value[0] and
+			!Vector::value[1] and
+			!Vector::value[2];
+	}
+	bool operator&&(const Vector& value) const{
+		return
+			(Vector::value[0] && value.value[0]) and
+			(Vector::value[1] && value.value[1]) and
+			(Vector::value[2] && value.value[2]);
+	}
+	bool operator||(const Vector& value) const{
+		return
+			(Vector::value[0] || value.value[0]) or
+			(Vector::value[1] || value.value[1]) or
+			(Vector::value[2] || value.value[2]);
+	}
+		
+	Vector operator+(const Vector& value) const{
+		return {Vector::value[0] + value.value[0], 
+				Vector::value[1] + value.value[1], 
+				Vector::value[2] + value.value[2]};
+	}
+	Vector operator-(const Vector& value) const{
+		return {Vector::value[0] - value.value[0],
+		        Vector::value[1] - value.value[1],
+				Vector::value[2] - value.value[2]};
+	}
+	Vector operator*(const Vector& value) const{
+		return {Vector::value[0] * value.value[0], 
+				Vector::value[1] * value.value[1], 
+				Vector::value[2] * value.value[2]};
+	}
+	Vector operator/(const Vector& value) const{
+		return {Vector::value[0] / value.value[0],
+		        Vector::value[1] / value.value[1],
+				Vector::value[2] / value.value[2]};
+	}
+	Vector operator%(const Vector& value) const{
+		return {Vector::value[0] % value.value[0],
+		        Vector::value[1] % value.value[1],
+				Vector::value[2] % value.value[2]};
+	}
+	Vector operator&(const Vector& value) const{
+		return {Vector::value[0] & value.value[0],
+		        Vector::value[1] & value.value[1],
+				Vector::value[2] & value.value[2]};
+	}
+	Vector operator|(const Vector& value) const{
+		return {Vector::value[0] | value.value[0],
+		        Vector::value[1] | value.value[1],
+				Vector::value[2] | value.value[2]};
+	}
+	Vector operator^(const Vector& value) const{
+		return {Vector::value[0] ^ value.value[0],
+		        Vector::value[1] ^ value.value[1],
+				Vector::value[2] ^ value.value[2]};
+	}
+	Vector operator>>(const Vector& value) const{
+		return {Vector::value[0] >> value.value[0],
+		        Vector::value[1] >> value.value[1],
+				Vector::value[2] >> value.value[2]};
+	}
+	Vector operator<<(const Vector& value) const{
+		return {Vector::value[0] << value.value[0],
+		        Vector::value[1] << value.value[1],
+				Vector::value[2] << value.value[2]};
+	}
+	Vector operator~() const{
+		return {~Vector::value[0],
+		        ~Vector::value[1],
+				~Vector::value[2]};
+	}
+
+	Vector& operator+=(const Vector& value){
+		Vector::value[0] += value.value[0];
+		Vector::value[1] += value.value[1];
+		Vector::value[2] += value.value[2];
+		return *this;
+	}
+	Vector& operator-=(const Vector& value){
+		Vector::value[0] -= value.value[0];
+		Vector::value[1] -= value.value[1];
+		Vector::value[2] -= value.value[2];
+		return *this;
+	}
+	Vector& operator*=(const Vector& value){
+		Vector::value[0] *= value.value[0];
+		Vector::value[1] *= value.value[1];
+		Vector::value[2] *= value.value[2];
+		return *this;
+	}
+	Vector& operator/=(const Vector& value){
+		Vector::value[0] /= value.value[0];
+		Vector::value[1] /= value.value[1];
+		Vector::value[2] /= value.value[2];
+		return *this;
+	}
+	Vector& operator%=(const Vector& value){
+		Vector::value[0] %= value.value[0];
+		Vector::value[1] %= value.value[1];
+		Vector::value[2] %= value.value[2];
+		return *this;
+	}
+	Vector& operator&=(const Vector& value){
+		Vector::value[0] &= value.value[0];
+		Vector::value[1] &= value.value[1];
+		Vector::value[2] &= value.value[2];
+		return *this;
+	}
+	Vector& operator|=(const Vector& value){
+		Vector::value[0] |= value.value[0];
+		Vector::value[1] |= value.value[1];
+		Vector::value[2] |= value.value[2];
+		return *this;
+	}
+	Vector& operator^=(const Vector& value){
+		Vector::value[0] ^= value.value[0];
+		Vector::value[1] ^= value.value[1];
+		Vector::value[2] ^= value.value[2];
+		return *this;
+	}
+	Vector& operator>>=(const Vector& value){
+		Vector::value[0] >>= value.value[0];
+		Vector::value[1] >>= value.value[1];
+		Vector::value[2] >>= value.value[2];
+		return *this;
+	}
+	Vector& operator<<=(const Vector& value){
+		Vector::value[0] <<= value.value[0];
+		Vector::value[1] <<= value.value[1];
+		Vector::value[2] <<= value.value[2];
+		return *this;
+	}
+
+	Vector& operator++(){
+		++Vector::value[0];
+		++Vector::value[1];
+		++Vector::value[2];
+		return *this;
+	}
+	Vector operator++(int){
+		Vector t{*this};
+		++*this;
+		return t;
+	}
+	Vector& operator--(){
+		--Vector::value[0];
+		--Vector::value[1];
+		--Vector::value[2];
+		return *this;
+	}
+	Vector operator--(int){
+		Vector t{*this};
+		--*this;
+		return t;
+	}
+};
+
+template<typename DataType, _Vector::VectorType VectorPurpose>
+struct Vector<4, DataType, VectorPurpose>: _Vector::VectorDataType<DataType>, _Vector::VectorMethods<4, DataType, VectorPurpose>{
+		
+	Vector() = default;
+	explicit Vector(DataType value){
+		Vector::value[0] = value;
+		Vector::value[1] = value;
+		Vector::value[2] = value;
+		Vector::value[3] = value;
+	}
+	Vector(DataType v1, DataType v2, DataType v3, DataType v4){
+		Vector::value[0] = v1;
+		Vector::value[1] = v2;
+		Vector::value[2] = v3;
+		Vector::value[3] = v4;
+	}
+
+	glm::vec<4, DataType> toGlm() {return {this->value[0], this->value[1], this->value[2], this->value[3]};}
+
+	Vector& operator=(const Vector& value){
+		Vector::value[0] = value.value[0];
+		Vector::value[1] = value.value[1];
+		Vector::value[2] = value.value[2];
+		Vector::value[3] = value.value[3];
+		return *this;
+	}
+
+	bool operator==(const Vector& value) const{
+		return
+			Vector::value[0] == value.value[0] and
+			Vector::value[1] == value.value[1] and
+			Vector::value[2] == value.value[2] and
+			Vector::value[3] == value.value[3];
+	}
+	bool operator!=(const Vector& value) const{
+		return
+			Vector::value[0] != value.value[0] or
+			Vector::value[1] != value.value[1] or
+			Vector::value[2] != value.value[2] or
+			Vector::value[3] != value.value[3];
+	}
+	bool operator!() const{
+		return
+			!Vector::value[0] and
+			!Vector::value[1] and
+			!Vector::value[2] and
+			!Vector::value[3];
+	}
+	bool operator&&(const Vector& value) const{
+		return
+			(Vector::value[0] && value.value[0]) and
+			(Vector::value[1] && value.value[1]) and
+			(Vector::value[2] && value.value[2]) and
+			(Vector::value[3] && value.value[3]);
+	}
+	bool operator||(const Vector& value) const{
+		return
+			(Vector::value[0] || value.value[0]) or
+			(Vector::value[1] || value.value[1]) or
+			(Vector::value[2] || value.value[2]) or
+			(Vector::value[3] || value.value[3]);
+	}
+
+	Vector operator+(const Vector& value) const{
+		return {Vector::value[0] + value.value[0], 
+				Vector::value[1] + value.value[1], 
+				Vector::value[2] + value.value[2], 
+				Vector::value[3] + value.value[3]};
+	}
+	Vector operator-(const Vector& value) const{
+		return {Vector::value[0] - value.value[0],
+		        Vector::value[1] - value.value[1],
+				Vector::value[2] - value.value[2],
+				Vector::value[3] - value.value[3]};
+	}
+	Vector operator*(const Vector& value) const{
+		return {Vector::value[0] * value.value[0],
+		        Vector::value[1] * value.value[1],
+				Vector::value[2] * value.value[2],
+				Vector::value[3] * value.value[3]};
+	}
+	Vector operator/(const Vector& value) const{
+		return {Vector::value[0] / value.value[0],
+		        Vector::value[1] / value.value[1],
+				Vector::value[2] / value.value[2],
+				Vector::value[3] / value.value[3]};
+	}
+	Vector operator%(const Vector& value) const{
+		return {Vector::value[0] % value.value[0],
+		        Vector::value[1] % value.value[1],
+				Vector::value[2] % value.value[2],
+				Vector::value[3] % value.value[3]};
+	}
+	Vector operator&(const Vector& value) const{
+		return {Vector::value[0] & value.value[0],
+		        Vector::value[1] & value.value[1],
+				Vector::value[2] & value.value[2],
+				Vector::value[3] & value.value[3]};
+	}
+	Vector operator|(const Vector& value) const{
+		return {Vector::value[0] | value.value[0],
+		        Vector::value[1] | value.value[1],
+				Vector::value[2] | value.value[2],
+				Vector::value[3] | value.value[3]};
+	}
+	Vector operator^(const Vector& value) const{
+		return {Vector::value[0] ^ value.value[0],
+		        Vector::value[1] ^ value.value[1],
+				Vector::value[2] ^ value.value[2],
+				Vector::value[3] ^ value.value[3]};
+	}
+	Vector operator>>(const Vector& value) const{
+		return {Vector::value[0] >> value.value[0],
+		        Vector::value[1] >> value.value[1],
+				Vector::value[2] >> value.value[2],
+				Vector::value[3] >> value.value[3]};
+	}
+	Vector operator<<(const Vector& value) const{
+		return {Vector::value[0] << value.value[0],
+		        Vector::value[1] << value.value[1],
+				Vector::value[2] << value.value[2],
+				Vector::value[3] << value.value[3]};
+	}
+	Vector operator~() const{
+		return {~Vector::value[0],
+		        ~Vector::value[1],
+				~Vector::value[2],
+				~Vector::value[3]};
+	}
+
+	Vector& operator+=(const Vector& value){
+		Vector::value[0] += value.value[0];
+		Vector::value[1] += value.value[1];
+		Vector::value[2] += value.value[2];
+		Vector::value[3] += value.value[3];
+		return *this;
+	}
+	Vector& operator-=(const Vector& value){
+		Vector::value[0] -= value.value[0];
+		Vector::value[1] -= value.value[1];
+		Vector::value[2] -= value.value[2];
+		Vector::value[3] -= value.value[3];
+		return *this;
+	}
+	Vector& operator*=(const Vector& value){
+		Vector::value[0] *= value.value[0];
+		Vector::value[1] *= value.value[1];
+		Vector::value[2] *= value.value[2];
+		Vector::value[3] *= value.value[3];
+		return *this;
+	}
+	Vector& operator/=(const Vector& value){
+		Vector::value[0] /= value.value[0];
+		Vector::value[1] /= value.value[1];
+		Vector::value[2] /= value.value[2];
+		Vector::value[3] /= value.value[3];
+		return *this;
+	}
+	Vector& operator%=(const Vector& value){
+		Vector::value[0] %= value.value[0];
+		Vector::value[1] %= value.value[1];
+		Vector::value[2] %= value.value[2];
+		Vector::value[3] %= value.value[3];
+		return *this;
+	}
+	Vector& operator&=(const Vector& value){
+		Vector::value[0] &= value.value[0];
+		Vector::value[1] &= value.value[1];
+		Vector::value[2] &= value.value[2];
+		Vector::value[3] &= value.value[3];
+		return *this;
+	}
+	Vector& operator|=(const Vector& value){
+		Vector::value[0] |= value.value[0];
+		Vector::value[1] |= value.value[1];
+		Vector::value[2] |= value.value[2];
+		Vector::value[3] |= value.value[3];
+		return *this;
+	}
+	Vector& operator^=(const Vector& value){
+		Vector::value[0] ^= value.value[0];
+		Vector::value[1] ^= value.value[1];
+		Vector::value[2] ^= value.value[2];
+		Vector::value[3] ^= value.value[3];
+		return *this;
+	}
+	Vector& operator>>=(const Vector& value){
+		Vector::value[0] >>= value.value[0];
+		Vector::value[1] >>= value.value[1];
+		Vector::value[2] >>= value.value[2];
+		Vector::value[3] >>= value.value[3];
+		return *this;
+	}
+	Vector& operator<<=(const Vector& value){
+		Vector::value[0] <<= value.value[0];
+		Vector::value[1] <<= value.value[1];
+		Vector::value[2] <<= value.value[2];
+		Vector::value[3] <<= value.value[3];
+		return *this;
+	}
+
+	Vector& operator++(){
+		++Vector::value[0];
+		++Vector::value[1];
+		++Vector::value[2];
+		++Vector::value[3];
+		return *this;
+	}
+	Vector operator++(int){
+		Vector t{*this};
+		++*this;
+		return t;
+	}
+	Vector& operator--(){
+		--Vector::value[0];
+		--Vector::value[1];
+		--Vector::value[2];
+		--Vector::value[3];
+		return *this;
+	}
+	Vector operator--(int){
+		Vector t{*this};
+		--*this;
+		return t;
+	}
+};
 
 }

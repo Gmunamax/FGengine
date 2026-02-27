@@ -20,16 +20,16 @@ namespace FGengine{
 template<_Vector::length_t Length, typename DataType>
 union Geometry{
 	struct{
-		_Vector::Vector<Length, DataType, _Vector::VectorType::Point> position;
-		_Vector::Vector<Length, DataType, _Vector::VectorType::Size> size;
+		Vector<Length, DataType, _Vector::VectorType::Point> position;
+		Vector<Length, DataType, _Vector::VectorType::Size> size;
 	};
 };
 
 template<typename DataType>
 union Geometry<2, DataType>{
 	struct{
-		_Vector::Vector<2, DataType, _Vector::VectorType::Point> position;
-		_Vector::Vector<2, DataType, _Vector::VectorType::Size> size;
+		Vector<2, DataType, _Vector::VectorType::Point> position;
+		Vector<2, DataType, _Vector::VectorType::Size> size;
 	};
 	struct{
 		DataType x;
@@ -54,8 +54,8 @@ union Geometry<2, DataType>{
 template<typename DataType>
 union Geometry<3, DataType>{
 	struct{
-		_Vector::Vector<3, DataType, _Vector::VectorType::Point> position;
-		_Vector::Vector<3, DataType, _Vector::VectorType::Size> size;
+		Vector<3, DataType, _Vector::VectorType::Point> position;
+		Vector<3, DataType, _Vector::VectorType::Size> size;
 	};
 	struct{
 		DataType x;
