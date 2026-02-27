@@ -36,6 +36,9 @@ namespace _Vector{
 	};
 
 	template<>
+	inline constexpr GLenum VectorDataType<char>::gldatatype() {return GL_BYTE;}
+
+	template<>
 	inline constexpr GLenum VectorDataType<short>::gldatatype() {return GL_SHORT;}
 
 	template<>
