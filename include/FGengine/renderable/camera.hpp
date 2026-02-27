@@ -98,7 +98,7 @@ public:
 //background
 
 private:
-	Color4d backgroundcolor = {0,0,0,1};
+	Color4d backgroundcolor {0,0,0,1};
 
 public:
 	void SetBackgroundColor(const Color4d& newbgcolor);
