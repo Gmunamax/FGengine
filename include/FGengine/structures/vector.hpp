@@ -199,12 +199,6 @@ namespace _Vector{
 		bool operator!=(const Vector& value) const{
 			return Vector::value == value.value;
 		}
-		bool operator==(const DataType& value) const{
-			return Vector::value == value;
-		}
-		bool operator!=(const DataType& value) const{
-			return Vector::value != value;
-		}
 		bool operator!() const{
 			return !Vector::value;
 		}
@@ -212,12 +206,6 @@ namespace _Vector{
 			return Vector::value && value.value;
 		}
 		bool operator||(const Vector& value) const{
-			return Vector::value || value.value;
-		}
-		bool operator&&(const DataType& value) const{
-			return Vector::value && value.value;
-		}
-		bool operator||(const DataType& value) const{
 			return Vector::value || value.value;
 		}
 		bool operator>(const Vector& value) const{
