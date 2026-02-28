@@ -184,7 +184,7 @@ template<_Vector::length_t Length, typename DataType, _Vector::VectorType Vector
 struct Vector;
 
 template<typename DataType, _Vector::VectorType VectorPurpose>
-struct Vector<1, DataType, VectorPurpose>: _Vector::VectorDataType<DataType>, _Vector::VectorMethods<1, DataType, VectorPurpose>{
+struct Vector<1, DataType, VectorPurpose>: public _Vector::VectorDataType<DataType>, public _Vector::VectorMethods<1, DataType, VectorPurpose>{
 
 	Vector() = default;
 	Vector(DataType value) {
@@ -322,7 +322,7 @@ struct Vector<1, DataType, VectorPurpose>: _Vector::VectorDataType<DataType>, _V
 };
 
 template<typename DataType, _Vector::VectorType VectorPurpose>
-struct Vector<2, DataType, VectorPurpose>: _Vector::VectorDataType<DataType>, _Vector::VectorMethods<2, DataType, VectorPurpose>{
+struct Vector<2, DataType, VectorPurpose>: public _Vector::VectorDataType<DataType>, public _Vector::VectorMethods<2, DataType, VectorPurpose>{
 
 	Vector() = default;
 	explicit Vector(DataType value){
@@ -487,7 +487,7 @@ struct Vector<2, DataType, VectorPurpose>: _Vector::VectorDataType<DataType>, _V
 };
 
 template<typename DataType, _Vector::VectorType VectorPurpose>
-struct Vector<3, DataType, VectorPurpose>: _Vector::VectorDataType<DataType>, _Vector::VectorMethods<3, DataType, VectorPurpose>{
+struct Vector<3, DataType, VectorPurpose>: public _Vector::VectorDataType<DataType>, public _Vector::VectorMethods<3, DataType, VectorPurpose>{
 
 	Vector() = default;
 	explicit Vector(DataType value){
@@ -683,7 +683,7 @@ struct Vector<3, DataType, VectorPurpose>: _Vector::VectorDataType<DataType>, _V
 };
 
 template<typename DataType, _Vector::VectorType VectorPurpose>
-struct Vector<4, DataType, VectorPurpose>: _Vector::VectorDataType<DataType>, _Vector::VectorMethods<4, DataType, VectorPurpose>{
+struct Vector<4, DataType, VectorPurpose>: public _Vector::VectorDataType<DataType>, public _Vector::VectorMethods<4, DataType, VectorPurpose>{
 		
 	Vector() = default;
 	explicit Vector(DataType value){
