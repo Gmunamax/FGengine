@@ -45,19 +45,19 @@ namespace _Vector{
 	inline constexpr GLenum VectorDataType<int>::gldatatype() {return GL_INT;}
 
 	template<>
-	inline constexpr GLenum VectorDataType<float>::gldatatype() {return GL_FLOAT;}
-
-	template<>
-	inline constexpr GLenum VectorDataType<double>::gldatatype() {return GL_DOUBLE;}
-
-	template<>
-	inline constexpr GLenum VectorDataType<unsigned int>::gldatatype() {return GL_UNSIGNED_INT;}
+	inline constexpr GLenum VectorDataType<unsigned char>::gldatatype() {return GL_UNSIGNED_BYTE;}
 
 	template<>
 	inline constexpr GLenum VectorDataType<unsigned short>::gldatatype() {return GL_UNSIGNED_SHORT;}
 
 	template<>
-	inline constexpr GLenum VectorDataType<unsigned char>::gldatatype() {return GL_UNSIGNED_BYTE;}
+	inline constexpr GLenum VectorDataType<unsigned int>::gldatatype() {return GL_UNSIGNED_INT;}
+
+	template<>
+	inline constexpr GLenum VectorDataType<float>::gldatatype() {return GL_FLOAT;}
+
+	template<>
+	inline constexpr GLenum VectorDataType<double>::gldatatype() {return GL_DOUBLE;}
 
 	template<length_t Length, typename DataType, VectorType VectorPurpose>
 	struct VectorData;
