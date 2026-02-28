@@ -79,10 +79,7 @@ namespace _Vector{
 	struct VectorData<2, DataType, VectorType::Point>{
 		union{
 			DataType value[2];
-			struct{
-				DataType x;
-				DataType y;
-			};
+			struct{ DataType x, y; };
 		};
 	};
 
@@ -90,11 +87,7 @@ namespace _Vector{
 	struct VectorData<3, DataType, VectorType::Point>{
 		union{
 			DataType value[3];
-			struct{
-				DataType x;
-				DataType y;
-				DataType z;
-			};
+			struct{ DataType x, y, z; };
 		};
 	};
 
@@ -102,12 +95,7 @@ namespace _Vector{
 	struct VectorData<4, DataType, VectorType::Point>{
 		union{
 			DataType value[4];
-			struct{
-				DataType x;
-				DataType y;
-				DataType z;
-				DataType w;
-			};
+			struct{ DataType x, y, z, w; };
 		};
 	};
 
@@ -115,11 +103,7 @@ namespace _Vector{
 	struct VectorData<3, DataType, VectorType::Color>{
 		union{
 			DataType value[3];
-			struct{
-				DataType r;
-				DataType g;
-				DataType b;
-			};
+			struct{ DataType r, g, b; };
 		};
 	};
 
@@ -127,12 +111,7 @@ namespace _Vector{
 	struct VectorData<4, DataType, VectorType::Color>{
 		union{
 			DataType value[4];
-			struct{
-				DataType r;
-				DataType g;
-				DataType b;
-				DataType a;
-			};
+			struct{ DataType r, g, b, a; };
 		};
 	};
 
@@ -148,10 +127,7 @@ namespace _Vector{
 	struct VectorData<2, DataType, VectorType::Size>{
 		union{
 			DataType value[2];
-			struct{
-				DataType w;
-				DataType h;
-			};
+			struct{ DataType w, h; };
 		};
 	};
 
@@ -159,11 +135,7 @@ namespace _Vector{
 	struct VectorData<3, DataType, VectorType::Size>{
 		union{
 			DataType value[3];
-			struct{
-				DataType w;
-				DataType h;
-				DataType d;
-			};
+			struct{ DataType w, h, d; };
 		};
 	};
 
