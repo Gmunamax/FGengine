@@ -58,14 +58,11 @@ namespace Uniforms{
 			TemplateSend();
 		}
 
-		Uniform(const char* const name){
-			this->name = name;
-		}
-		Uniform(const char* const name, const ValueType& value): Uniform(name){
-			SetValue(value);
-		}
-		Uniform(const char* const name, const Shader& shader, const ValueType& value): name(name), shaderId(shader.shaderid), value(value){}
+		Uniform(const char* const name): name(name) {}
+		Uniform(const char* const name, const ValueType& value): name(name), value(value) {}
 		Uniform(const char* const name, const Shader& shader): name(name), shaderId(shader.shaderid) {}
+		Uniform(const char* const name, const Shader& shader, const ValueType& value): name(name), shaderId(shader.shaderid), value(value){}
+
 		void operator=(const ValueType& newvalue){
 			SetValue(newvalue);
 		}
