@@ -20,7 +20,7 @@
 #include <fstream>
 #include <iostream>
 #include <GL/glew.h>
-#include "FGengine/structures/uniform.hpp"
+// #include "FGengine/structures/uniform.hpp"
 
 namespace FGengine{
 
