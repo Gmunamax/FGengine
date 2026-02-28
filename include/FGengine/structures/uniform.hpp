@@ -18,6 +18,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <string>
 #include <GL/glew.h>
+#include "FGengine/special/shader.hpp"
 
 namespace FGengine{
 
@@ -63,6 +64,8 @@ namespace Uniforms{
 		Uniform(const char* const name, const ValueType& value): Uniform(name){
 			SetValue(value);
 		}
+		Uniform(const char* const name, const Shader& shader, const ValueType& value): name(name), shaderId(shader.shaderid), value(value){}
+		Uniform(const char* const name, const Shader& shader): name(name), shaderId(shader.shaderid) {}
 		void operator=(const ValueType& newvalue){
 			SetValue(newvalue);
 		}
