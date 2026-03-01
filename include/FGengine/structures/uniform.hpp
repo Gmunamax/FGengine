@@ -60,8 +60,12 @@ namespace Uniforms{
 
 		Uniform(const char* const name): name(name) {}
 		Uniform(const char* const name, const ValueType& value): name(name), value(value) {}
-		Uniform(const char* const name, const Shader& shader): name(name), shaderId(shader.shaderid) {}
-		Uniform(const char* const name, const Shader& shader, const ValueType& value): name(name), shaderId(shader.shaderid), value(value){}
+		Uniform(const char* const name, const Shader& shader): name(name), shaderId(shader.ToGL()) {
+			location = glGetUniformLocation(shaderId, name);
+		}
+		Uniform(const char* const name, const Shader& shader, const ValueType& value): name(name), shaderId(shader.ToGL()), value(value){
+			location = glGetUniformLocation(shaderId, name);
+		}
 
 		void operator=(const ValueType& newvalue){
 			SetValue(newvalue);
