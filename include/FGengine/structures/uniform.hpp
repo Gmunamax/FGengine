@@ -30,7 +30,7 @@ namespace Uniforms{
 		const char* name;
 		ValueType value;
 		GLint location = 0;
-		GLint shaderId = 0;
+		GLuint shaderId = 0;
 
 		void SetValue(const ValueType& value){
 			this->value = value;
