@@ -48,6 +48,10 @@ namespace Uniforms{
 			this->shaderId = newshader;
 			location = glGetUniformLocation(newshader, name);
 		}
+		
+		const GLuint& GetShader() const{
+			return shaderId;
+		}
 
 		const ValueType& GetValue() const{
 			return value;
