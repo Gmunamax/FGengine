@@ -32,11 +32,11 @@ namespace Uniforms{
 		GLint location = 0;
 		GLuint shaderId = 0;
 
-		void SetValue(const ValueType& value){
-			this->value = value;
-		}
-
 		void TemplateSend() const;
+		void UpdateLocation(){
+			glUseProgram(shaderId);
+			location = glGetUniformLocation(shaderId, name);
+		}
 
 	public:
 
@@ -46,7 +46,7 @@ namespace Uniforms{
 	
 		void SetShader(const GLuint& newshader){
 			this->shaderId = newshader;
-			location = glGetUniformLocation(newshader, name);
+			UpdateLocation();
 		}
 		
 		const GLuint& GetShader() const{
@@ -65,14 +65,14 @@ namespace Uniforms{
 		Uniform(const char* const name): name(name) {}
 		Uniform(const char* const name, const ValueType& value): name(name), value(value) {}
 		Uniform(const char* const name, const Shader& shader): name(name), shaderId(shader.ToGL()) {
-			location = glGetUniformLocation(shaderId, name);
+			UpdateLocation();
 		}
 		Uniform(const char* const name, const Shader& shader, const ValueType& value): name(name), shaderId(shader.ToGL()), value(value){
-			location = glGetUniformLocation(shaderId, name);
+			UpdateLocation();
 		}
 
 		void operator=(const ValueType& newvalue){
-			SetValue(newvalue);
+			Uniform::value = newvalue;
 		}
 		
 	};
