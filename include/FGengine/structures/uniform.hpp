@@ -77,10 +77,14 @@ namespace Uniforms{
 		
 	};
 
-	using Umat4 = Uniform<glm::dmat4>;
-	using Umat3 = Uniform<glm::dmat3>;
-	using Uvec4 = Uniform<glm::dvec4>;
-	using Uvec3 = Uniform<glm::dvec3>;
+	using Umat4d = Uniform<glm::dmat4>;
+	using Umat4f = Uniform<glm::mat4>;
+	using Umat3d = Uniform<glm::dmat3>;
+	using Umat3f = Uniform<glm::mat3>;
+	using Uvec4d = Uniform<glm::dvec4>;
+	using Uvec4f = Uniform<glm::vec4>;
+	using Uvec3d = Uniform<glm::dvec3>;
+	using Uvec3f = Uniform<glm::vec3>;
 
 }
 
