@@ -22,7 +22,7 @@ namespace FGengine{
 
 template<typename PointType>
 class WorldPoint{
-	Uniforms::Umat4d mat;
+	Umat4d mat;
 	bool needupdate = true;
 	PointType position{0};
 	PointType rotation{0};
@@ -41,7 +41,7 @@ protected:
 			needupdate = false;
 		}
 	}
-	const Uniforms::Umat4d& GetMatrix() const{
+	const Umat4d& GetMatrix() const{
 		return mat;
 	}
 	void SendMatrix() const{

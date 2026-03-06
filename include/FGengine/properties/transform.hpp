@@ -23,11 +23,11 @@ namespace FGengine{
 template<typename PointType>
 class Transform{
 
-	Uniforms::Umat4d objm;
+	Umat4d objm;
 
 	bool needupdate = true;
 
-	Uniforms::Umat3d normalm;
+	Umat3d normalm;
 protected:
 	void ProceedTransformations(){
 		if(needupdate){
@@ -50,7 +50,7 @@ protected:
 		}
 	}
 
-	Uniforms::Umat4d* GetMatrix(){
+	Umat4d* GetMatrix(){
 		return &objm;
 	}
 

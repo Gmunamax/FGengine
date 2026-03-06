@@ -27,7 +27,7 @@ template<typename PointType = Point3d>
 class Camera: public WorldPoint<PointType>{
 //uniform
 	bool needupdate = true;
-	Uniforms::Umat4d proj {"fg_projectionmatrix"};
+	Umat4d proj {"fg_projectionmatrix"};
 
 private:
 
