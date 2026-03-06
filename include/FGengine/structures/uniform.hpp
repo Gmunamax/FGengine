@@ -24,67 +24,116 @@ namespace FGengine{
 
 namespace Uniforms{
 
-	template<typename ValueType>
-	class Uniform{
-
+	class _Uniform{
 		const char* name;
-		ValueType value;
-		GLint location = 0;
 		GLuint shaderId = 0;
 
-		void TemplateSend() const;
 		void UpdateLocation(){
 			glUseProgram(shaderId);
 			location = glGetUniformLocation(shaderId, name);
 		}
 
-	public:
+	protected:
+		GLint location = 0;
 
+		template<typename ValueType>
+		void TemplateSend(unsigned count, const ValueType* value) const;
+
+	public:
 		const char* GetName() const{
 			return name;
 		}
-	
+
 		void SetShader(const GLuint& newshader){
 			this->shaderId = newshader;
 			UpdateLocation();
 		}
-		
+
 		const GLuint& GetShader() const{
 			return shaderId;
 		}
 
-		const ValueType& GetValue() const{
+		_Uniform(const char* name): name(name) {}
+		_Uniform(const char* name, const Shader& shader): name(name), shaderId(shader.ToGL()) {
+			UpdateLocation();
+		}
+	};
+
+	template<unsigned Count, typename ValueType>
+	class Uniform: public _Uniform{
+
+		ValueType value[Count];
+
+		void SetValue(const ValueType newvalue[Count]){
+			std::cout << Count << ": ";
+			for(unsigned e = 0; e < Count; ++e){
+				value[e] = newvalue[e];
+				std::cout << e << " = " << newvalue[e] << ", ";
+			}
+			std::cout << std::endl;
+		}
+
+	public:
+		const ValueType* GetValue() const{
 			return value;
 		}
 
 		void Send() const{
-			glUseProgram(shaderId);
+			glUseProgram(GetShader());
+			TemplateSend(Count, value);
+		}
+
+		Uniform(const char* const name): _Uniform(name) {}
+		Uniform(const char* const name, const ValueType value[Count]): _Uniform(name) {
+			SetValue(value);
+		}
+		Uniform(const char* const name, const Shader& shader): _Uniform(name, shader) {}
+		Uniform(const char* const name, const Shader& shader, const ValueType value[Count]): _Uniform(name, shader){
+			SetValue(value);
+		}
+
+		void operator=(const ValueType newvalue[Count]){
+			SetValue(newvalue);
+		}
+		const ValueType& operator[](const unsigned index) const{
+			return Uniform::value[index];
+		}
+	};
+
+	template<typename ValueType>
+	class Uniform<1, ValueType>: public _Uniform{
+
+		ValueType value;
+
+		void TemplateSend() const;
+
+	public:
+		const ValueType& GetValue() const{
+			return value;
+		}
+		void Send() const{
+			glUseProgram(GetShader());
 			TemplateSend();
 		}
 
-		Uniform(const char* const name): name(name) {}
-		Uniform(const char* const name, const ValueType& value): name(name), value(value) {}
-		Uniform(const char* const name, const Shader& shader): name(name), shaderId(shader.ToGL()) {
-			UpdateLocation();
-		}
-		Uniform(const char* const name, const Shader& shader, const ValueType& value): name(name), shaderId(shader.ToGL()), value(value){
-			UpdateLocation();
-		}
+		Uniform(const char* const name): _Uniform(name) {}
+		Uniform(const char* const name, const ValueType& value): _Uniform(name), value(value) {}
+		Uniform(const char* const name, const Shader& shader): _Uniform(name, shader) {}
+		Uniform(const char* const name, const Shader& shader, const ValueType& value): _Uniform(name, shader), value(value) {}
 
 		void operator=(const ValueType& newvalue){
 			Uniform::value = newvalue;
 		}
-		
 	};
 
-	using Umat4d = Uniform<glm::dmat4>;
-	using Umat4f = Uniform<glm::mat4>;
-	using Umat3d = Uniform<glm::dmat3>;
-	using Umat3f = Uniform<glm::mat3>;
-	using Uvec4d = Uniform<glm::dvec4>;
-	using Uvec4f = Uniform<glm::vec4>;
-	using Uvec3d = Uniform<glm::dvec3>;
-	using Uvec3f = Uniform<glm::vec3>;
+	using Umat4d = Uniform<1, glm::dmat4>;
+	using Umat4f = Uniform<1, glm::mat4>;
+	using Umat3d = Uniform<1, glm::dmat3>;
+	using Umat3f = Uniform<1, glm::mat3>;
+	using Uvec4d = Uniform<1, glm::dvec4>;
+	using Uvec4f = Uniform<1, glm::vec4>;
+	using Uvec3d = Uniform<1, glm::dvec3>;
+	using Uvec3f = Uniform<1, glm::vec3>;
 
 }
 
