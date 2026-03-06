@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
+#include <glm/gtc/matrix_transform.hpp>
 #include "FGengine/structures/geometry.hpp"
 #include "FGengine/structures/point.hpp"
 #include "FGengine/structures/color.hpp"

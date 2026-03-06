@@ -14,9 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <string>
+#include <glm/matrix.hpp>
 #include <GL/glew.h>
 #include "FGengine/special/shader.hpp"
 
