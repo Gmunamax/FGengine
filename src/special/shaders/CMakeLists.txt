@@ -16,5 +16,4 @@
 target_sources(FGengine
 PRIVATE
 	${CMAKE_CURRENT_SOURCE_DIR}/compilation.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/uniform.cpp
 )
