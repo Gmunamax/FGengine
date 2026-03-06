@@ -61,12 +61,9 @@ class Uniform: public _Uniform{
 	ValueType value[Count];
 
 	void SetValue(const ValueType newvalue[Count]){
-		std::cout << Count << ": ";
 		for(unsigned e = 0; e < Count; ++e){
 			value[e] = newvalue[e];
-			std::cout << e << " = " << newvalue[e] << ", ";
 		}
-		std::cout << std::endl;
 	}
 
 public:
