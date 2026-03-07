@@ -207,5 +207,41 @@ template<>
 void _Uniform::TemplateSend(unsigned count, const glm::mat<4, 4, float>* value) const{
 	glUniformMatrix4fv(location, count, GL_FALSE, glm::value_ptr(*value));
 }
+template<>
+void _Uniform::TemplateSend(unsigned count, const glm::mat<2, 2, double>* value) const{
+	glUniformMatrix2dv(location, count, GL_FALSE, glm::value_ptr(*value));
+}
+template<>
+void _Uniform::TemplateSend(unsigned count, const glm::mat<2, 3, double>* value) const{
+	glUniformMatrix2x3dv(location, count, GL_FALSE, glm::value_ptr(*value));
+}
+template<>
+void _Uniform::TemplateSend(unsigned count, const glm::mat<2, 4, double>* value) const{
+	glUniformMatrix2x4dv(location, count, GL_FALSE, glm::value_ptr(*value));
+}
+template<>
+void _Uniform::TemplateSend(unsigned count, const glm::mat<3, 2, double>* value) const{
+	glUniformMatrix3x2dv(location, count, GL_FALSE, glm::value_ptr(*value));
+}
+template<>
+void _Uniform::TemplateSend(unsigned count, const glm::mat<3, 3, double>* value) const{
+	glUniformMatrix3dv(location, count, GL_FALSE, glm::value_ptr(*value));
+}
+template<>
+void _Uniform::TemplateSend(unsigned count, const glm::mat<3, 4, double>* value) const{
+	glUniformMatrix3x4dv(location, count, GL_FALSE, glm::value_ptr(*value));
+}
+template<>
+void _Uniform::TemplateSend(unsigned count, const glm::mat<4, 2, double>* value) const{
+	glUniformMatrix4x2dv(location, count, GL_FALSE, glm::value_ptr(*value));
+}
+template<>
+void _Uniform::TemplateSend(unsigned count, const glm::mat<4, 3, double>* value) const{
+	glUniformMatrix4x3dv(location, count, GL_FALSE, glm::value_ptr(*value));
+}
+template<>
+void _Uniform::TemplateSend(unsigned count, const glm::mat<4, 4, double>* value) const{
+	glUniformMatrix4dv(location, count, GL_FALSE, glm::value_ptr(*value));
+}
 
 }
