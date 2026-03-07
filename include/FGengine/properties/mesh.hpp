@@ -41,6 +41,15 @@ private:
 	
 	std::vector<FaceLocation> facelocators;
 
+	template<typename VertexAttribType>
+	void InitVertexAttribute(const GLuint index){
+		if(VertexAttribType::DataType::gldatatype() == GL_DOUBLE)
+			glVertexAttribLPointer(index, VertexAttribType::GetLength(), VertexAttribType::DataType::gldatatype(), VertexType::GetStride(), (void*)VertexAttribType::GetOffset());
+		else
+			glVertexAttribPointer(index, VertexAttribType::GetLength(), VertexAttribType::DataType::gldatatype(), false, VertexType::GetStride(), (void*)VertexAttribType::GetOffset());
+		glEnableVertexAttribArray(index);
+	}
+
 public:
 
 	using VertexesList = std::vector<VertexType>;
@@ -56,13 +65,10 @@ public:
 		glBindVertexArray(vao);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-		
-		glVertexAttribPointer(0, VertexType::VertexPosition::GetLength(), VertexType::VertexPosition::DataType::gldatatype(), false, VertexType::GetStride(), (void*)VertexType::VertexPosition::GetOffset());
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(1, VertexType::VertexColor::GetLength(), VertexType::VertexColor::DataType::gldatatype(), false, VertexType::GetStride(), (void*)VertexType::VertexColor::GetOffset());
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(2, VertexType::VertexNormal::GetLength(), VertexType::VertexNormal::DataType::gldatatype(), false, VertexType::GetStride(), (void*)VertexType::VertexNormal::GetOffset());
-		glEnableVertexAttribArray(2);
+
+		InitVertexAttribute<typename VertexType::VertexPosition>(0);
+		InitVertexAttribute<typename VertexType::VertexColor>(1);
+		InitVertexAttribute<typename VertexType::VertexNormal>(2);
 
 		glBindVertexArray(0);
 	}
