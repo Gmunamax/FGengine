@@ -43,10 +43,10 @@ private:
 
 	template<typename VertexAttribType>
 	void InitVertexAttribute(const GLuint index){
-		if(VertexAttribType::DataType::gldatatype() == GL_DOUBLE)
-			glVertexAttribLPointer(index, VertexAttribType::GetLength(), VertexAttribType::DataType::gldatatype(), VertexType::GetStride(), (void*)VertexAttribType::GetOffset());
+		if(VertexAttribType::PropertyType::gldatatype() == GL_DOUBLE)
+			glVertexAttribLPointer(index, VertexAttribType::GetLength(), VertexAttribType::PropertyType::gldatatype(), VertexType::GetStride(), (void*)VertexAttribType::GetOffset());
 		else
-			glVertexAttribPointer(index, VertexAttribType::GetLength(), VertexAttribType::DataType::gldatatype(), false, VertexType::GetStride(), (void*)VertexAttribType::GetOffset());
+			glVertexAttribPointer(index, VertexAttribType::GetLength(), VertexAttribType::PropertyType::gldatatype(), false, VertexType::GetStride(), (void*)VertexAttribType::GetOffset());
 		glEnableVertexAttribArray(index);
 	}
 
