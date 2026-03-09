@@ -141,10 +141,11 @@ namespace _Vector{
 
 	template<length_t Length, typename DataType, VectorType VectorPurpose>
 	struct VectorMethods: VectorData<Length, DataType, VectorPurpose>{
-		const DataType& operator[](unsigned index) const{
+		using valueType = DataType;
+		const valueType& operator[](unsigned index) const{
 			return VectorMethods::value[index];
 		}
-		DataType& operator[](const unsigned index){
+		valueType& operator[](const unsigned index){
 			return VectorMethods::value[index];
 		}
 		static inline constexpr length_t length() {return Length;}
