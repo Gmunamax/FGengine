@@ -18,8 +18,8 @@
 
 namespace FGengine{
 
-using Indicei = Vector<1, unsigned int, _Vector::VectorType::Indice>;
-using Indices = Vector<1, unsigned short, _Vector::VectorType::Indice>;
-using Indiceb = Vector<1, unsigned char, _Vector::VectorType::Indice>;
+using Indicei = Vector<1, unsigned int, VectorType::Indice>;
+using Indices = Vector<1, unsigned short, VectorType::Indice>;
+using Indiceb = Vector<1, unsigned char, VectorType::Indice>;
 
 }
