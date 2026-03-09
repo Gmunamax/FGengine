@@ -21,7 +21,7 @@
 namespace FGengine{
 
 template<typename VertexType, typename ElementType>
-class Model: public Transform<typename VertexType::VertexPosition::DataType>, private Mesh<VertexType, ElementType>{
+class Model: public Transform<typename VertexType::VertexPosition::PropertyType::valueType, VertexType::VertexPosition::PropertyType::length()>, private Mesh<VertexType, ElementType>{
 	bool visible = true;
 	Shader* shader = Defaults::shader;
 

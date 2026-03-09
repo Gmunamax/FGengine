@@ -17,17 +17,27 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "FGengine/structures/uniform.hpp"
 #include "FGengine/special/shader.hpp"
+#include "FGengine/structures/vector.hpp"
 
 namespace FGengine{
 
-template<typename PointType>
-class Transform{
+template<unsigned DimensionsCount, typename DataType>
+class Transform;
 
-	Umat4d objm;
+template<typename DataType>
+class Transform<3, DataType>{
+
+	static constexpr int DimensionsCount = 3;
+	using PointType = Vector<DimensionsCount, DataType, VectorType::Point>;
+	using TransformMatrixType = glm::mat<DimensionsCount+1, DimensionsCount+1, DataType>;
+	using NormalMatrixType = glm::mat<DimensionsCount, DimensionsCount, DataType>;
+	
+	Uniform<1, TransformMatrixType> objm;
 
 	bool needupdate = true;
 
-	Umat3d normalm;
+	Uniform<1, NormalMatrixType> normalm;
+
 protected:
 	void ProceedTransformations(){
 		if(needupdate){
@@ -36,11 +46,11 @@ protected:
 			objm = glm::translate(objm.GetValue(), position.toGlm());
 
 			if(rotation.x != 0)
-				objm = glm::rotate(objm.GetValue(), glm::radians(rotation.x), glm::dvec3{1,0,0});
+				objm = glm::rotate(objm.GetValue(), glm::radians(rotation.x), glm::vec<DimensionsCount, DataType>{1,0,0});
 			if(rotation.y != 0)
-				objm = glm::rotate(objm.GetValue(), glm::radians(rotation.y), glm::dvec3{0,1,0});
+				objm = glm::rotate(objm.GetValue(), glm::radians(rotation.y), glm::vec<DimensionsCount, DataType>{0,1,0});
 			if(rotation.z != 0)
-				objm = glm::rotate(objm.GetValue(), glm::radians(rotation.z), glm::dvec3{0,0,1});
+				objm = glm::rotate(objm.GetValue(), glm::radians(rotation.z), glm::vec<DimensionsCount, DataType>{0,0,1});
 
 			objm = glm::scale(objm.GetValue(), scale.toGlm());
 
@@ -50,8 +60,8 @@ protected:
 		}
 	}
 
-	Umat4d* GetMatrix(){
-		return &objm;
+	const TransformMatrixType& GetMatrix(){
+		return objm.GetValue();
 	}
 
 	void SendMatrix(){
@@ -70,12 +80,11 @@ protected:
 	PointType rotation{0};
 	PointType scale{1};
 
-
 public:
 	PointType& GetPosition(){
 		return position;
 	}
-	void SetPosition(PointType newposition){
+	void SetPosition(const PointType& newposition){
 		position = newposition;
 		needupdate = true;
 	}
@@ -85,7 +94,7 @@ public:
 	PointType& GetRotation(){
 		return rotation;
 	}
-	void SetRotation(PointType newrotation){
+	void SetRotation(const PointType& newrotation){
 		rotation = newrotation;
 		needupdate = true;
 	}
@@ -95,7 +104,7 @@ public:
 	PointType& GetScale(){
 		return scale;
 	}
-	void SetScale(PointType newscale){
+	void SetScale(const PointType& newscale){
 		scale = newscale;
 		needupdate = true;
 	}
