@@ -19,16 +19,16 @@
 
 namespace FGengine{
 
+enum class VectorType{
+	Point,
+	Color,
+	Size,
+	Indice,
+};
+
 namespace _Vector{
 
-	enum class VectorType{
-		Point,
-		Color,
-		Size,
-		Indice,
-	};
-
-	using length_t = char;
+	using length_t = unsigned;
 
 	template<typename DataType>
 	struct VectorDataType{
@@ -153,10 +153,10 @@ namespace _Vector{
 
 }
 
-template<_Vector::length_t Length, typename DataType, _Vector::VectorType VectorPurpose>
+template<_Vector::length_t Length, typename DataType, VectorType VectorPurpose>
 struct Vector;
 
-template<typename DataType, _Vector::VectorType VectorPurpose>
+template<typename DataType, VectorType VectorPurpose>
 struct Vector<1, DataType, VectorPurpose>: public _Vector::VectorDataType<DataType>, public _Vector::VectorMethods<1, DataType, VectorPurpose>{
 
 	Vector() = default;
@@ -294,7 +294,7 @@ struct Vector<1, DataType, VectorPurpose>: public _Vector::VectorDataType<DataTy
 	}
 };
 
-template<typename DataType, _Vector::VectorType VectorPurpose>
+template<typename DataType, VectorType VectorPurpose>
 struct Vector<2, DataType, VectorPurpose>: public _Vector::VectorDataType<DataType>, public _Vector::VectorMethods<2, DataType, VectorPurpose>{
 
 	Vector() = default;
@@ -459,7 +459,7 @@ struct Vector<2, DataType, VectorPurpose>: public _Vector::VectorDataType<DataTy
 	}
 };
 
-template<typename DataType, _Vector::VectorType VectorPurpose>
+template<typename DataType, VectorType VectorPurpose>
 struct Vector<3, DataType, VectorPurpose>: public _Vector::VectorDataType<DataType>, public _Vector::VectorMethods<3, DataType, VectorPurpose>{
 
 	Vector() = default;
@@ -655,7 +655,7 @@ struct Vector<3, DataType, VectorPurpose>: public _Vector::VectorDataType<DataTy
 	}
 };
 
-template<typename DataType, _Vector::VectorType VectorPurpose>
+template<typename DataType, VectorType VectorPurpose>
 struct Vector<4, DataType, VectorPurpose>: public _Vector::VectorDataType<DataType>, public _Vector::VectorMethods<4, DataType, VectorPurpose>{
 		
 	Vector() = default;
