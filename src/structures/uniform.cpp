@@ -23,16 +23,32 @@ void Uniform<1, float>::TemplateSend() const{
 	glUniform1f(location, value);
 }
 template<>
-void Uniform<1, glm::vec2>::TemplateSend() const{
-	glUniform2f(location, value[0], value[1]);
+void Uniform<1, glm::vec<2, float>>::TemplateSend() const{
+	glUniform2f(location, value.x, value.y);
 }
 template<>
-void Uniform<1, glm::vec3>::TemplateSend() const{
-	glUniform3f(location, value[0], value[1], value[2]);
+void Uniform<1, glm::vec<3, float>>::TemplateSend() const{
+	glUniform3f(location, value.x, value.y, value.z);
 }
 template<>
-void Uniform<1, glm::vec4>::TemplateSend() const{
-	glUniform4f(location, value[0], value[1], value[2], value[3]);
+void Uniform<1, glm::vec<4, float>>::TemplateSend() const{
+	glUniform4f(location, value.x, value.y, value.z, value.w);
+}
+template<>
+void Uniform<1, double>::TemplateSend() const{
+	glUniform1d(location, value);
+}
+template<>
+void Uniform<1, glm::vec<2, double>>::TemplateSend() const{
+	glUniform2d(location, value.x, value.y);
+}
+template<>
+void Uniform<1, glm::vec<3, double>>::TemplateSend() const{
+	glUniform3d(location, value.x, value.y, value.z);
+}
+template<>
+void Uniform<1, glm::vec<4, double>>::TemplateSend() const{
+	glUniform4d(location, value.x, value.y, value.z, value.w);
 }
 template<>
 void Uniform<1, int>::TemplateSend() const{
@@ -40,15 +56,15 @@ void Uniform<1, int>::TemplateSend() const{
 }
 template<>
 void Uniform<1, glm::vec<2, int>>::TemplateSend() const{
-	glUniform2i(location, value[0], value[1]);
+	glUniform2i(location, value.x, value.y);
 }
 template<>
 void Uniform<1, glm::vec<3, int>>::TemplateSend() const{
-	glUniform3i(location, value[0], value[1], value[2]);
+	glUniform3i(location, value.x, value.y, value.z);
 }
 template<>
 void Uniform<1, glm::vec<4, int>>::TemplateSend() const{
-	glUniform4i(location, value[0], value[1], value[2], value[3]);
+	glUniform4i(location, value.x, value.y, value.z, value.w);
 }
 template<>
 void Uniform<1, unsigned int>::TemplateSend() const{
@@ -56,71 +72,87 @@ void Uniform<1, unsigned int>::TemplateSend() const{
 }
 template<>
 void Uniform<1, glm::vec<2, unsigned int>>::TemplateSend() const{
-	glUniform2ui(location, value[0], value[1]);
+	glUniform2ui(location, value.x, value.y);
 }
 template<>
 void Uniform<1, glm::vec<3, unsigned int>>::TemplateSend() const{
-	glUniform3ui(location, value[0], value[1], value[2]);
+	glUniform3ui(location, value.x, value.y, value.z);
 }
 template<>
 void Uniform<1, glm::vec<4, unsigned int>>::TemplateSend() const{
-	glUniform4ui(location, value[0], value[1], value[2], value[3]);
+	glUniform4ui(location, value.x, value.y, value.z, value.w);
 }
 template<>
-void Uniform<1, glm::mat2>::TemplateSend() const{
+void Uniform<1, glm::mat<2, 2, float>>::TemplateSend() const{
 	glUniformMatrix2fv(location, 1, GL_FALSE, glm::value_ptr(value));
 }
 template<>
-void Uniform<1, glm::mat3>::TemplateSend() const{
-	glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(value));
-}
-template<>
-void Uniform<1, glm::mat4>::TemplateSend() const{
-	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
-}
-template<>
-void Uniform<1, glm::mat2x3>::TemplateSend() const{
+void Uniform<1, glm::mat<2, 3, float>>::TemplateSend() const{
 	glUniformMatrix2x3fv(location, 1, GL_FALSE, glm::value_ptr(value));
 }
 template<>
-void Uniform<1, glm::mat3x2>::TemplateSend() const{
-	glUniformMatrix3x2fv(location, 1, GL_FALSE, glm::value_ptr(value));
-}
-template<>
-void Uniform<1, glm::mat2x4>::TemplateSend() const{
+void Uniform<1, glm::mat<2, 4, float>>::TemplateSend() const{
 	glUniformMatrix2x4fv(location, 1, GL_FALSE, glm::value_ptr(value));
 }
 template<>
-void Uniform<1, glm::mat4x2>::TemplateSend() const{
-	glUniformMatrix4x2fv(location, 1, GL_FALSE, glm::value_ptr(value));
+void Uniform<1, glm::mat<3, 2, float>>::TemplateSend() const{
+	glUniformMatrix3x2fv(location, 1, GL_FALSE, glm::value_ptr(value));
 }
 template<>
-void Uniform<1, glm::mat3x4>::TemplateSend() const{
+void Uniform<1, glm::mat<3, 3, float>>::TemplateSend() const{
+	glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(value));
+}
+template<>
+void Uniform<1, glm::mat<3, 4, float>>::TemplateSend() const{
 	glUniformMatrix3x4fv(location, 1, GL_FALSE, glm::value_ptr(value));
 }
 template<>
-void Uniform<1, glm::mat4x3>::TemplateSend() const{
+void Uniform<1, glm::mat<4, 2, float>>::TemplateSend() const{
+	glUniformMatrix4x2fv(location, 1, GL_FALSE, glm::value_ptr(value));
+}
+template<>
+void Uniform<1, glm::mat<4, 3, float>>::TemplateSend() const{
 	glUniformMatrix4x3fv(location, 1, GL_FALSE, glm::value_ptr(value));
 }
 template<>
-void Uniform<1, glm::dmat2>::TemplateSend() const{
+void Uniform<1, glm::mat<4, 4, float>>::TemplateSend() const{
+	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
+}
+template<>
+void Uniform<1, glm::mat<2, 2, double>>::TemplateSend() const{
 	glUniformMatrix2dv(location, 1, GL_FALSE, glm::value_ptr(value));
 }
 template<>
-void Uniform<1, glm::dmat3>::TemplateSend() const{
+void Uniform<1, glm::mat<2, 3, double>>::TemplateSend() const{
+	glUniformMatrix2x3dv(location, 1, GL_FALSE, glm::value_ptr(value));
+}
+template<>
+void Uniform<1, glm::mat<2, 4, double>>::TemplateSend() const{
+	glUniformMatrix2x4dv(location, 1, GL_FALSE, glm::value_ptr(value));
+}
+template<>
+void Uniform<1, glm::mat<3, 2, double>>::TemplateSend() const{
+	glUniformMatrix3x2dv(location, 1, GL_FALSE, glm::value_ptr(value));
+}
+template<>
+void Uniform<1, glm::mat<3, 3, double>>::TemplateSend() const{
 	glUniformMatrix3dv(location, 1, GL_FALSE, glm::value_ptr(value));
 }
 template<>
-void Uniform<1, glm::dmat4>::TemplateSend() const{
+void Uniform<1, glm::mat<3, 4, double>>::TemplateSend() const{
+	glUniformMatrix3x4dv(location, 1, GL_FALSE, glm::value_ptr(value));
+}
+template<>
+void Uniform<1, glm::mat<4, 2, double>>::TemplateSend() const{
+	glUniformMatrix4x2dv(location, 1, GL_FALSE, glm::value_ptr(value));
+}
+template<>
+void Uniform<1, glm::mat<4, 3, double>>::TemplateSend() const{
+	glUniformMatrix4x3dv(location, 1, GL_FALSE, glm::value_ptr(value));
+}
+template<>
+void Uniform<1, glm::mat<4, 4, double>>::TemplateSend() const{
 	glUniformMatrix4dv(location, 1, GL_FALSE, glm::value_ptr(value));
-}
-template<>
-void Uniform<1, glm::dvec4>::TemplateSend() const{
-	glUniform4f(location, value.x, value.y, value.z, value.w);
-}
-template<>
-void Uniform<1, glm::dvec3>::TemplateSend() const{
-	glUniform3f(location, value.x, value.y, value.z);
 }
 
 template<>
