@@ -20,40 +20,40 @@
 
 namespace FGengine{
 
-template<typename PointType>
-class WorldPoint{
-	Umat4d mat;
+template<unsigned DimensionsCount, typename DataType>
+class PointTransform{
+protected:
+	using MatrixType = glm::mat<DimensionsCount+1, DimensionsCount+1, DataType>;
+	using PointType = Vector<DimensionsCount, DataType, VectorType::Point>;
+
+private:
 	bool needupdate = true;
+
 	PointType position{0};
 	PointType rotation{0};
 
 protected:
-	void ProceedTransformations(){
-		if(needupdate){
-			mat = 1;
-			if(rotation.x != 0)
-				this->mat = glm::rotate(this->mat.GetValue(), glm::radians(rotation.x), glm::dvec3{1,0,0});
-			if(rotation.y != 0)
-				this->mat = glm::rotate(this->mat.GetValue(), glm::radians(rotation.y), glm::dvec3{0,1,0});
-			if(rotation.z != 0)
-				this->mat = glm::rotate(this->mat.GetValue(), glm::radians(rotation.z), glm::dvec3{0,0,1});
-			this->mat = glm::translate(this->mat.GetValue(), position.toGlm());
-			needupdate = false;
-		}
+	const bool& IsNeedUpdate(){
+		return needupdate;
 	}
-	const Umat4d& GetMatrix() const{
-		return mat;
+	MatrixType TransformPosition(){
+		return glm::translate(matrix.GetValue(), position.toGlm());
 	}
-	void SendMatrix() const{
-		mat.Send();
+	MatrixType TransformRotation(const MatrixType& matrix){
+		MatrixType resultMatrix;
+		if(rotation.x != 0)
+			resultMatrix = glm::rotate(matrix.GetValue(), glm::radians(rotation.x), glm::vec<DimensionsCount, DataType>{1,0,0});
+		if(rotation.y != 0)
+			resultMatrix = glm::rotate(matrix.GetValue(), glm::radians(rotation.y), glm::vec<DimensionsCount, DataType>{0,1,0});
+		if(rotation.z != 0)
+			resultMatrix = glm::rotate(matrix.GetValue(), glm::radians(rotation.z), glm::vec<DimensionsCount, DataType>{0,0,1});
+		return resultMatrix;
 	}
-	void SetShader(const Shader& newshader){
-		mat.SetShader(newshader.ToGL());
-	}
-	
-public:
 
-	const PointType& GetPosition() const{
+	PointTransform() {}
+
+public:
+	const PointType& GetPosition(){
 		return position;
 	}
 	void SetPosition(const PointType& newposition){
@@ -61,15 +61,13 @@ public:
 		needupdate = true;
 	}
 
-	const PointType& GetRotation() const{
+	const PointType& GetRotation(){
 		return rotation;
 	}
 	void SetRotation(const PointType& newrotation){
 		rotation = newrotation;
 		needupdate = true;
 	}
-
-	WorldPoint(const char* const uniformname): mat(uniformname){}
 };
 
 }

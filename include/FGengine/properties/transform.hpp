@@ -18,99 +18,30 @@
 #include "FGengine/structures/uniform.hpp"
 #include "FGengine/special/shader.hpp"
 #include "FGengine/structures/vector.hpp"
+#include "FGengine/properties/worldpoint.hpp"
 
 namespace FGengine{
 
 template<unsigned DimensionsCount, typename DataType>
-class Transform;
+class Transform: public PointTransform<DimensionsCount, DataType>{
 
-template<typename DataType>
-class Transform<3, DataType>{
-
-	static constexpr int DimensionsCount = 3;
-	using PointType = Vector<DimensionsCount, DataType, VectorType::Point>;
-	using TransformMatrixType = glm::mat<DimensionsCount+1, DimensionsCount+1, DataType>;
-	using NormalMatrixType = glm::mat<DimensionsCount, DimensionsCount, DataType>;
-	
-	Uniform<1, TransformMatrixType> objm;
-
-	bool needupdate = true;
-
-	Uniform<1, NormalMatrixType> normalm;
+	Transform::PointType scale{1};
 
 protected:
-	void ProceedTransformations(){
-		if(needupdate){
-
-			objm = 1;
-			objm = glm::translate(objm.GetValue(), position.toGlm());
-
-			if(rotation.x != 0)
-				objm = glm::rotate(objm.GetValue(), glm::radians(rotation.x), glm::vec<DimensionsCount, DataType>{1,0,0});
-			if(rotation.y != 0)
-				objm = glm::rotate(objm.GetValue(), glm::radians(rotation.y), glm::vec<DimensionsCount, DataType>{0,1,0});
-			if(rotation.z != 0)
-				objm = glm::rotate(objm.GetValue(), glm::radians(rotation.z), glm::vec<DimensionsCount, DataType>{0,0,1});
-
-			objm = glm::scale(objm.GetValue(), scale.toGlm());
-
-			normalm = glm::transpose(glm::inverse(objm.GetValue()));
-			
-			needupdate = false;
-		}
+	Transform::MatrixType TransformScale(const Transform::MatrixType& matrix){
+		return glm::scale(matrix, scale.toGlm());
 	}
 
-	const TransformMatrixType& GetMatrix(){
-		return objm.GetValue();
-	}
-
-	void SendMatrix(){
-		objm.Send();
-		normalm.Send();
-	}
-
-	void SetShader(Shader*& newshader){
-		objm.SetShader(newshader->ToGL());
-		normalm.SetShader(newshader->ToGL());
-	}
-
-	Transform(){};
-
-	PointType position{0};
-	PointType rotation{0};
-	PointType scale{1};
+	Transform() {}
 
 public:
-	PointType& GetPosition(){
-		return position;
-	}
-	void SetPosition(const PointType& newposition){
-		position = newposition;
-		needupdate = true;
-	}
-
-	
-
-	PointType& GetRotation(){
-		return rotation;
-	}
-	void SetRotation(const PointType& newrotation){
-		rotation = newrotation;
-		needupdate = true;
-	}
-
-	
-
-	PointType& GetScale(){
+	const Transform::PointType& GetScale(){
 		return scale;
 	}
-	void SetScale(const PointType& newscale){
-		scale = newscale;
-		needupdate = true;
+	void SetScale(const Transform::PointType& newScale){
+		scale = newScale;
+		Transform::needupdate = true;
 	}
-
-	Transform(const char* uniformname, const char* normaluniformname): objm(uniformname), normalm(normaluniformname){}
-
 };
 
 }

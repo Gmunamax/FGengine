@@ -21,17 +21,33 @@
 namespace FGengine{
 
 template<typename VertexType, typename ElementType>
-class Model: public Transform<typename VertexType::VertexPosition::PropertyType::valueType, VertexType::VertexPosition::PropertyType::length()>, private Mesh<VertexType, ElementType>{
+class Model: public Transform<VertexType::VertexPosition::PropertyType::length(), typename VertexType::VertexPosition::PropertyType::valueType>, private Mesh<VertexType, ElementType>{
 	bool visible = true;
 	Shader* shader = Defaults::shader;
 
+	Uniform<1, Model::Transform::MatrixType> objectMatrix{"fg_objectmatrix"};
+	Uniform<1, Model::Transform::MatrixType> normalMatrix{"fg_normalmatrix"};
+
+	void Transform(){
+		objectMatrix = 1;
+		objectMatrix = Model::Transform::TransformPosition(objectMatrix);
+		objectMatrix = Model::Transform::TransformRotation(objectMatrix);
+		objectMatrix = Model::Transform::TransformScale(objectMatrix);
+		normalMatrix = glm::transpose(glm::inverse(objectMatrix.GetValue()));
+
+		objectMatrix.Send();
+		normalMatrix.Send();
+	}
+
 public:
 
-	Model(): Model::Transform("fg_objectmatrix", "fg_normalmatrix"){};
+	Model() {};
 
 
 	void SetShader(Shader* newshader){
 		shader = newshader;
+		normalMatrix.SetShader(newshader);
+		objectMatrix.SetShader(newshader);
 		Model::Transform::SetShader(newshader);
 	}
 
@@ -46,8 +62,7 @@ public:
 
 	void Draw(){
 		Model::Mesh::Select();
-		Model::ProceedTransformations();
-		Model::SendMatrix();
+		Model::Transform();
 		if(visible)
 			Model::Mesh::Draw();
 	}

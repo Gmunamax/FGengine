@@ -23,32 +23,77 @@
 
 namespace FGengine{
 
-template<typename PointType = Point3d>
-class Camera: public WorldPoint<PointType>{
-//uniform
-	bool needupdate = true;
-	Umat4d proj {"fg_projectionmatrix"};
+template<unsigned DimensionsCount, typename DataType>
+class Camera: public PointTransform<DimensionsCount, DataType>{
+
+//viewMatrix
 
 private:
+	Uniform<1, Camera::PointTransform::MatrixType> viewMatrix {"fg_viewmatrix"};
 
+	void ProceedTransformations(){
+		if(Camera::PointTransform::IsNeedUpdate()){
+			viewMatrix = 1;
+			viewMatrix = Camera::PointTransform::TransformRotation(viewMatrix);
+			viewMatrix = Camera::PointTransform::TransformPosition(viewMatrix);
+			Shader::SendUniformToAll(viewMatrix);
+		}
+	}
+
+//viewMatrix
+
+
+//projectionMatrix
+
+public:
+	bool needupdateprojection = true;
+	Uniform<1, glm::mat<DimensionsCount+1, DimensionsCount+1, DataType>> projectionMatrix {"fg_projectionmatrix"};
+
+private:
 	template<typename T>
 	void UpdateProjectionPropertyValue(T& target, const T& newvalue){
 		target = newvalue;
-		needupdate = true;
+		needupdateprojection = true;
 	}
 
-	void SendMatrix();
+	void ProceedProjection(){
+		if(needupdateprojection){
+			switch(projectionmode){
+			case ProjectionMode::Frustum:
+				glDepthFunc(GL_LESS);
+				projectionMatrix = glm::perspective(fov, aspectratio, nearz, farz);
+				break;
 
-//uniform
+			case ProjectionMode::Ortho:
+				glDepthFunc(GL_LESS);
+				projectionMatrix = glm::ortho<DataType>(-aspectratio, aspectratio, -1.0f, 1.0f, nearz, farz);
+				break;
+
+			case ProjectionMode::Ui:
+				glDepthFunc(GL_GEQUAL);
+				projectionMatrix = glm::ortho<DataType>(-aspectratio, aspectratio, -1.0f, 1.0f);
+				break;
+			}
+			Shader::SendUniformToAll(projectionMatrix);
+			needupdateprojection = false;
+		}
+	}
+
+//projectionMatrix
+
 
 //aspectratio
 
 private:
-	double aspectratio = 1;
+	DataType aspectratio = 1;
 
 public:
-	void SetAspectRatio(const double& newaspectratio);
-	const double& GetAspectRatio() const;
+	void SetAspectRatio(const double& newaspectratio){
+		UpdateProjectionPropertyValue(aspectratio, newaspectratio);
+	}
+	const double& GetAspectRatio() const{
+		return aspectratio;
+	}
 
 //aspectratio
 
@@ -56,11 +101,15 @@ public:
 //fov
 
 private:
-	double fov = 75;
+	DataType fov = 75 * M_PI/180;
 
 public:
-	void SetFOV(const double& newfov);
-	const double& GetFOV() const;
+	void SetFOV(const double& newfov){
+		UpdateProjectionPropertyValue(fov, glm::radians(newfov));
+	}
+	const double& GetFOV() const{
+		return fov;
+	}
 
 //fov
 
@@ -68,18 +117,31 @@ public:
 //viewdistance
 
 private:
-	Point2d viewdistance {1, 200};
+	DataType nearz = 1;
+	DataType farz = 200;
 
 public:
-	void SetNearDistance(const double& newNearDistance);
-	void SetFarDistance(const double& newFarDistance);
-	void SetDistance(const Point2d& newDistance);
-	const double& GetNearDistance() const;
-	const double& GetFarDistance() const;
-	const Point2d& GetDistance() const;
+	void SetNearDistance(const DataType& newNearZ){
+		UpdateProjectionPropertyValue(nearz, newNearZ);
+	}
+	void SetFarDistance(const DataType& newFarZ){
+		UpdateProjectionPropertyValue(farz, newFarZ);
+	}
+	void SetDistance(const DataType& newNearZ, const DataType& newFarZ){
+		SetNearDistance(newNearZ);
+		SetFarDistance(newFarZ);
+	}
+	const double& GetNearDistance() const{
+		return nearz;
+	}
+	const double& GetFarDistance() const{
+		return farz;
+	}
 
 //viewdistance
 
+
+// Move this somewhere (class Viewport) where this camera will be attached (viewport, background):
 
 //viewport
 
@@ -87,11 +149,21 @@ private:
 	Geometry2i viewportgeom;
 
 public:
-	void SetViewportGeom(const Geometry2i& newgeom);
+	void SetViewportGeom(const Geometry2i& newgeom){
+		viewportgeom = newgeom;
+		glViewport(newgeom.x,newgeom.y,newgeom.w,newgeom.h);
 
-	const Geometry2i& GetViewportGeom() const;
+	}
 
-	void Resize(const Geometry2i& newviewport);
+	const Geometry2i& GetViewportGeom() const{
+		return viewportgeom;
+	}
+
+	void Resize(const Geometry2i& newviewport){
+		SetAspectRatio((double)newviewport.w/(double)newviewport.h);
+		SetViewportGeom(newviewport);
+		needupdateprojection = true;
+	}
 
 //viewport
 
@@ -102,49 +174,53 @@ private:
 	Color4d backgroundcolor {0,0,0,1};
 
 public:
-	void SetBackgroundColor(const Color4d& newbgcolor);
-	const Color4d& GetBackgroundColor() const;
+	void SetBackgroundColor(const Color4d& newbgcolor){
+		backgroundcolor = newbgcolor;
+	}
+	const Color4d& GetBackgroundColor() const{
+		return backgroundcolor;
+	}
 
 //background
 
 
 //projection
 
-protected:
-	enum CameraProjectionEnum{
-		CAMERA_FRUSTUM, /* Perspective */
-		CAMERA_ORTHO, 	/* Orthogonal */
-		CAMERA_UI		/* Orthogonal with inverted depth-test */
+public:
+	enum class ProjectionMode{
+		Frustum,	/* Perspective */
+		Ortho,		/* Orthogonal */
+		Ui			/* Orthogonal with inverted depth-test */
 	};
 
-	CameraProjectionEnum cameratype = CAMERA_ORTHO;
+private:
+	ProjectionMode projectionmode = ProjectionMode::Ortho;
 
 public:
-	void SetFrustum();
-	void SetOrtho();
-	void SetUI();
-
-	void ProceedProjection();
+	void SetProjectionMode(ProjectionMode newProjectionMode){
+		projectionmode = newProjectionMode;
+	}
 
 //projection
 
 
 //main
 
-	Camera(): Camera::WorldPoint("fg_viewmatrix"){};
+public:
+	Camera() {};
 
-	void ProceedUpdate();
+	void ProceedUpdate(){
+
+		glClearColor(backgroundcolor.r,backgroundcolor.g,backgroundcolor.b,backgroundcolor.a);
+		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_DEPTH_BUFFER_BIT);
+
+		Camera::ProceedTransformations();
+		Camera::ProceedProjection();
+		Camera::SendMatrix();
+	}
 
 //main
 };
 
 }
-
-#include "camera/uniform.inl"
-#include "camera/aspectratio.inl"
-#include "camera/fov.inl"
-#include "camera/viewdistance.inl"
-#include "camera/viewport.inl"
-#include "camera/background.inl"
-#include "camera/projection.inl"
-#include "camera/main.inl"
