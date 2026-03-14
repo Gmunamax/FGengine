@@ -16,7 +16,6 @@
 #pragma once
 #include <glm/matrix.hpp>
 #include <GL/glew.h>
-#include "FGengine/special/shader.hpp"
 
 namespace FGengine{
 
@@ -25,7 +24,6 @@ class _Uniform{
 	GLuint shaderId = 0;
 
 	void UpdateLocation(){
-		glUseProgram(shaderId);
 		location = glGetUniformLocation(shaderId, name);
 	}
 
@@ -33,7 +31,7 @@ protected:
 	GLint location = 0;
 
 	template<typename ValueType>
-	void TemplateSend(unsigned count, const ValueType* value) const;
+	void Send(unsigned count, const ValueType* value) const;
 
 public:
 	const char* GetName() const{
@@ -50,7 +48,7 @@ public:
 	}
 
 	_Uniform(const char* name): name(name) {}
-	_Uniform(const char* name, const Shader& shader): name(name), shaderId(shader.ToGL()) {
+	_Uniform(const char* name, const GLuint& shader): name(name), shaderId(shader) {
 		UpdateLocation();
 	}
 };
@@ -73,15 +71,15 @@ public:
 
 	void Send() const{
 		glUseProgram(GetShader());
-		TemplateSend(Count, value);
+		Send(location, Count, value);
 	}
 
 	Uniform(const char* const name): _Uniform(name) {}
 	Uniform(const char* const name, const ValueType value[Count]): _Uniform(name) {
 		SetValue(value);
 	}
-	Uniform(const char* const name, const Shader& shader): _Uniform(name, shader) {}
-	Uniform(const char* const name, const Shader& shader, const ValueType value[Count]): _Uniform(name, shader){
+	Uniform(const char* const name, const GLuint& shader): _Uniform(name, shader) {}
+	Uniform(const char* const name, const GLuint& shader, const ValueType value[Count]): _Uniform(name, shader){
 		SetValue(value);
 	}
 
@@ -98,7 +96,7 @@ class Uniform<1, ValueType>: public _Uniform{
 
 	ValueType value;
 
-	void TemplateSend() const;
+	void SpecialSend() const;
 
 public:
 	const ValueType& GetValue() const{
@@ -106,17 +104,41 @@ public:
 	}
 	void Send() const{
 		glUseProgram(GetShader());
-		TemplateSend();
+		SpecialSend();
 	}
 
 	Uniform(const char* const name): _Uniform(name) {}
 	Uniform(const char* const name, const ValueType& value): _Uniform(name), value(value) {}
-	Uniform(const char* const name, const Shader& shader): _Uniform(name, shader) {}
-	Uniform(const char* const name, const Shader& shader, const ValueType& value): _Uniform(name, shader), value(value) {}
+	Uniform(const char* const name, const GLuint& shader): _Uniform(name, shader) {}
+	Uniform(const char* const name, const GLuint& shader, const ValueType& value): _Uniform(name, shader), value(value) {}
 
 	void operator=(const ValueType& newvalue){
 		Uniform::value = newvalue;
 	}
+};
+
+template<unsigned Count, typename ValueType>
+class Uniform<Count, ValueType*>: public _Uniform{
+public:
+	void Send(const ValueType* value) const{
+		glUseProgram(GetShader());
+		Uniform::_Uniform::Send(Count, value);
+	}
+
+	Uniform(const char* const name): _Uniform(name) {}
+	Uniform(const char* const name, const GLuint& shader): _Uniform(name, shader) {}
+};
+
+template<typename ValueType>
+class Uniform<1, ValueType*>: public _Uniform{
+public:
+	void Send(const ValueType* value) const{
+		glUseProgram(GetShader());
+		Uniform::_Uniform::Send(1, value);
+	}
+
+	Uniform(const char* const name): _Uniform(name) {}
+	Uniform(const char* const name, const GLuint& shader): _Uniform(name, shader) {}
 };
 
 using Umat4d = Uniform<1, glm::dmat4>;
@@ -127,6 +149,5 @@ using Uvec4d = Uniform<1, glm::dvec4>;
 using Uvec4f = Uniform<1, glm::vec4>;
 using Uvec3d = Uniform<1, glm::dvec3>;
 using Uvec3f = Uniform<1, glm::vec3>;
-
 
 }

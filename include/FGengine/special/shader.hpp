@@ -20,7 +20,7 @@
 #include <fstream>
 #include <iostream>
 #include <GL/glew.h>
-// #include "FGengine/structures/uniform.hpp"
+#include "FGengine/structures/uniform.hpp"
 
 namespace FGengine{
 
@@ -137,12 +137,13 @@ public:
 	
 	void Load(std::vector<ObjectDescription> descriptions);
 
-	template<typename UniformType>
-	static void SendUniformToAll(UniformType& value){
+	template<unsigned Count, typename ValueType>
+	static void SendUniformToAll(const char* uniformName, const ValueType* value){
+		Uniform<Count, ValueType*> uniform {uniformName};
 		for(Shader*& element : shaderslist){
 			if(element->shaderid != 0){
-				value.SetShader(element->shaderid);
-				value.Send();
+				uniform.SetShader(element->shaderid);
+				uniform.Send(value);
 			}
 		}
 	}

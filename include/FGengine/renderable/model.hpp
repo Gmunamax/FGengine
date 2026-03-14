@@ -25,18 +25,19 @@ class Model: public Transform<VertexType::VertexPosition::PropertyType::length()
 	bool visible = true;
 	Shader* shader = Defaults::shader;
 
-	Uniform<1, Model::Transform::MatrixType> objectMatrix{"fg_objectmatrix"};
-	Uniform<1, Model::Transform::MatrixType> normalMatrix{"fg_normalmatrix"};
+	Uniform<1, typename Model::Transform::MatrixType*> objectMatrix{"fg_objectmatrix"};
+	Uniform<1, glm::mat<3,3,double>*> normalMatrix{"fg_normalmatrix"};
 
 	void Transform(){
-		objectMatrix = 1;
-		objectMatrix = Model::Transform::TransformPosition(objectMatrix);
-		objectMatrix = Model::Transform::TransformRotation(objectMatrix);
-		objectMatrix = Model::Transform::TransformScale(objectMatrix);
-		normalMatrix = glm::transpose(glm::inverse(objectMatrix.GetValue()));
+		Model::Transform::MatrixType matrix{1};
+		matrix = Model::Transform::TransformPosition(matrix);
+		matrix = Model::Transform::TransformRotation(matrix);
+		matrix = Model::Transform::TransformScale(matrix);
 
-		objectMatrix.Send();
-		normalMatrix.Send();
+		glm::mat<3,3,double> normal = glm::transpose(glm::inverse(matrix.GetValue()));
+
+		objectMatrix.Send(&matrix);
+		normalMatrix.Send(&normal);
 	}
 
 public:

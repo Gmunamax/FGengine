@@ -36,17 +36,17 @@ protected:
 	const bool& IsNeedUpdate(){
 		return needupdate;
 	}
-	MatrixType TransformPosition(){
-		return glm::translate(matrix.GetValue(), position.toGlm());
+	MatrixType TransformPosition(const MatrixType& matrix){
+		return glm::translate(matrix, position.toGlm());
 	}
 	MatrixType TransformRotation(const MatrixType& matrix){
 		MatrixType resultMatrix;
 		if(rotation.x != 0)
-			resultMatrix = glm::rotate(matrix.GetValue(), glm::radians(rotation.x), glm::vec<DimensionsCount, DataType>{1,0,0});
+			resultMatrix = glm::rotate(matrix, glm::radians(rotation.x), glm::vec<DimensionsCount, DataType>{1,0,0});
 		if(rotation.y != 0)
-			resultMatrix = glm::rotate(matrix.GetValue(), glm::radians(rotation.y), glm::vec<DimensionsCount, DataType>{0,1,0});
+			resultMatrix = glm::rotate(matrix, glm::radians(rotation.y), glm::vec<DimensionsCount, DataType>{0,1,0});
 		if(rotation.z != 0)
-			resultMatrix = glm::rotate(matrix.GetValue(), glm::radians(rotation.z), glm::vec<DimensionsCount, DataType>{0,0,1});
+			resultMatrix = glm::rotate(matrix, glm::radians(rotation.z), glm::vec<DimensionsCount, DataType>{0,0,1});
 		return resultMatrix;
 	}
 

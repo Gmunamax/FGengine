@@ -29,14 +29,13 @@ class Camera: public PointTransform<DimensionsCount, DataType>{
 //viewMatrix
 
 private:
-	Uniform<1, Camera::PointTransform::MatrixType> viewMatrix {"fg_viewmatrix"};
 
 	void ProceedTransformations(){
 		if(Camera::PointTransform::IsNeedUpdate()){
-			viewMatrix = 1;
-			viewMatrix = Camera::PointTransform::TransformRotation(viewMatrix);
-			viewMatrix = Camera::PointTransform::TransformPosition(viewMatrix);
-			Shader::SendUniformToAll(viewMatrix);
+			typename Camera::PointTransform::MatrixType matrix {1};
+			matrix = Camera::PointTransform::TransformRotation(matrix);
+			matrix = Camera::PointTransform::TransformPosition(matrix);
+			Shader::SendUniformToAll<1>("fg_viewmatrix", &matrix);
 		}
 	}
 
@@ -47,7 +46,6 @@ private:
 
 public:
 	bool needupdateprojection = true;
-	Uniform<1, glm::mat<DimensionsCount+1, DimensionsCount+1, DataType>> projectionMatrix {"fg_projectionmatrix"};
 
 private:
 	template<typename T>
@@ -58,23 +56,24 @@ private:
 
 	void ProceedProjection(){
 		if(needupdateprojection){
+			glm::mat<DimensionsCount+1, DimensionsCount, DataType> matrix;
 			switch(projectionmode){
 			case ProjectionMode::Frustum:
 				glDepthFunc(GL_LESS);
-				projectionMatrix = glm::perspective(fov, aspectratio, nearz, farz);
+				matrix = glm::perspective(fov, aspectratio, nearz, farz);
 				break;
 
 			case ProjectionMode::Ortho:
 				glDepthFunc(GL_LESS);
-				projectionMatrix = glm::ortho<DataType>(-aspectratio, aspectratio, -1.0f, 1.0f, nearz, farz);
+				matrix = glm::ortho<DataType>(-aspectratio, aspectratio, -1.0f, 1.0f, nearz, farz);
 				break;
 
 			case ProjectionMode::Ui:
 				glDepthFunc(GL_GEQUAL);
-				projectionMatrix = glm::ortho<DataType>(-aspectratio, aspectratio, -1.0f, 1.0f);
+				matrix = glm::ortho<DataType>(-aspectratio, aspectratio, -1.0f, 1.0f);
 				break;
 			}
-			Shader::SendUniformToAll(projectionMatrix);
+			Shader::SendUniformToAll<1>("fg_projectionmatrix", &matrix);
 			needupdateprojection = false;
 		}
 	}
@@ -210,14 +209,12 @@ public:
 	Camera() {};
 
 	void ProceedUpdate(){
-
 		glClearColor(backgroundcolor.r,backgroundcolor.g,backgroundcolor.b,backgroundcolor.a);
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClear(GL_DEPTH_BUFFER_BIT);
 
 		Camera::ProceedTransformations();
 		Camera::ProceedProjection();
-		Camera::SendMatrix();
 	}
 
 //main
