@@ -16,11 +16,20 @@
 #pragma once
 #include <GL/glew.h>
 #include <vector>
+#include "FGengine/structures/matrix.hpp"
+#include "FGengine/structures/uniform.hpp"
 
 namespace FGengine{
 
 template<typename VertexType, typename ElementsType>
 class Mesh{
+public:
+	using VertexesList = std::vector<VertexType>;
+	using Face = std::vector<ElementsType>;
+	using ElementsList = std::vector<Face>;
+	using TransformMatrixType = Matrix<4,4,double>;
+	using NormalMatrixType = Matrix<3,3,double>;
+
 private:
 	static inline constexpr int VBOusage = GL_STATIC_DRAW;
 	static constexpr int EBOusage = GL_STATIC_DRAW;
@@ -34,11 +43,15 @@ private:
 		long offset;
 		int size;
 
-		void Draw(){
+		void Draw() const{
 			glDrawElements(GL_TRIANGLE_STRIP, size, ElementsType::gldatatype(), (void*)(sizeof(ElementsType) * offset));
 		}
+
+		FaceLocation(long offset, int size): offset(offset), size(size){}
 	};
 	
+	Uniform<1, TransformMatrixType*> objectMatrixUniform{"fg_objectmatrix"};
+	Uniform<1, NormalMatrixType*> normalMatrixUniform{"fg_normalmatrix"};
 	std::vector<FaceLocation> facelocators;
 
 	template<typename VertexAttribType>
@@ -51,11 +64,6 @@ private:
 	}
 
 public:
-
-	using VertexesList = std::vector<VertexType>;
-	using Face = std::vector<ElementsType>;
-	using ElementsList = std::vector<Face>;
-
 	//Must be called once, after Model created and OpenGL context loaded
 	void Init(){
 		glGenVertexArrays(1, &vao);
@@ -78,12 +86,24 @@ public:
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	}
 
-	void Draw(){
-		for(typename std::vector<FaceLocation>::reference modelface : facelocators){
-			modelface.Draw();
+	void Draw() const{
+		for(const FaceLocation& face : facelocators){
+			face.Draw();
 		}
 	}
 
+	void SetShader(const Shader* newshader){
+		objectMatrixUniform.SetShader(newshader->ToGL());
+		normalMatrixUniform.SetShader(newshader->ToGL());
+	}
+
+	void SendMatrixes(const TransformMatrixType* transform){
+		objectMatrixUniform.Send(transform);
+		NormalMatrixType normalMatrix {glm::transpose(glm::inverse(*transform))};
+		normalMatrixUniform.Send(&normalMatrix);
+	}
+
+public:
 	void Load(const VertexesList& vertexes, const ElementsList& elements){
 		glBufferData(GL_ARRAY_BUFFER, sizeof(VertexType)*vertexes.size(), vertexes.data(), VBOusage);
 		std::vector<ElementsType> newbuffer;

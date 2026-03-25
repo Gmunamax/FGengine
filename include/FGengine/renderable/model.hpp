@@ -25,19 +25,12 @@ class Model: public Transform<VertexType::VertexPosition::PropertyType::length()
 	bool visible = true;
 	Shader* shader = Defaults::shader;
 
-	Uniform<1, typename Model::Transform::MatrixType*> objectMatrix{"fg_objectmatrix"};
-	Uniform<1, glm::mat<3,3,double>*> normalMatrix{"fg_normalmatrix"};
-
 	void Transform(){
-		Model::Transform::MatrixType matrix{1};
+		typename Model::Transform::MatrixType matrix{1};
 		matrix = Model::Transform::TransformPosition(matrix);
 		matrix = Model::Transform::TransformRotation(matrix);
 		matrix = Model::Transform::TransformScale(matrix);
-
-		glm::mat<3,3,double> normal = glm::transpose(glm::inverse(matrix.GetValue()));
-
-		objectMatrix.Send(&matrix);
-		normalMatrix.Send(&normal);
+		Model::Mesh::SendMatrixes(&matrix);
 	}
 
 public:
@@ -47,9 +40,7 @@ public:
 
 	void SetShader(Shader* newshader){
 		shader = newshader;
-		normalMatrix.SetShader(newshader);
-		objectMatrix.SetShader(newshader);
-		Model::Transform::SetShader(newshader);
+		Model::Mesh::SetShader(newshader);
 	}
 
 	void Init(){
@@ -63,7 +54,7 @@ public:
 
 	void Draw(){
 		Model::Mesh::Select();
-		Model::Transform();
+		Transform();
 		if(visible)
 			Model::Mesh::Draw();
 	}
@@ -72,7 +63,7 @@ public:
 		Model::Mesh::Delete();
 	}
 
-	void Load(const Model::Mesh::VertexesList& vertexes, const Model::Mesh::ElementsList& elements){
+	void Load(const typename Model::Mesh::VertexesList& vertexes, const typename Model::Mesh::ElementsList& elements){
 		Model::Mesh::Select();
 		Model::Mesh::Load(vertexes, elements);
 	}

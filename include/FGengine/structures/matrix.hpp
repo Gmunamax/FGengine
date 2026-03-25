@@ -14,34 +14,11 @@
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
-#include <glm/gtc/matrix_transform.hpp>
-#include "FGengine/structures/uniform.hpp"
-#include "FGengine/special/shader.hpp"
-#include "FGengine/structures/vector.hpp"
-#include "FGengine/properties/worldpoint.hpp"
+#include <glm/matrix.hpp>
 
 namespace FGengine{
 
-template<unsigned DimensionsCount, typename DataType>
-class Transform: public PointTransform<DimensionsCount, DataType>{
-
-	typename Transform::PointTransform::PointType scale{1};
-
-protected:
-	typename Transform::PointTransform::MatrixType TransformScale(const typename Transform::PointTransform::MatrixType& matrix){
-		return glm::scale(matrix, scale.toGlm());
-	}
-
-	Transform() {}
-
-public:
-	const typename Transform::PointTransform::PointType& GetScale(){
-		return scale;
-	}
-	void SetScale(const typename Transform::PointTransform::PointType& newScale){
-		scale = newScale;
-		Transform::needupdate = true;
-	}
-};
+	template<glm::length_t C, glm::length_t R, typename DataType>
+	using Matrix = glm::mat<C, R, DataType>;
 
 }

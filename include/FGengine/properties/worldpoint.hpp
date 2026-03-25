@@ -15,6 +15,7 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
 #include <glm/gtc/matrix_transform.hpp>
+#include "FGengine/structures/matrix.hpp"
 #include "FGengine/special/shader.hpp"
 #include "FGengine/structures/uniform.hpp"
 
@@ -23,7 +24,7 @@ namespace FGengine{
 template<unsigned DimensionsCount, typename DataType>
 class PointTransform{
 protected:
-	using MatrixType = glm::mat<DimensionsCount+1, DimensionsCount+1, DataType>;
+	using MatrixType = Matrix<DimensionsCount+1, DimensionsCount+1, DataType>;
 	using PointType = Vector<DimensionsCount, DataType, VectorType::Point>;
 
 private:
