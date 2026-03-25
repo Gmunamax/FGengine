@@ -56,7 +56,7 @@ private:
 
 	void ProceedProjection(){
 		if(needupdateprojection){
-			glm::mat<DimensionsCount+1, DimensionsCount, DataType> matrix;
+			glm::mat<DimensionsCount+1, DimensionsCount+1, DataType> matrix;
 			switch(projectionmode){
 			case ProjectionMode::Frustum:
 				glDepthFunc(GL_LESS);
