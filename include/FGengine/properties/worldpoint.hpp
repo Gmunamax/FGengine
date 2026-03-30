@@ -41,13 +41,13 @@ protected:
 		return glm::translate(matrix, position.toGlm());
 	}
 	MatrixType TransformRotation(const MatrixType& matrix){
-		MatrixType resultMatrix;
+		MatrixType resultMatrix = matrix;
 		if(rotation.x != 0)
-			resultMatrix = glm::rotate(matrix, glm::radians(rotation.x), glm::vec<DimensionsCount, DataType>{1,0,0});
+			resultMatrix = glm::rotate(resultMatrix, glm::radians(rotation.x), glm::vec<DimensionsCount, DataType>{1,0,0});
 		if(rotation.y != 0)
-			resultMatrix = glm::rotate(matrix, glm::radians(rotation.y), glm::vec<DimensionsCount, DataType>{0,1,0});
+			resultMatrix = glm::rotate(resultMatrix, glm::radians(rotation.y), glm::vec<DimensionsCount, DataType>{0,1,0});
 		if(rotation.z != 0)
-			resultMatrix = glm::rotate(matrix, glm::radians(rotation.z), glm::vec<DimensionsCount, DataType>{0,0,1});
+			resultMatrix = glm::rotate(resultMatrix, glm::radians(rotation.z), glm::vec<DimensionsCount, DataType>{0,0,1});
 		return resultMatrix;
 	}
 
