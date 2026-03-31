@@ -16,13 +16,13 @@
 #pragma once
 #include <glm/matrix.hpp>
 #include <GL/glew.h>
-#include "FGengine/special/shader.hpp"
+#include "FGengine/structures/shaderid.hpp"
 
 namespace FGengine{
 
 class _Uniform{
 	const char* name;
-	GLuint shaderId = 0;
+	ShaderID shaderId;
 
 	void FindLocation(){
 		location = glGetUniformLocation(shaderId, name);
@@ -39,17 +39,17 @@ public:
 		return name;
 	}
 
-	void SetShader(const GLuint& newshader){
+	void SetShader(const ShaderID& newshader){
 		this->shaderId = newshader;
 		FindLocation();
 	}
 
-	const GLuint& GetShader() const{
+	const ShaderID& GetShader() const{
 		return shaderId;
 	}
 
 	_Uniform(const char* name): name(name) {}
-	_Uniform(const char* name, const Shader*& shader): name(name), shaderId(shader->ToGL()) {
+	_Uniform(const char* name, const ShaderID& shader): name(name), shaderId(shader) {
 		FindLocation();
 	}
 };
@@ -79,8 +79,8 @@ public:
 	Uniform(const char* const name, const ValueType value[Count]): _Uniform(name) {
 		SetValue(value);
 	}
-	Uniform(const char* const name, const Shader*& shader): _Uniform(name, shader) {}
-	Uniform(const char* const name, const Shader*& shader, const ValueType value[Count]): _Uniform(name, shader){
+	Uniform(const char* const name, const ShaderID& shader): _Uniform(name, shader) {}
+	Uniform(const char* const name, const ShaderID& shader, const ValueType value[Count]): _Uniform(name, shader){
 		SetValue(value);
 	}
 
@@ -110,8 +110,8 @@ public:
 
 	Uniform(const char* const name): _Uniform(name) {}
 	Uniform(const char* const name, const ValueType& value): _Uniform(name), value(value) {}
-	Uniform(const char* const name, const Shader*& shader): _Uniform(name, shader) {}
-	Uniform(const char* const name, const Shader*& shader, const ValueType& value): _Uniform(name, shader), value(value) {}
+	Uniform(const char* const name, const ShaderID& shader): _Uniform(name, shader) {}
+	Uniform(const char* const name, const ShaderID& shader, const ValueType& value): _Uniform(name, shader), value(value) {}
 
 	void operator=(const ValueType& newvalue){
 		Uniform::value = newvalue;
@@ -127,7 +127,7 @@ public:
 	}
 
 	Uniform(const char* const name): _Uniform(name) {}
-	Uniform(const char* const name, const Shader*& shader): _Uniform(name, shader) {}
+	Uniform(const char* const name, const ShaderID& shader): _Uniform(name, shader) {}
 };
 
 template<typename ValueType>
@@ -139,7 +139,7 @@ public:
 	}
 
 	Uniform(const char* const name): _Uniform(name) {}
-	Uniform(const char* const name, const Shader*& shader): _Uniform(name, shader) {}
+	Uniform(const char* const name, const ShaderID& shader): _Uniform(name, shader) {}
 };
 
 using Umat4d = Uniform<1, glm::dmat4>;

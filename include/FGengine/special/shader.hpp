@@ -20,6 +20,7 @@
 #include <fstream>
 #include <iostream>
 #include <GL/glew.h>
+#include "FGengine/structures/shaderid.hpp"
 
 namespace FGengine{
 
@@ -125,7 +126,7 @@ class Shader{
 	static inline ShadersList shaderslist;
 	ShadersList::size_type listid;
 	
-	GLuint shaderid = 0;
+	ShaderID shaderid;
 
 public:
 
@@ -144,7 +145,7 @@ public:
 		shaderid = 0;
 	}
 
-	const GLuint& ToGL() const{
+	ShaderID GetID() const{
 		return shaderid;
 	}
 

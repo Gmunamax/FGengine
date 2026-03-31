@@ -23,7 +23,7 @@ namespace FGengine{
 template<typename VertexType, typename ElementType>
 class Model: public Transform<VertexType::VertexPosition::PropertyType::length(), typename VertexType::VertexPosition::PropertyType::valueType>, private Mesh<VertexType, ElementType>{
 	bool visible = true;
-	Shader* shader = Defaults::shader;
+	ShaderID shader;
 
 	void Transform(){
 		typename Model::Transform::MatrixType matrix{1};
@@ -38,7 +38,7 @@ public:
 	Model() {};
 
 
-	void SetShader(Shader* newshader){
+	void SetShader(const ShaderID newshader){
 		shader = newshader;
 		Model::Mesh::SetShader(newshader);
 	}
@@ -49,7 +49,7 @@ public:
 
 	void Select(){
 		Model::Mesh::Select();
-		glUseProgram(shader->ToGL());
+		glUseProgram(shader);
 	}
 
 	void Draw(){

@@ -18,6 +18,7 @@
 #include <vector>
 #include "FGengine/structures/matrix.hpp"
 #include "FGengine/structures/uniform.hpp"
+#include "FGengine/structures/shaderid.hpp"
 
 namespace FGengine{
 
@@ -92,9 +93,9 @@ public:
 		}
 	}
 
-	void SetShader(const Shader* newshader){
-		objectMatrixUniform.SetShader(newshader->ToGL());
-		normalMatrixUniform.SetShader(newshader->ToGL());
+	void SetShader(const ShaderID newshader){
+		objectMatrixUniform.SetShader(newshader);
+		normalMatrixUniform.SetShader(newshader);
 	}
 
 	void SendMatrixes(const TransformMatrixType* transform){
