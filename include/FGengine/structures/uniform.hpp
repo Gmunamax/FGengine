@@ -151,16 +151,4 @@ using Uvec4f = Uniform<1, glm::vec4>;
 using Uvec3d = Uniform<1, glm::dvec3>;
 using Uvec3f = Uniform<1, glm::vec3>;
 
-
-	template<unsigned Count, typename ValueType>
-	void Shader::SendUniformToAll(const char* uniformName, const ValueType* value){
-		Uniform<Count, ValueType*> uniform {uniformName};
-		for(Shader*& element : shaderslist){
-			if(element->shaderid != 0){
-				uniform.SetShader(element->shaderid);
-				uniform.Send(value);
-			}
-		}
-	}
-
 }
