@@ -140,49 +140,6 @@ public:
 //viewdistance
 
 
-// Move this somewhere (class Viewport) where this camera will be attached (viewport, background):
-
-//viewport
-
-private:
-	Geometry2i viewportgeom;
-
-public:
-	void SetViewportGeom(const Geometry2i& newgeom){
-		viewportgeom = newgeom;
-		glViewport(newgeom.x,newgeom.y,newgeom.w,newgeom.h);
-
-	}
-
-	const Geometry2i& GetViewportGeom() const{
-		return viewportgeom;
-	}
-
-	void Resize(const Geometry2i& newviewport){
-		SetAspectRatio((double)newviewport.w/(double)newviewport.h);
-		SetViewportGeom(newviewport);
-		needupdateprojection = true;
-	}
-
-//viewport
-
-
-//background
-
-private:
-	Color4d backgroundcolor {0,0,0,1};
-
-public:
-	void SetBackgroundColor(const Color4d& newbgcolor){
-		backgroundcolor = newbgcolor;
-	}
-	const Color4d& GetBackgroundColor() const{
-		return backgroundcolor;
-	}
-
-//background
-
-
 //projection
 
 public:

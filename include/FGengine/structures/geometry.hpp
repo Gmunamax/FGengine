@@ -13,6 +13,7 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
+#pragma once
 #include "vector.hpp"
 
 namespace FGengine{
@@ -49,6 +50,11 @@ union Geometry<2, DataType>{
 		this->w = w;
 		this->h = h;
 	}
+	Geometry& operator=(const Geometry& geom){
+		position = geom.position;
+		size = geom.size;
+		return *this;
+	}
 };
 
 template<typename DataType>
@@ -80,6 +86,11 @@ union Geometry<3, DataType>{
 		this->w = w;
 		this->h = h;
 		this->d = d;
+	}
+	Geometry& operator=(const Geometry& geom){
+		position = geom.position;
+		size = geom.size;
+		return *this;
 	}
 };
 
