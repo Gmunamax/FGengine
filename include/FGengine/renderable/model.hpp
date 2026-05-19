@@ -16,7 +16,6 @@
 #pragma once
 #include "FGengine/properties/transform.hpp"
 #include "FGengine/properties/mesh.hpp"
-#include "FGengine/special/defaults.hpp"
 
 namespace FGengine{
 

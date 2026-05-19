@@ -15,10 +15,7 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
 #include <vector>
-#include <string>
 #include <forward_list>
-#include <fstream>
-#include <iostream>
 #include <GL/glew.h>
 #include "FGengine/structures/shaderid.hpp"
 #include "FGengine/structures/uniform.hpp"

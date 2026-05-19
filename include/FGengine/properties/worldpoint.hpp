@@ -16,8 +16,7 @@
 #pragma once
 #include <glm/gtc/matrix_transform.hpp>
 #include "FGengine/structures/matrix.hpp"
-#include "FGengine/special/shader.hpp"
-#include "FGengine/structures/uniform.hpp"
+#include "FGengine/structures/vector.hpp"
 
 namespace FGengine{
 

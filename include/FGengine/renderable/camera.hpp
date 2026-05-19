@@ -15,9 +15,6 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
 #include <glm/gtc/matrix_transform.hpp>
-#include "FGengine/structures/geometry.hpp"
-#include "FGengine/structures/point.hpp"
-#include "FGengine/structures/color.hpp"
 #include "FGengine/properties/worldpoint.hpp"
 #include "FGengine/special/shader.hpp"
 

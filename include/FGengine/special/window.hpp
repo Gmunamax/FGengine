@@ -14,9 +14,9 @@
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
-#include <vector>
 #include <chrono>
 #include <SDL2/SDL.h>
+#include <string>
 #include "FGengine/structures/point.hpp"
 #include "FGengine/special/scene.hpp"
 #include "FGengine/special/defaults.hpp"
