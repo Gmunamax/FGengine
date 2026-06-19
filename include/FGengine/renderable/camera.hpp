@@ -22,8 +22,7 @@
 
 namespace FGengine{
 
-template<unsigned DimensionsCount>
-class Camera: public PointTransform<DimensionsCount, floatType>{
+class Camera: public PointTransform<3, floatType>{
 //viewMatrix
 
 private:
@@ -54,7 +53,7 @@ private:
 
 	void ProceedProjection(){
 		if(needupdateprojection){
-			glm::mat<DimensionsCount+1, DimensionsCount+1, floatType> matrix;
+			glm::mat<4, 4, floatType> matrix;
 			switch(projectionmode){
 			case ProjectionMode::Frustum:
 				glDepthFunc(GL_LESS);
