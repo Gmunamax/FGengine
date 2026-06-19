@@ -15,7 +15,6 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
 #include <SDL2/SDL.h>
-#include "FGengine/renderable/camera.hpp"
 
 namespace FGengine{
 
@@ -25,7 +24,6 @@ struct Scene{
 	friend class Window;
 
 protected:
-	Camera<3> cam;
 	Window* win = nullptr;
 
 	virtual void Load() {};

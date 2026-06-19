@@ -63,7 +63,6 @@ void Window::UpdateByCheckLimit(){
 
 void Window::RenderScene(){
 	if(!GetFlags(Flags::Drawing)) return;
-	GetScene()->cam.ProceedUpdate();
 	GetScene()->Drawing();
 	SDL_GL_SwapWindow(SDL_GL_GetCurrentWindow());
 	RemoveFlags(Flags::Drawing);

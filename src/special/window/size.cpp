@@ -27,7 +27,6 @@ void Window::ApplySize(){
 
 void Window::Resize(const SizeType& newsize){
 	size = newsize;
-	GetScene()->cam.Resize({0,0,newsize.x,newsize.y});
 	RequestNewFrame();
 }
 
