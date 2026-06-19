@@ -18,6 +18,7 @@
 #include "FGengine/properties/worldpoint.hpp"
 #include "FGengine/special/shader.hpp"
 #include "FGengine/structures/aspectratio.hpp"
+#include "FGengine/special/defaults.hpp"
 
 namespace FGengine{
 
@@ -81,7 +82,7 @@ private:
 //aspectratio
 
 private:
-	AspectRatio* aspectratio;
+	AspectRatio* aspectratio = Defaults::aspectRatio;
 
 public:
 	void SetAspectRatio(AspectRatio* newaspectratio){
