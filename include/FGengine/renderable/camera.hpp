@@ -164,10 +164,6 @@ public:
 	Camera() {};
 
 	void ProceedUpdate(){
-		glClearColor(backgroundcolor.r,backgroundcolor.g,backgroundcolor.b,backgroundcolor.a);
-		glClear(GL_COLOR_BUFFER_BIT);
-		glClear(GL_DEPTH_BUFFER_BIT);
-
 		Camera::ProceedTransformations();
 		Camera::ProceedProjection();
 	}
