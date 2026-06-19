@@ -85,7 +85,7 @@ private:
 	const AspectRatio* aspectratio = Defaults::aspectRatio;
 
 public:
-	void SetAspectRatio(AspectRatio* newaspectratio){
+	void SetAspectRatio(const AspectRatio* newaspectratio){
 		UpdateProjectionPropertyValue(aspectratio, newaspectratio);
 	}
 	const AspectRatio* GetAspectRatio() const{
