@@ -63,6 +63,7 @@ void Window::UpdateByCheckLimit(){
 
 void Window::RenderScene(){
 	if(!GetFlags(Flags::Drawing)) return;
+	Framebuffer::Clear();
 	GetScene()->Drawing();
 	SDL_GL_SwapWindow(SDL_GL_GetCurrentWindow());
 	RemoveFlags(Flags::Drawing);
