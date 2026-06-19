@@ -215,6 +215,7 @@ public:
 
 //cycle
 
+void UseFramebuffer();
 
 //main
 

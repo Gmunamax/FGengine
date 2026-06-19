@@ -19,6 +19,10 @@
 
 namespace FGengine{
 
+void Window::UseFramebuffer(){
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
 void Window::Select(){
 	if(opened){
 		SDL_GL_MakeCurrent(win,glcon);
@@ -71,6 +75,7 @@ void Window::CloseAll(){
 Window::Window(): scene(Defaults::scene), t1(std::chrono::steady_clock::now()){
 	allwindows.emplace_front(this);
 	elementBeforeThisInList = allwindows.before_begin();
+	SetBuffersToClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 }
 
 Window::~Window(){
