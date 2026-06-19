@@ -25,7 +25,7 @@ struct Scene{
 	friend class Window;
 
 protected:
-	Camera<3, double> cam;
+	Camera<3> cam;
 	Window* win = nullptr;
 
 	virtual void Load() {};

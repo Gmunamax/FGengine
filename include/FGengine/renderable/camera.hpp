@@ -17,12 +17,12 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "FGengine/properties/worldpoint.hpp"
 #include "FGengine/special/shader.hpp"
+#include "FGengine/structures/aspectratio.hpp"
 
 namespace FGengine{
 
-template<unsigned DimensionsCount, typename DataType>
-class Camera: public PointTransform<DimensionsCount, DataType>{
-
+template<unsigned DimensionsCount>
+class Camera: public PointTransform<DimensionsCount, floatType>{
 //viewMatrix
 
 private:
@@ -53,21 +53,21 @@ private:
 
 	void ProceedProjection(){
 		if(needupdateprojection){
-			glm::mat<DimensionsCount+1, DimensionsCount+1, DataType> matrix;
+			glm::mat<DimensionsCount+1, DimensionsCount+1, floatType> matrix;
 			switch(projectionmode){
 			case ProjectionMode::Frustum:
 				glDepthFunc(GL_LESS);
-				matrix = glm::perspective(fov, aspectratio, nearz, farz);
+				matrix = glm::perspective<floatType>(fov, *aspectratio, nearz, farz);
 				break;
 
 			case ProjectionMode::Ortho:
 				glDepthFunc(GL_LESS);
-				matrix = glm::ortho<DataType>(-aspectratio, aspectratio, -1.0f, 1.0f, nearz, farz);
+				matrix = glm::ortho<floatType>(-*aspectratio, *aspectratio, -1.0f, 1.0f, nearz, farz);
 				break;
 
 			case ProjectionMode::Ui:
 				glDepthFunc(GL_GEQUAL);
-				matrix = glm::ortho<DataType>(-aspectratio, aspectratio, -1.0f, 1.0f);
+				matrix = glm::ortho<floatType>(-*aspectratio, *aspectratio, -1.0f, 1.0f);
 				break;
 			}
 			Shader::SendUniformToAll<1>("fg_projectionmatrix", &matrix);
@@ -81,13 +81,13 @@ private:
 //aspectratio
 
 private:
-	DataType aspectratio = 1;
+	AspectRatio* aspectratio;
 
 public:
-	void SetAspectRatio(const double& newaspectratio){
+	void SetAspectRatio(AspectRatio* newaspectratio){
 		UpdateProjectionPropertyValue(aspectratio, newaspectratio);
 	}
-	const double& GetAspectRatio() const{
+	AspectRatio* GetAspectRatio() const{
 		return aspectratio;
 	}
 
@@ -97,13 +97,13 @@ public:
 //fov
 
 private:
-	DataType fov = 75 * M_PI/180;
+	floatType fov = 75 * M_PI/180;
 
 public:
-	void SetFOV(const double& newfov){
+	void SetFOV(const floatType& newfov){
 		UpdateProjectionPropertyValue(fov, glm::radians(newfov));
 	}
-	const double& GetFOV() const{
+	const floatType& GetFOV() const{
 		return fov;
 	}
 
@@ -113,24 +113,24 @@ public:
 //viewdistance
 
 private:
-	DataType nearz = 1;
-	DataType farz = 200;
+	floatType nearz = 1;
+	floatType farz = 200;
 
 public:
-	void SetNearDistance(const DataType& newNearZ){
+	void SetNearDistance(const floatType& newNearZ){
 		UpdateProjectionPropertyValue(nearz, newNearZ);
 	}
-	void SetFarDistance(const DataType& newFarZ){
+	void SetFarDistance(const floatType& newFarZ){
 		UpdateProjectionPropertyValue(farz, newFarZ);
 	}
-	void SetDistance(const DataType& newNearZ, const DataType& newFarZ){
+	void SetDistance(const floatType& newNearZ, const floatType& newFarZ){
 		SetNearDistance(newNearZ);
 		SetFarDistance(newFarZ);
 	}
-	const double& GetNearDistance() const{
+	const floatType& GetNearDistance() const{
 		return nearz;
 	}
-	const double& GetFarDistance() const{
+	const floatType& GetFarDistance() const{
 		return farz;
 	}
 
