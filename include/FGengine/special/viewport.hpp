@@ -16,12 +16,11 @@
 #pragma once
 #include <GL/glew.h>
 #include "FGengine/structures/geometry.hpp"
-#include "FGengine/structures/color.hpp"
-#include "FGengine/structures/aspectratio.hpp"
+#include "FGengine/special/framebuffer.hpp"
 
 namespace FGengine{
 
-class Viewport{
+class Viewport: public Framebuffer{
 
 	struct Buffer{
 		GLuint id;
@@ -37,17 +36,6 @@ class Viewport{
 private:
 	Vector<2, unsigned int, VectorType::Size> maxSize;
 
-public:
-	void SetViewportGeom(const Geometry2i& newgeom){
-		glViewport(newgeom.x, newgeom.y, newgeom.w, newgeom.h);
-	}
-
-	Geometry2i GetViewportGeom() const{
-		int rawgeom[4];
-		glGetIntegerv(GL_VIEWPORT, rawgeom);
-		return {rawgeom[0], rawgeom[1], rawgeom[2], rawgeom[3]};
-	}
-
 	void ResizeBuffers(Vector<2, unsigned int, VectorType::Size> newMaxSize){
 		maxSize = newMaxSize;
 		DefineTextureBuffer();
@@ -60,61 +48,16 @@ public:
 
 //viewport
 
-//background
-
-public:
-	void SetBackgroundColor(const Color4f& newbgcolor){
-		glClearColor(newbgcolor.r, newbgcolor.g, newbgcolor.b, newbgcolor.a);
-	}
-	Color4f GetBackgroundColor() const{
-		Color4f color;
-		glGetFloatv(GL_COLOR_CLEAR_VALUE, color.value);
-		return color;
-	}
-
-//background
-
-//buffers to clear
-
-private:
-	GLbitfield buffersToClear = 0;
-
-//buffers to clear
-
 //tests
 
 public:
-	enum Tests{
-		DepthTest = GL_DEPTH_TEST,
-		StencilTest = GL_STENCIL_TEST
-	};
 	enum Buffers{
 		DepthBuffer = GL_DEPTH_BUFFER_BIT,
 		StencilBuffer = GL_STENCIL_BUFFER_BIT,
 		NoBuffer = 0
 	};
 
-	void EnableTest(Tests test){
-		glEnable((GLenum)test);
-	}
-
-	void DisableTest(Tests test){
-		glDisable((GLenum)test);
-	}
-
 //tests
-
-//aspect ratio
-
-private:
-	AspectRatio<float> aspectRatio;
-
-public:
-	const AspectRatio<float>& GetAspectRatio(){
-		return aspectRatio;
-	}
-
-//aspect ratio
 
 private:
 	GLint mip = 0;
@@ -132,10 +75,6 @@ private:
 public:
 	void Use(){
 		glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
-	}
-
-	void Clear(){
-		glClear(buffersToClear);
 	}
 
 	Viewport(Buffers buffers, Vector<2, unsigned int, VectorType::Size> maxSize): Viewport(buffers, maxSize, {0, 0, (int)maxSize.w, (int)maxSize.h}) {}

@@ -21,10 +21,11 @@
 #include "FGengine/special/scene.hpp"
 #include "FGengine/special/defaults.hpp"
 #include "FGengine/structures/frametime.hpp"
+#include "FGengine/special/framebuffer.hpp"
 
 namespace FGengine{
 
-class Window{
+class Window: public Framebuffer{
 //flags
 
 private:
