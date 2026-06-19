@@ -92,6 +92,7 @@ private:
 		glGenTextures(1, &colorBuffer.id);
 		glGenRenderbuffers(1, &depthStencilBuffer.id);
 		
+		GLbitfield buffersToClear = 0;
 		GLuint attachment = 0;
 		if(buffers & DepthBuffer){
 			if(buffers & StencilBuffer){
@@ -116,6 +117,7 @@ private:
 		buffersToClear |= GL_COLOR_BUFFER_BIT;
 
 		ResizeBuffers(maxSize);
+		SetBuffersToClear(buffersToClear);
 
 		if(attachment != 0)
 			glFramebufferRenderbuffer(GL_FRAMEBUFFER, attachment, GL_RENDERBUFFER, depthStencilBuffer.id);
