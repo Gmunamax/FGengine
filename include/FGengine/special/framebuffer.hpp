@@ -54,6 +54,7 @@ public:
 private:
 	GLbitfield buffersToClear = 0;
 
+public:
 	void SetBuffersToClear(GLbitfield newMask){
 		buffersToClear = newMask;
 	}
