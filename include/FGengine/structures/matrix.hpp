@@ -13,29 +13,12 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include "FGengine/structures/uniform.hpp"
+#pragma once
+#include <glm/matrix.hpp>
 
 namespace FGengine{
 
-namespace Uniforms{
-
-	template<>
-	void Uniform<glm::dmat4>::TemplateSend() const{
-		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr( (glm::mat4)value ));
-	}
-	template<>
-	void Uniform<glm::dmat3>::TemplateSend() const{
-		glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr( (glm::mat3)value ));
-	}
-	template<>
-	void Uniform<glm::dvec4>::TemplateSend() const{
-		glUniform4f(location, value.x, value.y, value.z, value.w);
-	}
-	template<>
-	void Uniform<glm::dvec3>::TemplateSend() const{
-		glUniform3f(location, value.x, value.y, value.z);
-	}
-	
-}
+	template<glm::length_t C, glm::length_t R, typename DataType>
+	using Matrix = glm::mat<C, R, DataType>;
 
 }

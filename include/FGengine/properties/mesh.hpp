@@ -16,11 +16,21 @@
 #pragma once
 #include <GL/glew.h>
 #include <vector>
+#include "FGengine/structures/matrix.hpp"
+#include "FGengine/structures/uniform.hpp"
+#include "FGengine/structures/shaderid.hpp"
 
 namespace FGengine{
 
 template<typename VertexType, typename ElementsType>
 class Mesh{
+public:
+	using VertexesList = std::vector<VertexType>;
+	using Face = std::vector<ElementsType>;
+	using ElementsList = std::vector<Face>;
+	using TransformMatrixType = Matrix<4,4,double>;
+	using NormalMatrixType = Matrix<3,3,double>;
+
 private:
 	static inline constexpr int VBOusage = GL_STATIC_DRAW;
 	static constexpr int EBOusage = GL_STATIC_DRAW;
@@ -34,19 +44,27 @@ private:
 		long offset;
 		int size;
 
-		void Draw(){
+		void Draw() const{
 			glDrawElements(GL_TRIANGLE_STRIP, size, ElementsType::gldatatype(), (void*)(sizeof(ElementsType) * offset));
 		}
+
+		FaceLocation(long offset, int size): offset(offset), size(size){}
 	};
 	
+	Uniform<1, TransformMatrixType*> objectMatrixUniform{"fg_objectmatrix"};
+	Uniform<1, NormalMatrixType*> normalMatrixUniform{"fg_normalmatrix"};
 	std::vector<FaceLocation> facelocators;
 
+	template<typename VertexAttribType>
+	void InitVertexAttribute(const GLuint index){
+		if(VertexAttribType::PropertyType::gldatatype() == GL_DOUBLE)
+			glVertexAttribLPointer(index, VertexAttribType::GetLength(), VertexAttribType::PropertyType::gldatatype(), VertexType::GetStride(), (void*)VertexAttribType::GetOffset());
+		else
+			glVertexAttribPointer(index, VertexAttribType::GetLength(), VertexAttribType::PropertyType::gldatatype(), false, VertexType::GetStride(), (void*)VertexAttribType::GetOffset());
+		glEnableVertexAttribArray(index);
+	}
+
 public:
-
-	using VertexesList = std::vector<VertexType>;
-	using Face = std::vector<ElementsType>;
-	using ElementsList = std::vector<Face>;
-
 	//Must be called once, after Model created and OpenGL context loaded
 	void Init(){
 		glGenVertexArrays(1, &vao);
@@ -56,13 +74,10 @@ public:
 		glBindVertexArray(vao);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-		
-		glVertexAttribPointer(0, VertexType::VertexPosition::GetLength(), VertexType::VertexPosition::DataType::gldatatype(), false, VertexType::GetStride(), (void*)VertexType::VertexPosition::GetOffset());
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(1, VertexType::VertexColor::GetLength(), VertexType::VertexColor::DataType::gldatatype(), false, VertexType::GetStride(), (void*)VertexType::VertexColor::GetOffset());
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(2, VertexType::VertexNormal::GetLength(), VertexType::VertexNormal::DataType::gldatatype(), false, VertexType::GetStride(), (void*)VertexType::VertexNormal::GetOffset());
-		glEnableVertexAttribArray(2);
+
+		InitVertexAttribute<typename VertexType::VertexPosition>(0);
+		InitVertexAttribute<typename VertexType::VertexColor>(1);
+		InitVertexAttribute<typename VertexType::VertexNormal>(2);
 
 		glBindVertexArray(0);
 	}
@@ -72,12 +87,24 @@ public:
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	}
 
-	void Draw(){
-		for(typename std::vector<FaceLocation>::reference modelface : facelocators){
-			modelface.Draw();
+	void Draw() const{
+		for(const FaceLocation& face : facelocators){
+			face.Draw();
 		}
 	}
 
+	void SetShader(const ShaderID newshader){
+		objectMatrixUniform.SetShader(newshader);
+		normalMatrixUniform.SetShader(newshader);
+	}
+
+	void SendMatrixes(const TransformMatrixType* transform){
+		objectMatrixUniform.Send(transform);
+		NormalMatrixType normalMatrix {glm::transpose(glm::inverse(*transform))};
+		normalMatrixUniform.Send(&normalMatrix);
+	}
+
+public:
 	void Load(const VertexesList& vertexes, const ElementsList& elements){
 		glBufferData(GL_ARRAY_BUFFER, sizeof(VertexType)*vertexes.size(), vertexes.data(), VBOusage);
 		std::vector<ElementsType> newbuffer;

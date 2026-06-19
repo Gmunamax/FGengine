@@ -14,17 +14,18 @@
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
-#include <vector>
 #include <chrono>
 #include <SDL2/SDL.h>
+#include <string>
 #include "FGengine/structures/point.hpp"
 #include "FGengine/special/scene.hpp"
 #include "FGengine/special/defaults.hpp"
 #include "FGengine/structures/frametime.hpp"
+#include "FGengine/special/framebuffer.hpp"
 
 namespace FGengine{
 
-class Window{
+class Window: public Framebuffer{
 //flags
 
 private:
@@ -214,6 +215,7 @@ public:
 
 //cycle
 
+void UseFramebuffer();
 
 //main
 

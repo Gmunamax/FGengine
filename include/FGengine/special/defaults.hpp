@@ -16,12 +16,14 @@
 #pragma once
 #include "scene.hpp"
 #include "shader.hpp"
+#include "FGengine/structures/aspectratio.hpp"
 
 namespace FGengine{
 
 	namespace Defaults{
 		inline Scene* scene;
 		inline Shader* shader;
+		inline AspectRatio* aspectRatio;
 	}
 
 }

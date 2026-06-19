@@ -13,16 +13,9 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include "FGengine/special/shader.hpp"
-#include <string>
+#pragma once
 
 namespace FGengine{
-
-static std::string ReadFile(const char*);
-static GLuint CompilePart(Shader::ObjectDescription);
-static void PrintLinkStatus(GLuint);
-static std::vector<GLuint> CompileAllParts(std::vector<Shader::ObjectDescription>);
-static GLuint LinkShader(std::vector<GLuint>);
-static void DeleteParts(std::vector<GLuint>);
-
+	using floatType = float;
+	using intType = int;
 }

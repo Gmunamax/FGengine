@@ -13,6 +13,7 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
+#pragma once
 #include "vector.hpp"
 
 namespace FGengine{
@@ -20,16 +21,16 @@ namespace FGengine{
 template<_Vector::length_t Length, typename DataType>
 union Geometry{
 	struct{
-		_Vector::Vector<Length, DataType, _Vector::VectorType::Point> position;
-		_Vector::Vector<Length, DataType, _Vector::VectorType::Size> size;
+		Vector<Length, DataType, VectorType::Point> position;
+		Vector<Length, DataType, VectorType::Size> size;
 	};
 };
 
 template<typename DataType>
 union Geometry<2, DataType>{
 	struct{
-		_Vector::Vector<2, DataType, _Vector::VectorType::Point> position;
-		_Vector::Vector<2, DataType, _Vector::VectorType::Size> size;
+		Vector<2, DataType, VectorType::Point> position;
+		Vector<2, DataType, VectorType::Size> size;
 	};
 	struct{
 		DataType x;
@@ -49,13 +50,18 @@ union Geometry<2, DataType>{
 		this->w = w;
 		this->h = h;
 	}
+	Geometry& operator=(const Geometry& geom){
+		position = geom.position;
+		size = geom.size;
+		return *this;
+	}
 };
 
 template<typename DataType>
 union Geometry<3, DataType>{
 	struct{
-		_Vector::Vector<3, DataType, _Vector::VectorType::Point> position;
-		_Vector::Vector<3, DataType, _Vector::VectorType::Size> size;
+		Vector<3, DataType, VectorType::Point> position;
+		Vector<3, DataType, VectorType::Size> size;
 	};
 	struct{
 		DataType x;
@@ -80,6 +86,11 @@ union Geometry<3, DataType>{
 		this->w = w;
 		this->h = h;
 		this->d = d;
+	}
+	Geometry& operator=(const Geometry& geom){
+		position = geom.position;
+		size = geom.size;
+		return *this;
 	}
 };
 

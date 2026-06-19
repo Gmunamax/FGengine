@@ -25,6 +25,7 @@ namespace FGengine{
 		void init(){
 			scene = new DefaultScene{};
 			shader = new Shader{};
+			aspectRatio = new AspectRatio{};
 		}
 	}
 }

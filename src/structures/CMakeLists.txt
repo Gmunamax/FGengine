@@ -16,4 +16,5 @@
 target_sources(FGengine PUBLIC
 
 	${CMAKE_CURRENT_SOURCE_DIR}/fps.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/frametime.cpp)
+	${CMAKE_CURRENT_SOURCE_DIR}/frametime.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/uniform.cpp)

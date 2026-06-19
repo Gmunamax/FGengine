@@ -13,16 +13,26 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include "FGengine/special/shader.hpp"
-#include <string>
+#pragma once
+#include "FGengine/structures/types.hpp"
 
 namespace FGengine{
+	
+	class AspectRatio{
+	public:
+		using ValueType = floatType;
 
-static std::string ReadFile(const char*);
-static GLuint CompilePart(Shader::ObjectDescription);
-static void PrintLinkStatus(GLuint);
-static std::vector<GLuint> CompileAllParts(std::vector<Shader::ObjectDescription>);
-static GLuint LinkShader(std::vector<GLuint>);
-static void DeleteParts(std::vector<GLuint>);
+	private:
+		ValueType value;
+
+	public:
+		operator ValueType() const{
+			return value;
+		}
+
+		AspectRatio(floatType width, floatType heigth): value(width/heigth) {}
+		AspectRatio(const AspectRatio& value): value(value.value) {}
+		AspectRatio(): value(1) {}
+	};
 
 }

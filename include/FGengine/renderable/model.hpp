@@ -16,23 +16,30 @@
 #pragma once
 #include "FGengine/properties/transform.hpp"
 #include "FGengine/properties/mesh.hpp"
-#include "FGengine/special/defaults.hpp"
 
 namespace FGengine{
 
 template<typename VertexType, typename ElementType>
-class Model: public Transform<typename VertexType::VertexPosition::DataType>, private Mesh<VertexType, ElementType>{
+class Model: public Transform<VertexType::VertexPosition::PropertyType::length(), typename VertexType::VertexPosition::PropertyType::valueType>, private Mesh<VertexType, ElementType>{
 	bool visible = true;
-	Shader* shader = Defaults::shader;
+	ShaderID shader;
+
+	void Transform(){
+		typename Model::Transform::MatrixType matrix{1};
+		matrix = Model::Transform::TransformPosition(matrix);
+		matrix = Model::Transform::TransformRotation(matrix);
+		matrix = Model::Transform::TransformScale(matrix);
+		Model::Mesh::SendMatrixes(&matrix);
+	}
 
 public:
 
-	Model(): Model::Transform("fg_objectmatrix", "fg_normalmatrix"){};
+	Model() {};
 
 
-	void SetShader(Shader* newshader){
+	void SetShader(const ShaderID newshader){
 		shader = newshader;
-		Model::Transform::SetShader(newshader);
+		Model::Mesh::SetShader(newshader);
 	}
 
 	void Init(){
@@ -41,13 +48,12 @@ public:
 
 	void Select(){
 		Model::Mesh::Select();
-		glUseProgram(shader->ToGL());
+		glUseProgram(shader);
 	}
 
 	void Draw(){
 		Model::Mesh::Select();
-		Model::ProceedTransformations();
-		Model::SendMatrix();
+		Transform();
 		if(visible)
 			Model::Mesh::Draw();
 	}
@@ -56,7 +62,7 @@ public:
 		Model::Mesh::Delete();
 	}
 
-	void Load(const Model::Mesh::VertexesList& vertexes, const Model::Mesh::ElementsList& elements){
+	void Load(const typename Model::Mesh::VertexesList& vertexes, const typename Model::Mesh::ElementsList& elements){
 		Model::Mesh::Select();
 		Model::Mesh::Load(vertexes, elements);
 	}

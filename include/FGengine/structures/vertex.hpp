@@ -29,25 +29,25 @@ protected:
 	VertexPosition(){}
 
 public:
-	using DataType = PosType;
+	using PropertyType = PosType;
 
 protected:
 
-	DataType position;
+	PropertyType position;
 	static inline const short offset = offsetof(Base, position);
 
 public:
-	void SetPosition(PosType newposition){
+	void SetPosition(PropertyType newposition){
 		this->position = newposition;
 	}
-	PosType& GetPosition(){
+	PropertyType& GetPosition(){
 		return this->position;
 	}
 	static short GetOffset(){
 		return VertexPosition::offset;
 	}
 	static short GetLength(){
-		return PosType::length();
+		return PropertyType::length();
 	}
 };
 
@@ -60,24 +60,24 @@ protected:
 	VertexColor(){}
 
 public:
-	using DataType = ColType;
+	using PropertyType = ColType;
 
 protected:
-	DataType color;
+	PropertyType color;
 	static inline const short offset = offsetof(Base, color);
 
 public:
-	void SetColor(ColType newcolor){
+	void SetColor(PropertyType newcolor){
 		this->color = newcolor;
 	}
-	ColType& GetColor(){
+	PropertyType& GetColor(){
 		return this->color;
 	}
 	static short GetOffset(){
 		return VertexColor::offset;
 	}
 	static short GetLength(){
-		return ColType::length();
+		return PropertyType::length();
 	}
 };
 
@@ -91,24 +91,24 @@ protected:
 	VertexNormal(){}
 
 public:
-	using DataType = NormalType;
+	using PropertyType = NormalType;
 
 protected:
-	DataType normal;
+	PropertyType normal;
 	static inline const short offset = offsetof(Base, normal);
 
 public:
-	void SetNormal(NormalType newnormal){
+	void SetNormal(PropertyType newnormal){
 		this->normal = newnormal;
 	}
-	NormalType& GetNormal(){
+	PropertyType& GetNormal(){
 		return this->normal;
 	}
 	static short GetOffset(){
 		return VertexNormal::offset;
 	}
 	static short GetLength(){
-		return NormalType::length();
+		return PropertyType::length();
 	}
 };
 

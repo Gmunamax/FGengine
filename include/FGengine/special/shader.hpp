@@ -15,11 +15,9 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
 #include <vector>
-#include <string>
 #include <forward_list>
-#include <fstream>
-#include <iostream>
 #include <GL/glew.h>
+#include "FGengine/structures/shaderid.hpp"
 #include "FGengine/structures/uniform.hpp"
 
 namespace FGengine{
@@ -126,7 +124,7 @@ class Shader{
 	static inline ShadersList shaderslist;
 	ShadersList::size_type listid;
 	
-	GLuint shaderid = 0;
+	ShaderID shaderid;
 
 public:
 
@@ -137,21 +135,23 @@ public:
 	
 	void Load(std::vector<ObjectDescription> descriptions);
 
-	template<typename UniformType>
-	static void SendUniformToAll(UniformType& value){
+	template<unsigned Count, typename ValueType>
+	static void SendUniformToAll(const char* uniformName, const ValueType* value){
+		Uniform<Count, ValueType*> uniform {uniformName};
 		for(Shader*& element : shaderslist){
 			if(element->shaderid != 0){
-				value.SetShader(element->shaderid);
-				value.Send();
+				uniform.SetShader(element->shaderid);
+				uniform.Send(value);
 			}
 		}
 	}
+
 	void Delete(){
 		glDeleteProgram(shaderid);
 		shaderid = 0;
 	}
 
-	const GLuint& ToGL() const{
+	ShaderID GetID() const{
 		return shaderid;
 	}
 

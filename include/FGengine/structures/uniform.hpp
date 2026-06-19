@@ -14,66 +14,141 @@
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <string>
+#include <glm/matrix.hpp>
 #include <GL/glew.h>
+#include "FGengine/structures/shaderid.hpp"
 
 namespace FGengine{
 
-namespace Uniforms{
+class _Uniform{
+	const char* name;
+	ShaderID shaderId;
+
+	void FindLocation(){
+		location = glGetUniformLocation(shaderId, name);
+	}
+
+protected:
+	GLint location = 0;
 
 	template<typename ValueType>
-	class Uniform{
+	void Send(unsigned count, const ValueType* value) const;
 
-		const char* name;
-		ValueType value;
-		GLint location = 0;
-		GLint shaderId = 0;
+public:
+	const char* GetName() const{
+		return name;
+	}
 
-		void SetValue(const ValueType& value){
-			this->value = value;
+	void SetShader(const ShaderID& newshader){
+		this->shaderId = newshader;
+		FindLocation();
+	}
+
+	const ShaderID& GetShader() const{
+		return shaderId;
+	}
+
+	_Uniform(const char* name): name(name) {}
+	_Uniform(const char* name, const ShaderID& shader): name(name), shaderId(shader) {
+		FindLocation();
+	}
+};
+
+template<unsigned Count, typename ValueType>
+class Uniform: public _Uniform{
+
+	ValueType value[Count];
+
+	void SetValue(const ValueType newvalue[Count]){
+		for(unsigned e = 0; e < Count; ++e){
+			value[e] = newvalue[e];
 		}
+	}
 
-		void TemplateSend() const;
+public:
+	const ValueType* GetValue() const{
+		return value;
+	}
 
-	public:
+	void Send() const{
+		glUseProgram(GetShader());
+		Uniform::_Uniform::Send(Count, value);
+	}
 
-		const char* GetName() const{
-			return name;
-		}
-	
-		void SetShader(const GLuint& newshader){
-			this->shaderId = newshader;
-			location = glGetUniformLocation(newshader, name);
-		}
+	Uniform(const char* const name): _Uniform(name) {}
+	Uniform(const char* const name, const ValueType value[Count]): _Uniform(name) {
+		SetValue(value);
+	}
+	Uniform(const char* const name, const ShaderID& shader): _Uniform(name, shader) {}
+	Uniform(const char* const name, const ShaderID& shader, const ValueType value[Count]): _Uniform(name, shader){
+		SetValue(value);
+	}
 
-		const ValueType& GetValue() const{
-			return value;
-		}
+	void operator=(const ValueType newvalue[Count]){
+		SetValue(newvalue);
+	}
+	const ValueType& operator[](const unsigned index) const{
+		return Uniform::value[index];
+	}
+};
 
-		void Send() const{
-			glUseProgram(shaderId);
-			TemplateSend();
-		}
+template<typename ValueType>
+class Uniform<1, ValueType>: public _Uniform{
 
-		Uniform(const char* const name){
-			this->name = name;
-		}
-		Uniform(const char* const name, const ValueType& value): Uniform(name){
-			SetValue(value);
-		}
-		void operator=(const ValueType& newvalue){
-			SetValue(newvalue);
-		}
-		
-	};
+	ValueType value;
 
-	using Umat4 = Uniform<glm::dmat4>;
-	using Umat3 = Uniform<glm::dmat3>;
-	using Uvec4 = Uniform<glm::dvec4>;
-	using Uvec3 = Uniform<glm::dvec3>;
+	void SpecialSend() const;
 
-}
+public:
+	const ValueType& GetValue() const{
+		return value;
+	}
+	void Send() const{
+		glUseProgram(GetShader());
+		SpecialSend();
+	}
+
+	Uniform(const char* const name): _Uniform(name) {}
+	Uniform(const char* const name, const ValueType& value): _Uniform(name), value(value) {}
+	Uniform(const char* const name, const ShaderID& shader): _Uniform(name, shader) {}
+	Uniform(const char* const name, const ShaderID& shader, const ValueType& value): _Uniform(name, shader), value(value) {}
+
+	void operator=(const ValueType& newvalue){
+		Uniform::value = newvalue;
+	}
+};
+
+template<unsigned Count, typename ValueType>
+class Uniform<Count, ValueType*>: public _Uniform{
+public:
+	void Send(const ValueType* value) const{
+		glUseProgram(GetShader());
+		Uniform::_Uniform::Send(Count, value);
+	}
+
+	Uniform(const char* const name): _Uniform(name) {}
+	Uniform(const char* const name, const ShaderID& shader): _Uniform(name, shader) {}
+};
+
+template<typename ValueType>
+class Uniform<1, ValueType*>: public _Uniform{
+public:
+	void Send(const ValueType* value) const{
+		glUseProgram(GetShader());
+		Uniform::_Uniform::Send(1, value);
+	}
+
+	Uniform(const char* const name): _Uniform(name) {}
+	Uniform(const char* const name, const ShaderID& shader): _Uniform(name, shader) {}
+};
+
+using Umat4d = Uniform<1, glm::dmat4>;
+using Umat4f = Uniform<1, glm::mat4>;
+using Umat3d = Uniform<1, glm::dmat3>;
+using Umat3f = Uniform<1, glm::mat3>;
+using Uvec4d = Uniform<1, glm::dvec4>;
+using Uvec4f = Uniform<1, glm::vec4>;
+using Uvec3d = Uniform<1, glm::dvec3>;
+using Uvec3f = Uniform<1, glm::vec3>;
 
 }

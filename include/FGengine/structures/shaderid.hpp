@@ -13,16 +13,27 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include "FGengine/special/shader.hpp"
-#include <string>
+#pragma once
+#include <GL/glew.h>
 
 namespace FGengine{
 
-static std::string ReadFile(const char*);
-static GLuint CompilePart(Shader::ObjectDescription);
-static void PrintLinkStatus(GLuint);
-static std::vector<GLuint> CompileAllParts(std::vector<Shader::ObjectDescription>);
-static GLuint LinkShader(std::vector<GLuint>);
-static void DeleteParts(std::vector<GLuint>);
+struct ShaderID{
+private:
+	GLuint value;
+
+public:
+	operator GLuint() const{
+		return value;
+	}
+
+	ShaderID& operator=(const ShaderID&) = default;
+
+	ShaderID(): value(0) {}
+	ShaderID(GLuint val): value(val) {}
+	ShaderID(const ShaderID&) = default;
+	ShaderID(const ShaderID&& val): value(val.value) {}
+	~ShaderID() = default;
+};
 
 }
