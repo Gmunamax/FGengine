@@ -101,7 +101,6 @@ private:
 
 	void ApplySize();
 
-	void Resize(const SizeType& newsize);
 
 public:
 	void SetSize(const SizeType& newsize);

@@ -20,20 +20,18 @@ namespace FGengine{
 void Window::ApplySize(){
 	if(GetFlags(Flags::Size)){
 		SDL_SetWindowSize(SDL_GL_GetCurrentWindow(), size.x, size.y);
-		Resize(size);
+		SetSize(size);
 		RemoveFlags(Flags::Size);
 	}
 }
 
-void Window::Resize(const SizeType& newsize){
+void Window::SetSize(const SizeType& newsize){
 	size = newsize;
+	SetViewportGeom({0, 0, newsize.x, newsize.y});
+	SetFlags(Flags::Size);
 	RequestNewFrame();
 }
 
-void Window::SetSize(const SizeType& newsize){
-	size = newsize;
-	SetFlags(Flags::Size);
-}
 const Window::SizeType& Window::GetSize(){
 	return size;
 }

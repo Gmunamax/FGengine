@@ -51,7 +51,7 @@ void Window::SendEvents(){
 			switch(event.window.event){
 
 			case SDL_WINDOWEVENT_RESIZED:
-				windowptr->Resize({event.window.data1,event.window.data2});
+				windowptr->SetSize({event.window.data1,event.window.data2});
 				break;
 			case SDL_WINDOWEVENT_EXPOSED:
 				windowptr->RequestNewFrame();
