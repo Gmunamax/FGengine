@@ -32,6 +32,7 @@ public:
 public:
 	void SetViewportGeom(const Geometry2i& newgeom){
 		glViewport(newgeom.x, newgeom.y, newgeom.w, newgeom.h);
+		aspectRatio = AspectRatio{(float)newgeom.w, (float)newgeom.h}; 
 	}
 
 	Geometry2i GetViewportGeom() const{
