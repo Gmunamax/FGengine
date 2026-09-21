@@ -18,14 +18,9 @@
 namespace FGengine{
 	namespace Defaults{
 		
-		class DefaultScene: public Scene{
-
-		};
-
 		Shader::ProgramDescription defaultShaderDescription {};
 		
 		void init(){
-			scene = new DefaultScene{};
 			shader = new Shader{defaultShaderDescription};
 			aspectRatio = new AspectRatio{};
 		}
