@@ -14,45 +14,47 @@
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
+#include <glm/mat4x4.hpp>
+#include "FGengine/backend/modernContext.hpp"
+#include "FGengine/uniformBuffer.hpp"
 
 namespace FGengine{
 
-class Framerate{
+class Context: public Backend::ModernContext{
 public:
-	using DataType = unsigned short;
+	struct cameraUniformBuffer{
+		glm::mat4 projectionMatrix;
+		glm::mat4 viewMatrix;
+	};
 
 private:
-	DataType fps;
+	UniformBuffer<cameraUniformBuffer> cameraUbo;
 
 public:
-	Framerate(): fps(0) {}
-	Framerate(const DataType& fps): fps(fps) {}
-	
-	bool operator==(const Framerate& fps) const{
-		return this->fps == fps.fps;
+	const UniformBuffer<cameraUniformBuffer>& GetCameraUniformBuffer() const{
+		return cameraUbo;
 	}
-	bool operator!=(const Framerate& fps) const{
-		return this->fps != fps.fps;
+	UniformBuffer<cameraUniformBuffer>& GetCameraUniformBuffer(){
+		return cameraUbo;
 	}
-	bool operator>(const Framerate& fps) const{
-		return this->fps > fps.fps;
+
+	void MakeCurrent(const Backend::Window& win){
+		Backend::ModernContext::MakeCurrent(win);
+		MakeContextCurrent();
 	}
-	bool operator<(const Framerate& fps) const{
-		return this->fps < fps.fps;
+
+	void MakeCurrent(){
+		Backend::ModernContext::MakeCurrent();
+		MakeContextCurrent();
 	}
-	bool operator>=(const Framerate& fps) const{
-		return this->fps >= fps.fps;
-	}
-	bool operator<=(const Framerate& fps) const{
-		return this->fps <= fps.fps;
-	}
-	const DataType& toDataType() const{
-		return fps;
+
+private:
+	void MakeContextCurrent();
+
+public:
+	Context(const Backend::Window& win): Backend::ModernContext(win) {
+		MakeContextCurrent();
 	}
 };
-
-inline Framerate operator ""_fps(unsigned long long fps){
-	return Framerate(fps);
-}
 
 }

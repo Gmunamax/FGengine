@@ -13,16 +13,22 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include <SDL3/SDL.h>
+#include "fgengineFixture.hpp"
+#include <boost/test/unit_test.hpp>
+#include <FGengine/uniformBuffer.hpp>
 
-namespace FGengine::Backend{
+BOOST_AUTO_TEST_SUITE(uniformBuffer)
 
-void Init(){
-	SDL_Init(SDL_INIT_VIDEO);
+BOOST_FIXTURE_TEST_CASE(Creation, FGengineFixture){
+	class UniformBuffer: public FGengine::UniformBuffer<int>{
+	public:
+		UniformBuffer(): FGengine::UniformBuffer<int>(){
+			BOOST_TEST(GetHandle() != 0);
+		}
+
+	};
+
+	UniformBuffer uniformBuffer;
 }
 
-void Quit(){
-	SDL_Quit();
-}
-
-}
+BOOST_AUTO_TEST_SUITE_END()

@@ -13,7 +13,15 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, see <https://www.gnu.org/licenses/>.
-add_library(shaderCompiler STATIC)
-target_sources(shaderCompiler PRIVATE compiler.cpp)
-target_include_directories(shaderCompiler PUBLIC include)
-target_link_libraries(shaderCompiler PRIVATE loader)
+add_executable(modules)
+
+target_link_libraries(modules PRIVATE Boost::unit_test_framework)
+target_compile_definitions(modules PRIVATE BOOST_TEST_DYN_LINK)
+
+target_link_libraries(modules PRIVATE SDL3 loader fileReader)
+
+target_sources(modules PRIVATE
+	main.cpp
+	loader.cpp
+	fileReader.cpp
+)

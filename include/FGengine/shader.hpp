@@ -14,45 +14,57 @@
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
+#include <span>
+#include "FGengine/structures/shaderid.hpp"
 
 namespace FGengine{
 
-class Framerate{
+class Shader{
 public:
-	using DataType = unsigned short;
+	struct ProgramDescription{
+		using Pathes = std::span<const char*>;
+		Pathes geometry;
+		Pathes vertex;
+		Pathes fragment;
+		Pathes tessControl;
+		Pathes tessEvaluation;
+		Pathes compute;
+	};
+
+	Shader(ProgramDescription descriptions){
+		Load(descriptions);
+		BindCommonUniformBuffers();
+	}
+	Shader(const Shader&) = delete;
+	Shader(Shader&& shader): shaderid(shader.shaderid){
+		shader.shaderid = 0;
+	}
+	~Shader(){
+		Delete();
+	}
+
+	Shader& operator=(const Shader&) = delete;
+	Shader& operator=(Shader&& shader){
+		if(&shader != this){
+			Delete();
+			shaderid = shader.shaderid;
+			shader.shaderid = 0;
+		}
+		return *this;
+	}
+	
+	void Load(ProgramDescription descriptions);
+
+	ShaderID GetID() const{
+		return shaderid;
+	}
 
 private:
-	DataType fps;
+	ShaderID shaderid;
 
-public:
-	Framerate(): fps(0) {}
-	Framerate(const DataType& fps): fps(fps) {}
+	void Delete();
+	void BindCommonUniformBuffers();
 	
-	bool operator==(const Framerate& fps) const{
-		return this->fps == fps.fps;
-	}
-	bool operator!=(const Framerate& fps) const{
-		return this->fps != fps.fps;
-	}
-	bool operator>(const Framerate& fps) const{
-		return this->fps > fps.fps;
-	}
-	bool operator<(const Framerate& fps) const{
-		return this->fps < fps.fps;
-	}
-	bool operator>=(const Framerate& fps) const{
-		return this->fps >= fps.fps;
-	}
-	bool operator<=(const Framerate& fps) const{
-		return this->fps <= fps.fps;
-	}
-	const DataType& toDataType() const{
-		return fps;
-	}
 };
-
-inline Framerate operator ""_fps(unsigned long long fps){
-	return Framerate(fps);
-}
 
 }

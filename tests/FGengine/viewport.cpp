@@ -13,11 +13,24 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include "FGengine/special/shader.hpp"
+#include "fgengineFixture.hpp"
+#include <boost/test/unit_test.hpp>
+#include <FGengine/viewport.hpp>
 
-namespace FGengine{
+BOOST_AUTO_TEST_SUITE(Viewport)
 
-unsigned int CreateShaderProgram(std::vector<Shader::ObjectDescription> description);
+BOOST_FIXTURE_TEST_CASE(Creation, FGengineFixture){
+	class Viewport: public FGengine::Viewport{
+	public:
+		using FGengine::Viewport::Viewport;
 
+		Viewport(Buffers buffers, FGengine::Vector<2, unsigned int, FGengine::VectorType::Size> maxSize): FGengine::Viewport(buffers, maxSize){
+			BOOST_TEST(GetHandle() != 0);
+		}
+
+	};
+
+	Viewport viewport{FGengine::Viewport::Buffers::DepthBuffer, {1024, 768}};
 }
+
+BOOST_AUTO_TEST_SUITE_END()

@@ -13,22 +13,19 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, see <https://www.gnu.org/licenses/>.
-cmake_minimum_required(VERSION 3.19)
+cmake_minimum_required(VERSION 3.25)
 
 project(FGengine)
 
-include_directories(include)
+set(CMAKE_CXX_STANDARD 26)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_library(FGengine SHARED)
-add_compile_options(-fPIC)
 
-include_directories(${PROJECT_SOURCE_DIR}/include)
+target_include_directories(FGengine PUBLIC include)
 
 add_subdirectory(deps/glad)
 add_subdirectory(modules)
 add_subdirectory(src)
-
-find_package(SDL2 2.32 REQUIRED)
-find_package(OpenGL REQUIRED)
-
-target_link_libraries(FGengine PRIVATE SDL2::SDL2 OpenGL::GL glad)
+add_subdirectory(tests)

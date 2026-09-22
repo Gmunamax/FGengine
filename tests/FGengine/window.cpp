@@ -13,17 +13,9 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include "scene.hpp"
-#include "shader.hpp"
-#include "FGengine/structures/aspectratio.hpp"
+#include "fgengineFixture.hpp"
+#include <boost/test/unit_test.hpp>
 
-namespace FGengine{
-
-	namespace Defaults{
-		inline Scene* scene;
-		inline Shader* shader;
-		inline AspectRatio* aspectRatio;
-	}
-
+void FGengineFixture::Window::TestCreation(){
+	BOOST_TEST(GetHandle() != nullptr);
 }

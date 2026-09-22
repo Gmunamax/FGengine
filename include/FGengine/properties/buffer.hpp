@@ -14,47 +14,20 @@
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
-#include <glm/mat4x4.hpp>
-#include "FGengine/backend/modernContext.hpp"
-#include "uniformBuffer.hpp"
 
-namespace FGengine{
-
-class Context: public Backend::ModernContext{
+class Buffer{
 public:
-	struct cameraUniformBuffer{
-		glm::mat4 projectionMatrix;
-		glm::mat4 viewMatrix;
-	};
+	using BufferType = unsigned int;
 
-private:
-	UniformBuffer<cameraUniformBuffer> cameraUbo;
-
-public:
-	const UniformBuffer<cameraUniformBuffer>& GetCameraUniformBuffer() const{
-		return cameraUbo;
-	}
-	UniformBuffer<cameraUniformBuffer>& GetCameraUniformBuffer(){
-		return cameraUbo;
+	BufferType GetHandle() const{
+		return uniformBuffer;
 	}
 
-	void MakeCurrent(const Backend::Window& win){
-		Backend::ModernContext::MakeCurrent(win);
-		MakeContextCurrent();
-	}
-
-	void MakeCurrent(){
-		Backend::ModernContext::MakeCurrent();
-		MakeContextCurrent();
+	void SetHandle(BufferType newBuffer){
+		this->uniformBuffer = newBuffer;
 	}
 
 private:
-	void MakeContextCurrent();
+	BufferType uniformBuffer;
 
-public:
-	Context(const Backend::Window& win): Backend::ModernContext(win) {
-		MakeContextCurrent();
-	}
 };
-
-}

@@ -13,16 +13,8 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, see <https://www.gnu.org/licenses/>.
-add_subdirectory(shaderCompilation)
-target_sources(FGengine PRIVATE
-	uniformBuffer.cpp
-	uniform.cpp
-	framebuffer.cpp
-	window.cpp
-	camera.cpp
-	viewport.cpp
-	shader.cpp
-	modernContext.cpp
-	context.cpp
-)
-target_link_libraries(FGengine PRIVATE loader fileReader)
+add_library(fileReader STATIC)
+set_target_properties(fileReader PROPERTIES POSITION_INDEPENDENT_CODE ON)
+target_sources(fileReader PRIVATE fileReader.cpp)
+target_include_directories(fileReader PUBLIC include)
+target_link_libraries(fileReader PRIVATE loader)

@@ -13,16 +13,9 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include <SDL3/SDL.h>
+#include "fgengineFixture.hpp"
+#include <boost/test/unit_test.hpp>
 
-namespace FGengine::Backend{
-
-void Init(){
-	SDL_Init(SDL_INIT_VIDEO);
-}
-
-void Quit(){
-	SDL_Quit();
-}
-
+void FGengineFixture::Context::TestCreation(){
+	BOOST_TEST(GetHandle() != nullptr);
 }

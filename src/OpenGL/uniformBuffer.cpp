@@ -13,14 +13,14 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include "FGengine/special/uniformBuffer.hpp"
+#include "FGengine/uniformBuffer.hpp"
 #include <gl/gl.hpp>
 #include <cstring>
 
 using namespace FGengine;
 
 void _UniformBuffer::Bind() const{
-	glBindBuffer(GL_UNIFORM_BUFFER, uniformBuffer);
+	glBindBuffer(GL_UNIFORM_BUFFER, GetHandle());
 }
 
 void _UniformBuffer::Update(const void* newStorage, std::size_t size){
@@ -31,11 +31,13 @@ void _UniformBuffer::Update(const void* newStorage, std::size_t size){
 }
 
 _UniformBuffer::_UniformBuffer(std::size_t size){
-	glGenBuffers(1, &uniformBuffer);
+	GLuint buffer;
+	glGenBuffers(1, &buffer);
+	SetHandle(buffer);
 	Bind();
 	glBufferStorage(GL_UNIFORM_BUFFER, size, NULL, GL_DYNAMIC_STORAGE_BIT | GL_MAP_WRITE_BIT);
 
 	bindingPoint = freeBindingPoint;
-	glBindBufferBase(GL_UNIFORM_BUFFER, freeBindingPoint, uniformBuffer);
+	glBindBufferBase(GL_UNIFORM_BUFFER, freeBindingPoint, GetHandle());
 	++freeBindingPoint;
 }

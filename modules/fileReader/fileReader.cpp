@@ -13,17 +13,29 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
-#include "FGengine/backend/window.hpp"
-#include "FGengine/special/framebuffer.hpp"
+#include <string>
+#include <iostream>
+#include <fstream>
 
 namespace FGengine{
 
-class Window: public Backend::Window, public Framebuffer{
-public:
-	Window(TitleType title, SizeType size);
+static const char* const fileNotFoundError = "File not found";
 
-	static void BindViewport();
-};
+std::string ReadFile(const char* path){
+	std::ifstream reader(path);
+	std::string shaderSource = "";
+
+	if(reader.is_open()){
+		std::string line;
+		while(std::getline(reader,line)){
+			shaderSource+=(line+"\n");
+		}
+		reader.close();
+	}
+	else{
+		std::cout << fileNotFoundError << " [" << path << "]" << std::endl;
+	}
+	return shaderSource;
+}
 
 }

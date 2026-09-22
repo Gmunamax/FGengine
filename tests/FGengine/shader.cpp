@@ -13,16 +13,19 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include <SDL3/SDL.h>
+#include "fgengineFixture.hpp"
+#include <boost/test/unit_test.hpp>
+#include <FGengine/shader.hpp>
 
-namespace FGengine::Backend{
+BOOST_AUTO_TEST_SUITE(Shader)
 
-void Init(){
-	SDL_Init(SDL_INIT_VIDEO);
+BOOST_FIXTURE_TEST_CASE(Compilation, FGengineFixture){
+	FGengine::Shader::ProgramDescription testProgram;
+	FGengine::Shader shader{testProgram};
+
+	FGengine::ShaderID shaderId = shader.GetID();
+
+	BOOST_TEST(shaderId != 0);
 }
 
-void Quit(){
-	SDL_Quit();
-}
-
-}
+BOOST_AUTO_TEST_SUITE_END()

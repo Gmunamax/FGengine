@@ -13,16 +13,19 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, see <https://www.gnu.org/licenses/>.
-add_subdirectory(shaderCompilation)
-target_sources(FGengine PRIVATE
-	uniformBuffer.cpp
-	uniform.cpp
-	framebuffer.cpp
+add_executable(FGengineTests)
+
+target_link_libraries(FGengineTests PRIVATE Boost::unit_test_framework)
+target_compile_definitions(FGengineTests PRIVATE BOOST_TEST_DYN_LINK)
+
+target_link_libraries(FGengineTests PRIVATE FGengine)
+
+target_sources(FGengineTests PRIVATE
+	main.cpp
 	window.cpp
-	camera.cpp
-	viewport.cpp
-	shader.cpp
-	modernContext.cpp
 	context.cpp
+	shader.cpp
+	uniformBuffer.cpp
+	viewport.cpp
 )
-target_link_libraries(FGengine PRIVATE loader fileReader)
+add_subdirectory(properties)

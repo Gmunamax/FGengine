@@ -13,16 +13,25 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include <SDL3/SDL.h>
+#include <boost/test/unit_test.hpp>
+#include <fileReader.hpp>
+#include <fstream>
+#include <string>
+#include <string_view>
+#include <set>
 
-namespace FGengine::Backend{
-
-void Init(){
-	SDL_Init(SDL_INIT_VIDEO);
+void CreateFileWithContent(const char* path, std::string_view content){
+	std::fstream stream{path, std::ios::out | std::ios::trunc};
+	stream << content;
 }
 
-void Quit(){
-	SDL_Quit();
-}
+BOOST_AUTO_TEST_CASE(readFile){
+	const std::string fileContent = "Hello world";
+	constexpr const char* testFilePath = "/tmp/testFile.txt";
+	CreateFileWithContent(testFilePath, fileContent);
 
+	const std::string readedFile{FGengine::ReadFile(testFilePath)};
+
+	const std::set<std::string> validResults {fileContent, fileContent+"\n"};
+	BOOST_TEST(validResults.contains(readedFile));
 }

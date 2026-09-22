@@ -13,16 +13,13 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include <SDL3/SDL.h>
+#pragma once
+#include "FGengine/structures/aspectratio.hpp"
 
-namespace FGengine::Backend{
+namespace FGengine{
 
-void Init(){
-	SDL_Init(SDL_INIT_VIDEO);
-}
-
-void Quit(){
-	SDL_Quit();
-}
+	namespace Defaults{
+		inline AspectRatio* aspectRatio;
+	}
 
 }

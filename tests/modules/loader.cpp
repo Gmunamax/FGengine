@@ -13,16 +13,35 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include <SDL3/SDL.h>
+#include <boost/test/unit_test.hpp>
+#include <gl/gl.hpp>
+#include <SDL3/SDL_init.h>
+#include <SDL3/SDL_video.h>
 
-namespace FGengine::Backend{
+struct PfnsFixture{
+public:
+	PfnsFixture(){
+		SDL_Init(SDL_INIT_VIDEO);
+		win = SDL_CreateWindow("FGengine's OpenGL loader test", 320, 240, SDL_WINDOW_OPENGL | SDL_WINDOW_HIDDEN);
+		ctx = SDL_GL_CreateContext(win);
+		gladLoadGLContext(&pfns, SDL_GL_GetProcAddress);
+	}
+	~PfnsFixture(){
+		SDL_GL_DestroyContext(ctx);
+		SDL_DestroyWindow(win);
+		SDL_Quit();
+	}
 
-void Init(){
-	SDL_Init(SDL_INIT_VIDEO);
-}
+	GladGLContext pfns;
 
-void Quit(){
-	SDL_Quit();
-}
+private:
+	SDL_Window* win;
+	SDL_GLContext ctx;
+};
 
+BOOST_FIXTURE_TEST_CASE(initialization, PfnsFixture){
+	FGengine::SetCurrentPfns(pfns);
+	GLuint buffer = 0;
+	glGenBuffers(1, &buffer);
+	BOOST_TEST(buffer != 0);
 }

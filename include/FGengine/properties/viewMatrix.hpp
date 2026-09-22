@@ -14,11 +14,22 @@
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
+#include <glm/mat4x4.hpp>
+#include "FGengine/properties/worldpoint.hpp"
+#include "FGengine/structures/types.hpp"
 
 namespace FGengine{
 
-struct Scene{
-	virtual void Drawing() {};
+class ViewMatrix: public PointTransform<3, floatType>{
+public:
+	using ViewMatrixType = glm::mat4;
+
+	ViewMatrixType CalculateViewMatrix(){
+		ViewMatrixType matrix = {1};
+		matrix = PointTransform::TransformRotation(matrix);
+		matrix = PointTransform::TransformPosition(matrix);
+		return matrix;
+	}
 };
 
 }

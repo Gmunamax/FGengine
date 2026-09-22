@@ -13,30 +13,5 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include "FGengine/structures/fps.hpp"
-using namespace FGengine;
-
-Framerate::Framerate(): fps(0){}
-Framerate::Framerate(const DataType& fps): fps(fps){}
-
-bool Framerate::operator==(const Framerate& fps) const{
-	return this->fps == fps.fps;
-}
-bool Framerate::operator!=(const Framerate& fps) const{
-	return this->fps != fps.fps;
-}
-bool Framerate::operator>(const Framerate& fps) const{
-	return this->fps > fps.fps;
-}
-bool Framerate::operator<(const Framerate& fps) const{
-	return this->fps < fps.fps;
-}
-bool Framerate::operator>=(const Framerate& fps) const{
-	return this->fps >= fps.fps;
-}
-bool Framerate::operator<=(const Framerate& fps) const{
-	return this->fps <= fps.fps;
-}
-const Framerate::DataType& Framerate::toDataType() const{
-	return fps;
-}
+#define BOOST_TEST_MODULE FGengine core API tests
+#include <boost/test/unit_test.hpp>

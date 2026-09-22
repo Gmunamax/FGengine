@@ -13,16 +13,30 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include <SDL3/SDL.h>
+#include <FGengine/window.hpp>
+#include <FGengine/context.hpp>
 
-namespace FGengine::Backend{
+struct FGengineFixture{
 
-void Init(){
-	SDL_Init(SDL_INIT_VIDEO);
-}
+	class Window: public FGengine::Window{
+	public:
+		Window(TitleType title, SizeType size): FGengine::Window(title, size){
+			TestCreation();
+		}
 
-void Quit(){
-	SDL_Quit();
-}
+	private:
+		void TestCreation();
+	}
+	win{"FGengine tests", {800, 600}};
 
-}
+	class Context: public FGengine::Context{
+	public:
+		Context(const FGengine::Backend::Window& win): FGengine::Context(win){
+			TestCreation();
+		}
+
+	private:
+		void TestCreation();
+	}
+	ctx{win};
+};

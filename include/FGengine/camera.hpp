@@ -14,52 +14,14 @@
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
-#include <vector>
-#include "FGengine/structures/shaderid.hpp"
+#include "FGengine/properties/viewMatrix.hpp"
+#include "FGengine/properties/projectionMatrix.hpp"
 
 namespace FGengine{
 
-class Shader{
+class Camera: public ProjectionMatrix, public ViewMatrix{
 public:
-	struct ObjectDescription{
-		unsigned int type;
-		std::vector<const char*> filepathes;
-	};
-
-	Shader(std::vector<ObjectDescription> descriptions){
-		Load(descriptions);
-		BindCommonUniformBuffers();
-	}
-	Shader(const Shader&) = delete;
-	Shader(Shader&& shader): shaderid(shader.shaderid){
-		shader.shaderid = 0;
-	}
-	~Shader(){
-		Delete();
-	}
-
-	Shader& operator=(const Shader&) = delete;
-	Shader& operator=(Shader&& shader){
-		if(&shader != this){
-			Delete();
-			shaderid = shader.shaderid;
-			shader.shaderid = 0;
-		}
-		return *this;
-	}
-	
-	void Load(std::vector<ObjectDescription> descriptions);
-
-	ShaderID GetID() const{
-		return shaderid;
-	}
-
-private:
-	ShaderID shaderid;
-
-	void Delete();
-	void BindCommonUniformBuffers();
-	
+	void ProceedUpdate();
 };
 
 }
