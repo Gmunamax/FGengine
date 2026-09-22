@@ -12,9 +12,14 @@ FGengine currently is in early development state, it has almost nothing yet, but
 ## Dependencies
 
 FGengine uses these external dependencies:
-* SDL2
+* SDL3
 
 FGengine can't work without them.
+
+Build system is configured to build tests with FGengine. Tests require a following external dependency to work:
+* Boost unit test framework (shared library)
+
+If you don't want to build tests, the only way to disable them currently is to remove ```add_subdirectory(tests)``` line in the root CMakeLists.txt file.
 
 Also, these dependencies are required for building projects that use FGengine:
 * GLM
