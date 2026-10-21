@@ -15,14 +15,14 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #include "fgengineFixture.hpp"
 #include <boost/test/unit_test.hpp>
-#include <FGengine/uniformBuffer.hpp>
+#include <FGengine/graphics/uniformBuffer.hpp>
 
 BOOST_AUTO_TEST_SUITE(uniformBuffer)
 
 BOOST_FIXTURE_TEST_CASE(Creation, FGengineFixture){
-	class UniformBuffer: public FGengine::UniformBuffer<int>{
+	class UniformBuffer: public FGengine::Graphics::UniformBuffer<int>{
 	public:
-		UniformBuffer(): FGengine::UniformBuffer<int>(){
+		UniformBuffer(): FGengine::Graphics::UniformBuffer<int>(){
 			BOOST_TEST(GetHandle() != 0);
 		}
 

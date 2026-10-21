@@ -14,7 +14,6 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, see <https://www.gnu.org/licenses/>.
 target_sources(FGengine PUBLIC init.cpp)
-add_subdirectory(special)
-add_subdirectory(OpenGL)
-add_subdirectory(backend)
+add_subdirectory(graphics)
+add_subdirectory(videoOutput)
 add_subdirectory(currentContext)

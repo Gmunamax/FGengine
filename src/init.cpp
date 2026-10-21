@@ -13,19 +13,19 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include "FGengine/init.hpp"
-#include "backend/init.hpp"
-#include "special/defaults.hpp"
+#include <FGengine/init.hpp>
+#include "videoOutput/init.hpp"
+#include "graphics/defaults.hpp"
 
 namespace FGengine{
 
 void Init(){
-	Backend::Init();
-	Defaults::init();
+	VideoOutput::Init();
+	Graphics::Defaults::init();
 }
 
 void Quit(){
-	Backend::Quit();
+	VideoOutput::Quit();
 }
 
 }

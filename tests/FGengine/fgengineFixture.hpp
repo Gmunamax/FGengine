@@ -31,12 +31,7 @@ struct FGengineFixture{
 
 	class Context: public FGengine::Context{
 	public:
-		Context(const FGengine::Backend::Window& win): FGengine::Context(win){
-			TestCreation();
-		}
-
-	private:
-		void TestCreation();
+		Context(const FGengine::VideoOutput::Window& win): FGengine::Context(win){}
 	}
 	ctx{win};
 };

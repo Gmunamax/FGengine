@@ -15,15 +15,16 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #include "../fgengineFixture.hpp"
 #include <boost/test/unit_test.hpp>
-#include <FGengine/properties/viewMatrix.hpp>
+#include <FGengine/graphics/properties/viewMatrix.hpp>
 #include <glm/mat4x4.hpp>
 
+using FGengine::Graphics::ViewMatrix;
+
 struct ViewMatrixFixture{
-	using Vector = FGengine::Vector<3, FGengine::floatType, FGengine::VectorType::Point>;
-	using PositionType = Vector;
-	using RotationType = Vector;
+	using PositionType = ViewMatrix::PositionType;
+	using RotationType = ViewMatrix::PositionType;
 	
-	FGengine::ViewMatrix viewMatrix;
+	ViewMatrix viewMatrix;
 
 	static inline PositionType position {1,2,3};
 	static inline RotationType rotation {4,5,6};
@@ -34,19 +35,19 @@ struct ViewMatrixFixture{
 	}
 };
 
-BOOST_AUTO_TEST_SUITE(ViewMatrix)
+BOOST_AUTO_TEST_SUITE(ViewMatrixTests)
 
 glm::mat4 GetReferenceMatrix(){
 	glm::mat4 matrix {1};
 	matrix = glm::rotate(matrix, glm::radians(ViewMatrixFixture::rotation.x), {1,0,0});
 	matrix = glm::rotate(matrix, glm::radians(ViewMatrixFixture::rotation.y), {0,1,0});
 	matrix = glm::rotate(matrix, glm::radians(ViewMatrixFixture::rotation.z), {0,0,1});
-	matrix = glm::translate(matrix, ViewMatrixFixture::position.toGlm());
+	matrix = glm::translate(matrix, ViewMatrixFixture::position);
 	return matrix;
 }
 
 BOOST_FIXTURE_TEST_CASE(Calculation, ViewMatrixFixture){
-	FGengine::ViewMatrix::ViewMatrixType matrix = viewMatrix.CalculateViewMatrix();
+	FGengine::Graphics::ViewMatrix::ViewMatrixType matrix = viewMatrix.CalculateViewMatrix();
 	glm::mat4 mustBe = GetReferenceMatrix();
 	bool isEqual = matrix == mustBe;
 	BOOST_TEST(isEqual);

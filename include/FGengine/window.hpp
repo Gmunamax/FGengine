@@ -14,16 +14,10 @@
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
-#include "FGengine/backend/window.hpp"
-#include "FGengine/properties/framebuffer.hpp"
+#include "videoOutput/window.hpp"
 
 namespace FGengine{
 
-class Window: public Backend::Window, public Framebuffer{
-public:
-	Window(TitleType title, SizeType size);
-
-	static void BindViewport();
-};
+	using Window = VideoOutput::Window;
 
 }

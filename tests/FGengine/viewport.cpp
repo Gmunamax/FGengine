@@ -15,22 +15,22 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #include "fgengineFixture.hpp"
 #include <boost/test/unit_test.hpp>
-#include <FGengine/viewport.hpp>
+#include <FGengine/graphics/viewport.hpp>
 
 BOOST_AUTO_TEST_SUITE(Viewport)
 
 BOOST_FIXTURE_TEST_CASE(Creation, FGengineFixture){
-	class Viewport: public FGengine::Viewport{
+	class Viewport: public FGengine::Graphics::Viewport{
 	public:
-		using FGengine::Viewport::Viewport;
+		using FGengine::Graphics::Viewport::Viewport;
 
-		Viewport(Buffers buffers, FGengine::Vector<2, unsigned int, FGengine::VectorType::Size> maxSize): FGengine::Viewport(buffers, maxSize){
+		Viewport(Buffers buffers, FGengine::Vector<2, unsigned int, FGengine::VectorType::Size> maxSize): FGengine::Graphics::Viewport(buffers, maxSize){
 			BOOST_TEST(GetHandle() != 0);
 		}
 
 	};
 
-	Viewport viewport{FGengine::Viewport::Buffers::DepthBuffer, {1024, 768}};
+	Viewport viewport{FGengine::Graphics::Viewport::Buffers::DepthBuffer, {1024, 768}};
 }
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -15,29 +15,31 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #include "../fgengineFixture.hpp"
 #include <boost/test/unit_test.hpp>
-#include <FGengine/properties/projectionMatrix.hpp>
+#include <FGengine/graphics/properties/projectionMatrix.hpp>
+
+using FGengine::Graphics::ProjectionMatrix, FGengine::floatType, FGengine::AspectRatio;
 
 struct ProjectionMatrixFixture{
-	FGengine::ProjectionMatrix projectionMatrix;
+	ProjectionMatrix projectionMatrix;
 
-	FGengine::floatType nearz = 1;
-	FGengine::floatType farz = 200;
-	FGengine::floatType fov = 75 * M_PI/180;
-	FGengine::AspectRatio aspectRatio {100, 200};
+	floatType nearz = 1;
+	floatType farz = 200;
+	floatType fov = 75 * M_PI/180;
+	AspectRatio aspectRatio {100, 200};
 
 	ProjectionMatrixFixture(){
 		projectionMatrix.SetNearDistance(nearz);
 		projectionMatrix.SetFarDistance(farz);
 		projectionMatrix.SetFOV(fov);
 		projectionMatrix.SetAspectRatio(&aspectRatio);
-		projectionMatrix.SetProjectionMode(FGengine::ProjectionMatrix::ProjectionMode::Frustum);
+		projectionMatrix.SetProjectionMode(ProjectionMatrix::ProjectionMode::Frustum);
 	}
 };
 
-BOOST_AUTO_TEST_SUITE(ProjectionMatrix)
+BOOST_AUTO_TEST_SUITE(ProjectionMatrixTests)
 
 BOOST_FIXTURE_TEST_CASE(Calculation, ProjectionMatrixFixture){
-	FGengine::ProjectionMatrix::ProjectionMatrixType matrix = projectionMatrix.CalculateProjectionMatrix();
+	FGengine::Graphics::ProjectionMatrix::ProjectionMatrixType matrix = projectionMatrix.CalculateProjectionMatrix();
 	glm::mat4 mustBe = glm::perspective<FGengine::floatType>(glm::radians(fov), aspectRatio, nearz, farz);
 	bool isEqual = matrix == mustBe;
 	BOOST_TEST(isEqual);

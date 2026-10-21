@@ -13,17 +13,17 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include "FGengine/context.hpp"
+#include "currentContext.hpp"
 
 namespace FGengine{
 
-Context* currentContext = nullptr;
+Graphics::Context* currentContext = nullptr;
 
-void SetCurrentContext(Context* newContext){
+void SetCurrentContext(Graphics::Context* newContext){
 	currentContext = newContext;
 }
 
-Context& GetCurrentContext(){
+Graphics::Context& GetCurrentContext(){
 	return *currentContext;
 }
 

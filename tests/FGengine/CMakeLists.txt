@@ -23,8 +23,6 @@ target_link_libraries(FGengineTests PRIVATE FGengine)
 target_sources(FGengineTests PRIVATE
 	main.cpp
 	window.cpp
-	context.cpp
-	shader.cpp
 	uniformBuffer.cpp
 	viewport.cpp
 )
