@@ -84,7 +84,39 @@ namespace{
 		case SDL_SCANCODE_B:
 			key = EventsPack::Key::B;
 			break;
-		
+		case SDL_SCANCODE_1:
+			key = EventsPack::Key::Num1;
+			break;
+		case SDL_SCANCODE_2:
+			key = EventsPack::Key::Num2;
+			break;
+		case SDL_SCANCODE_3:
+			key = EventsPack::Key::Num3;
+			break;
+		case SDL_SCANCODE_4:
+			key = EventsPack::Key::Num4;
+			break;
+		case SDL_SCANCODE_5:
+			key = EventsPack::Key::Num5;
+			break;
+		case SDL_SCANCODE_6:
+			key = EventsPack::Key::Num6;
+			break;
+		case SDL_SCANCODE_7:
+			key = EventsPack::Key::Num7;
+			break;
+		case SDL_SCANCODE_8:
+			key = EventsPack::Key::Num8;
+			break;
+		case SDL_SCANCODE_9:
+			key = EventsPack::Key::Num9;
+			break;
+		case SDL_SCANCODE_0:
+			key = EventsPack::Key::Num0;
+			break;
+		case SDL_SCANCODE_ESCAPE:
+			key = EventsPack::Key::Esc;
+			break;
 		default:
 			break;
 		}

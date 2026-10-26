@@ -20,10 +20,12 @@ namespace FGengine::VideoOutput{
 struct EventsPack{
 	enum class Key{
 		W,A,S,D,
+		Num1,Num2,Num3,Num4,Num5,Num6,Num7,Num8,Num9,Num0,
 		Up,Left,Down,Right,
 		Space,
 		Lshift, Rshift,
-		B
+		B,
+		Esc
 	};
 
 	virtual void Draw() = 0;
