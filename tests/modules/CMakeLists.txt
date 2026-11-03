@@ -18,7 +18,7 @@ add_executable(modules)
 target_link_libraries(modules PRIVATE Boost::unit_test_framework)
 target_compile_definitions(modules PRIVATE BOOST_TEST_DYN_LINK)
 
-target_link_libraries(modules PRIVATE SDL3 loader fileReader)
+target_link_libraries(modules PRIVATE SDL3::SDL3 loader fileReader)
 
 target_sources(modules PRIVATE
 	main.cpp

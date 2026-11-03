@@ -25,6 +25,8 @@ add_library(FGengine SHARED)
 
 target_include_directories(FGengine PUBLIC include)
 
+find_package(SDL3 3.4 REQUIRED CONFIG)
+
 add_subdirectory(deps/glad)
 add_subdirectory(modules)
 add_subdirectory(src)

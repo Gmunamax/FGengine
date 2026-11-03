@@ -19,5 +19,4 @@ target_sources(FGengine PRIVATE
 	init.cpp
 	eventsWorker.cpp
 )
-find_package(SDL3 3.4 REQUIRED)
 target_link_libraries(FGengine PRIVATE SDL3::SDL3)
