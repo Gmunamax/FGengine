@@ -1,0 +1,83 @@
+name: Create a new release
+
+on:
+  push:
+    tags:
+      - 'v\d*.\d*.\d*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-26.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          path: FGengine
+        
+      - name: Install environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake build-essential libglm-dev libboost-test-dev cppcheck zip
+      
+      - name: Install SDL3
+        uses: libsdl-org/setup-sdl@v1
+        with:
+          version: 3.4.0
+          build-type: "Release"
+
+      - name: Run cppcheck
+        run: |
+          cppcheck --enable=warning,style,performance,portability --std=c++26 FGengine
+        
+      - name: Build
+        env:
+          CC: clang
+          CXX: clang++
+          CMAKE_GENERATOR: Ninja
+          CMAKE_BUILD_TYPE: Release
+        run: |
+          cmake FGengine -B build
+          cmake --build build
+
+      - name: Package Artifacts
+        run: |
+          mkdir -p release
+          cp build/libFGengine.so release/
+          zip -r "FGengine-linux-${{ github.ref_name }}.zip" release
+
+      - name: Prepare Release
+        id: prepare_release
+        run: |
+          PROJECT_NAME="FGengine"
+          VERSION="${{ github.ref_name }}"
+
+          # Remove patch version if it is 0 and letter 'v'
+          VERSION=${VERSION#v}
+          if [[ "$VERSION" == *.0 ]]; then
+            VERSION=${VERSION%.0}
+          fi
+
+          RELEASE_TITLE="$PROJECT_NAME $VERSION"
+
+          # Get release changelog from tag message
+          cd FGengine
+          TAG_BODY=$(git for-each-ref --format='%(contents:subject)%0a%0a%(contents:body)' refs/tags/${{ github.ref_name }})
+          cd ..
+
+          # Apply results
+          echo "release_title=$RELEASE_TITLE" >> $GITHUB_OUTPUT
+          
+          echo "tag_message<<EOF" >> $GITHUB_OUTPUT
+          echo "$TAG_BODY" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v3
+        with:
+          name: ${{ steps.prepare_release.outputs.release_title }}
+          tag_name: ${{ github.ref_name }}
+          body: ${{ steps.prepare_release.outputs.tag_message }}
