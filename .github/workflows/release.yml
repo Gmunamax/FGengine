@@ -51,26 +51,22 @@ jobs:
 
       - name: Prepare Release
         id: prepare_release
+        env:
+          PROJECT_NAME: FGengine
+          VERSION: ${{ github.ref_name }}
         run: |
-          PROJECT_NAME="FGengine"
-          VERSION="${{ github.ref_name }}"
-
           # Remove patch version if it is 0 and letter 'v'
           VERSION=${VERSION#v}
           if [[ "$VERSION" == *.0 ]]; then
             VERSION=${VERSION%.0}
           fi
-
           RELEASE_TITLE="$PROJECT_NAME $VERSION"
+          echo "release_title=$RELEASE_TITLE" >> $GITHUB_OUTPUT
 
           # Get release changelog from tag message
           cd FGengine
           TAG_BODY=$(git for-each-ref --format='%(contents:subject)%0a%0a%(contents:body)' refs/tags/${{ github.ref_name }})
           cd ..
-
-          # Apply results
-          echo "release_title=$RELEASE_TITLE" >> $GITHUB_OUTPUT
-          
           echo "tag_message<<EOF" >> $GITHUB_OUTPUT
           echo "$TAG_BODY" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
@@ -81,3 +77,5 @@ jobs:
           name: ${{ steps.prepare_release.outputs.release_title }}
           tag_name: ${{ github.ref_name }}
           body: ${{ steps.prepare_release.outputs.tag_message }}
+          files: |
+            FGengine-linux-${{ github.ref_name }}.zip
