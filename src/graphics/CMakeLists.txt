@@ -21,8 +21,8 @@ target_sources(FGengine PRIVATE
 	viewport.cpp
 	shader.cpp
 	contextApi.cpp
-	context.cpp
 	mesh.cpp
 	defaults.cpp
+	windowViewport.cpp
 )
 target_link_libraries(FGengine PRIVATE loader fileReader)

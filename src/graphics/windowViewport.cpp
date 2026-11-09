@@ -13,18 +13,12 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include "currentContext.hpp"
+#include <FGengine/graphics/properties/windowViewport.hpp>
+#include <gl/gl.hpp>
 
-namespace FGengine{
+using namespace FGengine::Graphics;
 
-Graphics::Context* currentContext = nullptr;
-
-void SetCurrentContext(Graphics::Context* newContext){
-	currentContext = newContext;
-}
-
-Graphics::Context& GetCurrentContext(){
-	return *currentContext;
-}
-
+WindowViewport::WindowViewport(){
+	glEnable(GL_DEPTH_TEST);
+	SetBuffersToClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }

@@ -16,7 +16,7 @@
 #pragma once
 #include <glm/mat4x4.hpp>
 #include "uniformBuffer.hpp"
-#include "properties/framebuffer.hpp"
+#include "properties/windowViewport.hpp"
 
 namespace FGengine::Graphics{
 
@@ -28,7 +28,7 @@ public:
 	};
 
 	void MakeCurrent(){
-		MakeContextCurrent();
+		currentContext = this;
 	}
 
 	const UniformBuffer<cameraUniformBuffer>& GetCameraUniformBuffer() const{
@@ -38,15 +38,18 @@ public:
 		return cameraUbo;
 	}
 
-	static Framebuffer& GetCurrentWindow(){
+	WindowViewport& GetCurrentWindowViewport(){
 		return currentWindow;
 	}
 
+	static Graphics::Context& GetCurrentContext(){
+		return *currentContext;
+	}
+
 private:
-	void MakeContextCurrent();
-	
 	UniformBuffer<cameraUniformBuffer> cameraUbo;
-	static inline Framebuffer currentWindow;
+	WindowViewport currentWindow;
+	static inline Context* currentContext = nullptr;
 };
 
 }

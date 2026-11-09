@@ -13,11 +13,14 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#include <FGengine/graphics/context.hpp>
-#include "../currentContext/currentContext.hpp"
+#pragma once
+#include "framebuffer.hpp"
 
-using namespace FGengine::Graphics;
+namespace FGengine::Graphics{
 
-void Context::MakeContextCurrent(){
-	SetCurrentContext(this);
+	class WindowViewport: public Framebuffer{
+	public:
+		WindowViewport();
+	};
+
 }

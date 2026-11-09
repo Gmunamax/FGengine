@@ -16,4 +16,3 @@
 target_sources(FGengine PUBLIC init.cpp)
 add_subdirectory(graphics)
 add_subdirectory(videoOutput)
-add_subdirectory(currentContext)

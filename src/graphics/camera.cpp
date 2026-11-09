@@ -15,7 +15,7 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #include <FGengine/graphics/camera.hpp>
 #include <FGengine/graphics/uniformBuffer.hpp>
-#include "../currentContext/currentContext.hpp"
+#include <FGengine/graphics/context.hpp>
 
 using namespace FGengine::Graphics;
 
@@ -23,5 +23,5 @@ void Camera::Update(){
 	Context::cameraUniformBuffer cameraBuffer;
 	cameraBuffer.viewMatrix = CalculateViewMatrix();
 	cameraBuffer.projectionMatrix = CalculateProjectionMatrix();
-	GetCurrentContext().GetCameraUniformBuffer().Update(cameraBuffer);
+	Context::GetCurrentContext().GetCameraUniformBuffer().Update(cameraBuffer);
 }
