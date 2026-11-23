@@ -51,6 +51,14 @@ public:
 		return matrix.GetRotation();
 	}
 
+	const std::shared_ptr<Shader> GetShader() const{
+		return shader;
+	}
+
+	void SetShader(std::shared_ptr<Shader> newShader){
+		shader = newShader;
+	}
+
 private:
 	std::shared_ptr<Shader> shader;
 	Mesh mesh;
