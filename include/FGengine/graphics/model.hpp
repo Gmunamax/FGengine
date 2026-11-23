@@ -17,6 +17,7 @@
 #include "shader.hpp"
 #include "properties/mesh.hpp"
 #include "properties/objectMatrix.hpp"
+#include "properties/objectTransform.hpp"
 #include <memory>
 #include <span>
 
@@ -31,24 +32,25 @@ public:
 
 	void Draw(){
 		shader->Use();
-		matrix.Update();
+		matrix.SetValue(transform.Calculate());
+		matrix.Send();
 		mesh.Draw();
 	}
 
 	void SetPosition(const glm::vec3& newPosition){
-		matrix.SetPosition(newPosition);
+		transform.SetPosition(newPosition);
 	}
 
 	const glm::vec3& GetPosition() const{
-		return matrix.GetPosition();
+		return transform.GetPosition();
 	}
 
 	void SetRotation(const glm::vec3& newRotation){
-		matrix.SetRotation(newRotation);
+		transform.SetRotation(newRotation);
 	}
 
 	const glm::vec3& GetRotation() const{
-		return matrix.GetRotation();
+		return transform.GetRotation();
 	}
 
 	const std::shared_ptr<Shader> GetShader() const{
@@ -63,6 +65,7 @@ private:
 	std::shared_ptr<Shader> shader;
 	Mesh mesh;
 	ObjectMatrix matrix{shader->GetHandle()};
+	ObjectTransform transform;
 };
 
 }
