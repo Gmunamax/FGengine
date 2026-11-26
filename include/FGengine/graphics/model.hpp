@@ -18,20 +18,19 @@
 #include "properties/mesh.hpp"
 #include "properties/objectMatrix.hpp"
 #include "properties/objectTransform.hpp"
-#include <memory>
 #include <span>
 
 namespace FGengine::Graphics{
 
 class Model{
 public:
-	Model(std::span<float> vertexes, const std::shared_ptr<Shader>& shader):
-		shader{shader},
+	Model(std::span<float> vertexes, Shader shader):
+		shader{std::move(shader)},
 		mesh{vertexes}
 	{}
 
 	void Draw(){
-		shader->Use();
+		shader.Use();
 		matrix.SetValue(transform.Calculate());
 		matrix.Send();
 		mesh.Draw();
@@ -53,18 +52,18 @@ public:
 		return transform.GetRotation();
 	}
 
-	const std::shared_ptr<Shader> GetShader() const{
+	const Shader GetShader() const{
 		return shader;
 	}
 
-	void SetShader(std::shared_ptr<Shader> newShader){
+	void SetShader(Shader newShader){
 		shader = newShader;
 	}
 
 private:
-	std::shared_ptr<Shader> shader;
+	Shader shader;
 	Mesh mesh;
-	ObjectMatrix matrix{shader->GetHandle()};
+	ObjectMatrix matrix{shader.GetHandle()};
 	ObjectTransform transform;
 };
 
