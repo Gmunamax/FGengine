@@ -48,8 +48,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
-          name: FG-linux-v${{ github.ref_name }}.zip
-          path: FG-linux-v${{ github.ref_name }}.zip
+          name: FGengine-linux-${{ github.ref_name }}.zip
+          path: FGengine-linux-${{ github.ref_name }}.zip
           if-no-files-found: error
 
   build-windows:
@@ -87,13 +87,13 @@ jobs:
           mkdir -p release
           cp build/libFGengine.dll release
           ldd release/libFGengine.dll | grep '/clang64/bin/' | awk '{print $3}' | sort -u | xargs -I {} cp -v {} release/
-          zip -r FGengine-windows-v${{ github.ref_name }}.zip release
+          zip -r FGengine-windows-${{ github.ref_name }}.zip release
 
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
-          name: FG-windows-v${{ github.ref_name }}.zip
-          path: FG-windows-v${{ github.ref_name }}.zip
+          name: FGengine-windows-${{ github.ref_name }}.zip
+          path: FGengine-windows-${{ github.ref_name }}.zip
           if-no-files-found: error
 
   release:
@@ -105,6 +105,12 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           path: artifacts
+
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          path: FGengine
+          submodules: 'true'
 
       - name: Prepare Release
         id: prepare_release
