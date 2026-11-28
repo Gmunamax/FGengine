@@ -16,6 +16,7 @@
 #include "../fgengineFixture.hpp"
 #include <boost/test/unit_test.hpp>
 #include <FGengine/graphics/properties/projectionMatrix.hpp>
+#include <numbers>
 
 using FGengine::Graphics::ProjectionMatrix, FGengine::floatType, FGengine::AspectRatio;
 
@@ -24,7 +25,7 @@ struct ProjectionMatrixFixture{
 
 	floatType nearz = 1;
 	floatType farz = 200;
-	floatType fov = 75 * M_PI/180;
+	floatType fov = 75 * std::numbers::pi/180;
 	AspectRatio aspectRatio {100, 200};
 
 	ProjectionMatrixFixture(){

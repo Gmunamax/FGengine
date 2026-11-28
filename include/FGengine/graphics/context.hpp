@@ -49,7 +49,7 @@ public:
 private:
 	UniformBuffer<cameraUniformBuffer> cameraUbo;
 	WindowViewport currentWindow;
-	static inline Context* currentContext = nullptr;
+	static Context* currentContext;
 };
 
 }

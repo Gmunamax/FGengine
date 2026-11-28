@@ -18,6 +18,6 @@
 
 namespace FGengine::Graphics::Defaults{
 
-	inline AspectRatio* aspectRatio;
+	extern AspectRatio* aspectRatio;
 
 }

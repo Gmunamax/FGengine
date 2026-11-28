@@ -13,6 +13,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, see <https://www.gnu.org/licenses/>.
+set(Boost_USE_STATIC_LIBS OFF)
 find_package(Boost REQUIRED CONFIG COMPONENTS unit_test_framework)
 
 add_subdirectory(modules)

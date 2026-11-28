@@ -15,13 +15,11 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #include <FGengine/init.hpp>
 #include "videoOutput/init.hpp"
-#include "graphics/defaults.hpp"
 
 namespace FGengine{
 
 void Init(){
 	VideoOutput::Init();
-	Graphics::Defaults::init();
 }
 
 void Quit(){

@@ -17,8 +17,7 @@
 
 namespace FGengine::Graphics::Defaults{
 
-	void init(){
-		aspectRatio = new AspectRatio{};
-	}
+	static AspectRatio defaultAspectRatio;
+	AspectRatio* aspectRatio = &defaultAspectRatio;
 
 }

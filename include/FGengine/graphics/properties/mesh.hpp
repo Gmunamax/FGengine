@@ -15,6 +15,7 @@
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
 #pragma once
 #include <span>
+#include <cstddef>
 
 namespace FGengine::Graphics{
 
@@ -27,7 +28,7 @@ public:
 private:
 	unsigned int vbo;
 	unsigned int vao;
-	size_t size;
+	std::size_t size;
 };
 
 }

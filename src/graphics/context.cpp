@@ -13,10 +13,8 @@
 
 // You should have received a copy of the GNU Lesser General Public
 // License along with this library; if not, see <https://www.gnu.org/licenses/>.
-#pragma once
+#include <FGengine/graphics/context.hpp>
 
-namespace FGengine::Graphics::Defaults{
+using FGengine::Graphics::Context;
 
-	void init();
-
-}
+Context* Context::currentContext = nullptr;

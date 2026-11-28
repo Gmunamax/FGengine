@@ -18,6 +18,7 @@
 #include <FGengine/graphics/structures/types.hpp>
 #include <FGengine/graphics/structures/aspectratio.hpp>
 #include <FGengine/graphics/defaults.hpp>
+#include <numbers>
 
 namespace FGengine::Graphics{
 
@@ -83,7 +84,7 @@ private:
 	ProjectionMode projectionmode = ProjectionMode::Frustum;
 	floatType nearz = 1;
 	floatType farz = 200;
-	floatType fov = 75 * M_PI/180;
+	floatType fov = 75 * std::numbers::pi/180;
 	const AspectRatio* aspectratio = Defaults::aspectRatio;
 };
 
